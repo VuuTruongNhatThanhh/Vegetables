@@ -6,9 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Project_Nhom3" />
+        <module name="Vegetables" />
         <module name="ProjectTTLTW" />
         <module name="ProjectNhom3" />
-        <module name="Project_Nhom3" />
       </profile>
     </annotationProcessing>
   </component>
