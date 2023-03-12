@@ -1,0 +1,283 @@
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: var(--main-color);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: var(--main-color);
+}
+
+/* Style the tab content */
+.tab-content {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    animation: fadeEffect 1s;
+}
+
+@keyframes fadeEffect {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/*forget.css*/
+.uppercase {
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.entry-title {
+    margin-bottom: 30px;
+}
+
+.woocommerce-form-row--first .user-label {
+    display: block;
+    color: #82cd47;
+}
+
+.woocommerce-form-row--first .input-text {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    padding: 0 0.75em;
+    height: 2.507em;
+    font-size: .97em;
+    border-radius: 0;
+    max-width: 100%;
+    width: 100%;
+    vertical-align: middle;
+    background-color: #fff;
+    color: #333;
+    -webkit-box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 10%);
+    -webkit-transition: color .3s, border .3s, background .3s, opacity .3s;
+    -o-transition: color .3s, border .3s, background .3s, opacity .3s;
+    transition: color .3s, border .3s, background .3s, opacity .3s;
+}
+
+.woocommerce-form-row .button {
+    color: #ffffff;
+    background-color: #82cd47;
+    border: 1px solid #82cd47;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn-black {
+    width: 194px;
+    height: 50px;
+    border-radius: 23px;
+    margin-left: 418px;
+    font-weight: 700;
+    font-size: 14px;
+    background-color: var(--main-color);
+    color: #f9f9f9;
+    box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #f9f9f9;
+    border: none;
+    outline: none;
+}
+
+
+/*test*/
+* {
+    box-sizing: border-box
+}
+
+/* Style the tab */
+.tabtab {
+
+    height: 560px;
+}
+
+.tab {
+    float: left;
+    border: #82cd47;
+    background-color: white;
+    width: 30%;
+    height: 300px;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 16px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #82cd47;
+    color: white;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #82cd47;
+    color: white;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: white;
+    width: 70%;
+    border-left: none;
+    height: 300px;
+    background-color: white;
+}
+
+ol.progtrckr {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+ol.progtrckr li {
+    display: inline-block;
+    text-align: center;
+    line-height: 3.5em;
+}
+
+ol.progtrckr[data-progtrckr-steps="2"] li {
+    width: 49%;
+}
+
+ol.progtrckr[data-progtrckr-steps="3"] li {
+    width: 33%;
+}
+
+ol.progtrckr[data-progtrckr-steps="4"] li {
+    width: 24%;
+}
+
+ol.progtrckr[data-progtrckr-steps="5"] li {
+    width: 19%;
+}
+
+ol.progtrckr[data-progtrckr-steps="6"] li {
+    width: 16%;
+}
+
+ol.progtrckr[data-progtrckr-steps="7"] li {
+    width: 14%;
+}
+
+ol.progtrckr[data-progtrckr-steps="8"] li {
+    width: 12%;
+}
+
+ol.progtrckr[data-progtrckr-steps="9"] li {
+    width: 11%;
+}
+
+ol.progtrckr li.progtrckr-done {
+    color: black;
+    border-bottom: 4px solid yellowgreen;
+}
+
+ol.progtrckr li.progtrckr-todo {
+    color: silver;
+    border-bottom: 4px solid silver;
+}
+
+ol.progtrckr li:after {
+    content: "\00a0\00a0";
+}
+
+ol.progtrckr li:before {
+    position: relative;
+    bottom: -2.5em;
+    float: left;
+    left: 50%;
+    line-height: 1em;
+}
+
+ol.progtrckr li.progtrckr-done:before {
+    content: "\2713";
+    color: white;
+    background-color: yellowgreen;
+    height: 2.2em;
+    width: 2.2em;
+    line-height: 2.2em;
+    border: none;
+    border-radius: 2.2em;
+}
+
+ol.progtrckr li.progtrckr-todo:before {
+    content: "\039F";
+    color: silver;
+    background-color: white;
+    font-size: 2.2em;
+    bottom: -1.2em;
+}
+
+.tab-1 {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab-1 button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+
+.tab-1 button:hover {
+    color: #82cd47;
+}
+
+/* Create an active/current tablink class */
+.tab-1 button.active {
+    border-bottom: 2px solid #2c9700;
+    color: #82cd47;
+}
+
+/* Style the tab content */
+.tabcontent-1 {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
