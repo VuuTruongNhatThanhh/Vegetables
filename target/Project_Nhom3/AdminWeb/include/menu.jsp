@@ -31,7 +31,7 @@
         <li>
             <a href="/LogAdmin">
                 <i class="fa-solid fa-user"></i>
-                <span class="links_name">Quản Lý Log</span>
+                <span class="links_name">Quản Lý Logg</span>
             </a>
         </li>
         <li class="${pageContext.request.contextPath}/AdminWeb/log_out">
