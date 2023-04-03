@@ -17,6 +17,12 @@
             </a>
         </li>
         <li>
+            <a href="/ProductAdmin">
+                <i class="fa-solid fa-box-archive"></i>
+                <span class="links_name">Quản Lý Loại Sản Phẩm</span>
+            </a>
+        </li>
+        <li>
             <a href="/BillAdmin">
                 <i class="fa-solid fa-note-sticky"></i>
                 <span class="links_name">Quản Lý Đơn Hàng</span>
@@ -31,7 +37,7 @@
         <li>
             <a href="/LogAdmin">
                 <i class="fa-solid fa-user"></i>
-                <span class="links_name">Quản Lý Logg</span>
+                <span class="links_name">Quản Lý Log</span>
             </a>
         </li>
         <li class="${pageContext.request.contextPath}/AdminWeb/log_out">
