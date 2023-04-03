@@ -7,13 +7,17 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import vn.edu.hcmuaf.fit.Dao.PictureDao;
 import vn.edu.hcmuaf.fit.Dao.ProductDao;
 import vn.edu.hcmuaf.fit.Dao.TypeProductDao;
+import vn.edu.hcmuaf.fit.bean.Log;
+import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
+import vn.edu.hcmuaf.fit.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -41,6 +45,13 @@ public class AddPicAdmin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        InetAddress addr = InetAddress.getLocalHost();
+
+        //Host IP Address
+        String ipAddress = addr.getHostAddress();
+        //Hostname
+        String hostname = addr.getHostName();
+        User uu = (User) request.getSession().getAttribute("auth");
         if (!ServletFileUpload.isMultipartContent(request)) {
             throw new ServletException("Content type is not multipart/form-data");
         }
@@ -51,7 +62,10 @@ public class AddPicAdmin extends HttpServlet {
                 FileItem fileItem = fileItemsIterator.next();
                 File file = new File(request.getServletContext().getRealPath("/") + "images\\" + fileItem.getName());
                 fileItem.write(file);
+                DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE PRODUCT IMAGES","Thêm ảnh sản phẩm.Tên sản phẩm: "+ProductDao.getInstance().selectName(id),0));
+
                 PictureDao.getInstance().add("images\\" + fileItem.getName(), id);
+
             }
 
 
@@ -61,6 +75,8 @@ public class AddPicAdmin extends HttpServlet {
             e.printStackTrace();
         }
         response.sendRedirect("PicAdmin?id=" + id);
+
+
 
     }
 }
