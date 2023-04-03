@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.Dao;
 
 import vn.edu.hcmuaf.fit.database.DBConnect;
 import vn.edu.hcmuaf.fit.model.CartDetails;
+import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.model.Weight;
 
 import java.sql.PreparedStatement;
@@ -129,4 +130,6 @@ public class WeightDao {
             throw new RuntimeException(e);
         }
     }
+
+
 }
