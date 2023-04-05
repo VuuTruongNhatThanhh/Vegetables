@@ -35,8 +35,10 @@
                 xác nhận
             </button>
             <button style="height: 10%" class="tablinks col-3" onclick="openCity(event, 'tab2')">Đã xác nhận</button>
+            <button style="height: 10%" class="tablinks col-3" onclick="openCity(event, 'tab5')">Đang giao</button>
             <button style="height: 10%" class="tablinks col-3" onclick="openCity(event, 'tab3')">Đã giao</button>
             <button style="height: 10%" class="tablinks col-3" onclick="openCity(event, 'tab4')">Đã hủy</button>
+
         </div>
         <div id="tab1" class="tabcontent">
             <div class="card">
@@ -44,10 +46,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
-                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Sản phẩm</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col"></th>
                         </tr>
@@ -56,9 +57,8 @@
                         <c:forEach items="${bw}" var="b">
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
-                                <td>${b.getShip().name}</td>
                                 <td>${b.getDate()}</td>
-                                <td>${b.getShip().phoneNumber}</td>
+                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.total} VND</td>
                                 <td>
                                     <button style="background: #f7c3c2;border: none;color: #de0400;"
@@ -81,10 +81,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
-                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Sản phẩm</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col"></th>
                         </tr>
@@ -93,17 +92,11 @@
                         <c:forEach items="${bco}" var="b">
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
-                                <td>${b.getShip().name}</td>
                                 <td>${b.getDate()}</td>
-                                <td>${b.getShip().phoneNumber}</td>
+                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.total} VND</td>
                                 <td>
-                                    <button style="background-color: #2c9700;color: #ffffff;"
-                                            onclick="delivered('${b.id}','${auth.id}')"
-                                            class="btn btn-primary btn-sm tick"
-                                            type="button" title="check">
-                                        <i class="fa-solid fa-check"></i>
-                                    </button>
+
                                 </td>
                             </tr>
                         </c:forEach>
@@ -118,10 +111,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
-                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Sản phẩm</th>
                             <th scope="col">Tổng tiền</th>
 
                         </tr>
@@ -130,9 +122,8 @@
                         <c:forEach items="${bd}" var="b">
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
-                                <td>${b.getShip().name}</td>
                                 <td>${b.getDate()}</td>
-                                <td>${b.getShip().phoneNumber}</td>
+                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.total} VND</td>
                             </tr>
                         </c:forEach>
@@ -147,10 +138,9 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Khách hàng</th>
+                            <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
-                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Sản phẩm</th>
                             <th scope="col">Tổng tiền</th>
 
                         </tr>
@@ -159,10 +149,44 @@
                         <c:forEach items="${bca}" var="b">
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
-                                <td>${b.getShip().name}</td>
                                 <td>${b.getDate()}</td>
-                                <td>${b.getShip().phoneNumber}</td>
+                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.total} VND</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="tab5" class="tabcontent">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Mã đơn hàng</th>
+                            <th scope="col">Ngày đặt</th>
+                            <th scope="col">Sản phẩm</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${bs}" var="b">
+                            <tr id="${b.id}">
+                                <th scope="row">${b.id}</th>
+                                <td>${b.getDate()}</td>
+                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.total} VND</td>
+                                <td>
+                                    <button style="background-color: #2c9700;color: #ffffff;"
+                                            onclick="delivered('${b.id}','${auth.id}')"
+                                            class="btn btn-primary btn-sm tick"
+                                            type="button" title="check">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -190,9 +214,13 @@
                 success: function (data) {
                     $("tr").remove("#" + id)
                     $("#delivered").html(data);
+                    event.preventDefault();
                 }
+
             }
+
         )
+
     }
 
     function remove(id, idU) {

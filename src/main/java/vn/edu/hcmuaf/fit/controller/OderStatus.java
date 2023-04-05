@@ -19,10 +19,12 @@ public class OderStatus extends HttpServlet {
         List<Bills> bco = BillDao.getInstance().ConfirmBill(user.getId());
         List<Bills> bd = BillDao.getInstance().deliveredBill(user.getId());
         List<Bills> bca = BillDao.getInstance().CancelBill(user.getId());
+        List<Bills> bs = BillDao.getInstance().ShipBill(user.getId());
         request.setAttribute("bw", bw);
         request.setAttribute("bco", bco);
         request.setAttribute("bd", bd);
         request.setAttribute("bca", bca);
+        request.setAttribute("bs", bs);
         request.getRequestDispatcher("orderstatus.jsp").forward(request, response);
     }
 

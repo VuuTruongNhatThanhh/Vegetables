@@ -17,12 +17,22 @@ import java.util.List;
 public class BillAdmin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         List<Bills> bw = BillDao.getInstance().RecentBill();
         List<Bills> bca = BillDao.getInstance().CancelBill();
         List<Bills> bco = BillDao.getInstance().ConfirmBill();
+        List<Bills> bd = BillDao.getInstance().DeliverBill();
+        List<Bills> bs = BillDao.getInstance().MoveToShipper();
+
+
+
+
         request.setAttribute("bw", bw);
         request.setAttribute("bca", bca);
         request.setAttribute("bco", bco);
+        request.setAttribute("bd", bd);
+        request.setAttribute("bs", bs);
+
         request.getRequestDispatcher("AdminWeb/checkout.jsp").forward(request, response);
     }
 

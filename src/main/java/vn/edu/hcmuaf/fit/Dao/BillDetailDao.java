@@ -1,7 +1,9 @@
 package vn.edu.hcmuaf.fit.Dao;
 
+import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DBConnect;
 import vn.edu.hcmuaf.fit.model.BillDetails;
+import vn.edu.hcmuaf.fit.model.Bills;
 import vn.edu.hcmuaf.fit.model.CartDetails;
 
 import java.sql.PreparedStatement;
@@ -82,6 +84,61 @@ public class BillDetailDao {
             throw new RuntimeException(e);
         }
     }
+    public List<BillDetails> getAll(String id) {
+        List<BillDetails> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, MASP, MAKL, SL, THANHTIEN from cthd JOIN hoadon ON cthd.MAHD = hoadon.MAHD where MAHD = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new BillDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getDouble(5)));
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public String NameProduct(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT sanpham.TENSP FROM sanpham JOIN cthd ON sanpham.MASP = cthd.MASP WHERE cthd.MASP = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String NameWeight(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT khoiluong.KL FROM khoiluong JOIN cthd ON khoiluong.MAKL = cthd.MAKL WHERE cthd.MAKL = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
+
 
     public static void main(String[] args) {
 

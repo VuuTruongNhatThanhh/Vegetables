@@ -1,7 +1,7 @@
 package vn.edu.hcmuaf.fit.model;
 
 public class ShipmentDetails {
-    private int id;
+    private String id;
     private String name;
     private String phoneNumber;
     private String province;
@@ -10,7 +10,7 @@ public class ShipmentDetails {
     private String address;
     private String idUser;
 
-    public ShipmentDetails(int id, String name, String phoneNumber, String province, String district, String ward, String address, String idUser) {
+    public ShipmentDetails(String id, String name, String phoneNumber, String province, String district, String ward, String address, String idUser) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -21,11 +21,11 @@ public class ShipmentDetails {
         this.idUser = idUser;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

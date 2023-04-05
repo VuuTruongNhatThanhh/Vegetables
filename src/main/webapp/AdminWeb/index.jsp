@@ -73,9 +73,9 @@
                         <c:forEach begin="0" end="6" items="${bw}" var="bw">
                             <tr>
                                 <th scope="row">${bw.id}</th>
-                                <td>${bw.getShip().name}</td>
+                                <td>${bw.getNameReceive()}</td>
                                 <td>${bw.getDate()}</td>
-                                <td>${bw.getShip().phoneNumber}</td>
+                                <td>${bw.getPhoneReceive()}</td>
                                 <td>${bw.total} VND</td>
                             </tr>
                         </c:forEach>

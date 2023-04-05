@@ -12,7 +12,7 @@
         </li>
         <li>
             <a href="/ProductAdmin">
-                <i class="fa-solid fa-box-archive"></i>
+                <i class="fa-solid fa-carrot"></i>
                 <span class="links_name">Quản Lý Sản Phẩm</span>
             </a>
         </li>
@@ -36,8 +36,26 @@
         </li>
         <li>
             <a href="/LogAdmin">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-clock-rotate-left"></i>
                 <span class="links_name">Quản Lý Log</span>
+            </a>
+        </li>
+        <li>
+            <a href="/LogAdmin">
+                <i class="fa-solid fa-comments"></i>
+                <span class="links_name">Quản Lý Bình Luận</span>
+            </a>
+        </li>
+        <li>
+            <a href="/LogAdmin">
+                <i class="fa-solid fa-newspaper"></i>
+                <span class="links_name">Quản Lý Tin Tức</span>
+            </a>
+        </li>
+        <li>
+            <a href="/LogAdmin">
+                <i class="fa-solid fa-phone"></i>
+                <span class="links_name">Quản Lý Liên Hệ</span>
             </a>
         </li>
         <li class="${pageContext.request.contextPath}/AdminWeb/log_out">

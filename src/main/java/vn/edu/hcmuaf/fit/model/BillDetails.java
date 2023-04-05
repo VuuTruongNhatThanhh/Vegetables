@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.model;
 
+import vn.edu.hcmuaf.fit.Dao.BillDao;
 import vn.edu.hcmuaf.fit.Dao.BillDetailDao;
+import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
 
 public class BillDetails extends BillDetailDao {
     private String idBill;
@@ -56,4 +58,12 @@ public class BillDetails extends BillDetailDao {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public String getNameProduct(){
+        return BillDetailDao.getInstance().NameProduct(idP);
+    }
+    public String getNameWeight(){
+        return BillDetailDao.getInstance().NameWeight(idW);
+    }
+
 }

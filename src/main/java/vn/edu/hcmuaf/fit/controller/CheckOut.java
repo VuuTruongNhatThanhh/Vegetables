@@ -44,12 +44,15 @@ public class CheckOut extends HttpServlet {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         if (user == null) {
             String idNewU = UserDao.getInstance().addDB(null, null, null, 2, null);
-            ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, idNewU);
-            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 15000, idNewU);
+      String idinfo =    ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, idNewU);
+            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 15000, idNewU,idinfo);
             BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"CHECKOUT","Khách hàng đặt hàng thành công ( Khách hàng chưa đăng ký tài khoản): Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
         } else {
-            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 15000, user.getId());
+            User uu = (User) request.getSession().getAttribute("auth");
+            String idinfo =    ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, uu.getId());
+            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 15000, user.getId(),idinfo);
+
             BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
             DB.me().insert(new Log(Log.INFO,user.getId(),ipAddress,"CHECKOUT","Khách hàng đặt hàng thành công: Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
         }

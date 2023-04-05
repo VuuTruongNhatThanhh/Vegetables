@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.Dao;
 
 import vn.edu.hcmuaf.fit.database.DBConnect;
+import vn.edu.hcmuaf.fit.model.Bills;
 import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 
@@ -423,5 +424,26 @@ public class ProductDao {
         }
         return result;
     }
+    public List<Product> selectProductNameInBill(String id) {
+        List<Product> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT sanpham.TENSP FROM (hoadon JOIN cthd ON hoadon.MAHD = cthd.MAHD) JOIN sanpham ON cthd.MASP = sanpham.MASP WHERE hoadon.MAHD = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7)));
+
+            }
+            rs.close();
+            ps.close();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
+
 }
 
