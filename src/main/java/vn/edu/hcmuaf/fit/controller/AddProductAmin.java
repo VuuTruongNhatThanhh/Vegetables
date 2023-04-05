@@ -46,10 +46,11 @@ public class AddProductAmin extends HttpServlet {
         double discount = Integer.parseInt(dis);
         String dicription = request.getParameter("dicription_product");
         System.out.println(dicription);
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE PRODUCT","Thêm sản phẩm mới: "+name+", loại sản phẩm: "+ProductDao.getInstance().selectTypeName(idType)+", mô tả: "+dicription+", giảm giá: "+dis+"%" ,0));
+
         ProductDao.getInstance().addDB(id, name, discount, dicription, idType);
         response.sendRedirect("/ProductAdmin");
 
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE PRODUCT","Thêm sản phẩm mới: "+name+", mã loại:"+idType+", mô tả: "+dicription+", giảm giá: "+dis+"%" ,0));
 
 
     }
