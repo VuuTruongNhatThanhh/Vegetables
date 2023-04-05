@@ -406,11 +406,11 @@ public class ProductDao {
         }
         return result;
     }
-    public String selectImageName(String id) {
+    public String selectImageName(int id) {
         String result = "";
         try {
             PreparedStatement ps = DBConnect.getInstance().get("SELECT TENSP FROM sanpham JOIN anh ON sanpham.MASP = anh.MASP WHERE MAANH = ?");
-            ps.setString(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result = rs.getString(1);
