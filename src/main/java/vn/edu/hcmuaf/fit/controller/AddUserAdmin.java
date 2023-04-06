@@ -1,11 +1,16 @@
 package vn.edu.hcmuaf.fit.controller;
 
+import vn.edu.hcmuaf.fit.Dao.ProductDao;
 import vn.edu.hcmuaf.fit.Dao.UserDao;
+import vn.edu.hcmuaf.fit.bean.Log;
+import vn.edu.hcmuaf.fit.database.DB;
+import vn.edu.hcmuaf.fit.model.User;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.net.InetAddress;
 
 @WebServlet(name = "AddUserAdmin", value = "/AddUserAdmin")
 public class AddUserAdmin extends HttpServlet {
@@ -18,11 +23,21 @@ public class AddUserAdmin extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        InetAddress addr = InetAddress.getLocalHost();
+
+        //Host IP Address
+        String ipAddress = addr.getHostAddress();
+        //Hostname
+        String hostname = addr.getHostName();
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         int role = Integer.parseInt(request.getParameter("role"));
         String pass = request.getParameter("pass");
         UserDao.getInstance().addDB(email, pass, name, role,null);
         response.sendRedirect("/UserAdmin");
+        User uu = (User) request.getSession().getAttribute("auth");
+
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE USER","Thêm tài khoản mới: tên: "+name+", email: "+ email+", quyền: "+role,0));
+
     }
 }

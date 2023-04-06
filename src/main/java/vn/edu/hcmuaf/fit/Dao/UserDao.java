@@ -166,7 +166,42 @@ public class UserDao {
             throw new RuntimeException(e);
         }
     }
+    public String selectemail(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT EMAIL from taikhoan WHERE MATK = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
 
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String selectrolename(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT PHANQUYEN from taikhoan WHERE MATK = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
 
 
