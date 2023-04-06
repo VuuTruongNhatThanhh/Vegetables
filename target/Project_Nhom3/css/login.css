@@ -105,7 +105,8 @@
     cursor: pointer;
     color: var(--main-color);
     margin-left: 290px;
-    margin-top: 77px;
+    margin-bottom: 300px;
+    padding-bottom: 300px;
     /*padding-left: 308px;*/
     /*padding-top: 61px;*/
 }

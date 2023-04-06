@@ -30,15 +30,15 @@
     <div class="container b-container" id="b-container">
         <form class="form" id="b-form" method="post" action="/Login">
             <h2 class="form_title title">Đăng nhập</h2>
-            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button></div>
+<%--            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">--%>
+<%--            </fb:login-button></div>--%>
 
-            <div id="status">
-            </div>
-            <span class="form__span">hoặc dùng tài khoản email</span>
+<%--            <div id="status">--%>
+<%--            </div>--%>
+<%--            <span class="form__span">hoặc dùng tài khoản email</span>--%>
             <input class="form__input" name="email" type="email" placeholder="Email">
             <input class="form__input" name="pass" type="password" id="password" placeholder="Mật khẩu">
-            <i id="show" type="submit" class="fa-solid fa-eye passButton"></i>
+            <i style="padding-bottom: 100px" id="show" type="submit" class="fa-solid fa-eye passButton"></i>
             <a href="forgetpass.jsp" class="form__link">Quên mật khẩu?</a>
             <p style="color: red;font-size: 18px"><%=error%></p>
             <input type="submit" class="form__button button submit user-link" value="ĐĂNG NHẬP">

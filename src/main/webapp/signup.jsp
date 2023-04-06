@@ -15,6 +15,66 @@
     <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/login.css">
+    <style>
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        /* Style the submit button */
+        input[type=submit] {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        /* Style the container for inputs */
+        .container {
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        /* The message box is shown when the user clicks on the password field */
+        #message {
+            display:none;
+            background: #f1f1f1;
+            color: #000;
+            position: relative;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        #message p {
+            padding: 10px 35px;
+            font-size: 18px;
+        }
+
+        /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "✔";
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "✖";
+        }
+    </style>
 </head>
 <body id="abc">
 <%
@@ -32,22 +92,30 @@
 %>
 <div class="main">
     <div class="container b-container" id="b-container">
-        <form class="form" id="b-form" method="post" action="/SignUp">
+        <form name="myForm" class="form" id="b-form" method="post" action="/SignUp">
             <h2 class="form_title title">Tạo tài khoản</h2>
-            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-            </fb:login-button></div>
+<%--            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">--%>
+<%--            </fb:login-button></div>--%>
 
-            <div id="status">
-            </div>
-            <span class="form__span">hoặc dùng email để đăng ký</span>
+<%--            <div id="status">--%>
+<%--            </div>--%>
+<%--            <span class="form__span">hoặc dùng email để đăng ký</span>--%>
             <input class="form__input" type="text" name="signUpName" placeholder="Tên người dùng" value=<%=signUpName%>>
             <input class="form__input" type="email" name="signUpEmail" placeholder="Email" value=<%=signUpEmail%>>
-            <input class="form__input" type="password" name="signUpPass" placeholder="Mật khẩu" value=<%=signUpPass%>>
+            <input id="psw" class="form__input" type="password" name="signUpPass" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Mật khẩu cần trên 8 kí tự chứa chữ thường, chữ hoa và số" required placeholder="Mật khẩu" value=<%=signUpPass%>>
+
             <input class="form__input" type="password" name="checkPass" placeholder="Xác nhận mật khẩu"
                    value=<%=checkPass%>>
             <p style="color: red;font-size: 18px"><%=error%>
             </p>
-            <input style="margin-top: 0px" type="submit" class="button" value="ĐĂNG KÝ">
+            <div id="message">
+                <h4>Mật khẩu cần phải đáp ứng những yêu cầu sau:</h4>
+                <p id="letter" class="invalid">Chứa chữ cái in thường</p>
+                <p id="capital" class="invalid">Chứa chữ cái in hoa</p>
+                <p id="number" class="invalid">Chứa số</p>
+                <p id="length" class="invalid">Trên 8 kí tự</p>
+            </div>
+            <input style="margin-top: 0px; background: #82cd47" type="submit" class="button" value="ĐĂNG KÝ">
         </form>
     </div>
     <div class="switch" id="switch-cnt">
@@ -137,7 +205,65 @@
 </script>
 
 
-<script type="text/javascript">
+
+<script>
+    var myInput = document.getElementById("psw");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
 </script>
 </body>
 </html>
