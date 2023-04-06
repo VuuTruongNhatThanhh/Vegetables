@@ -17,7 +17,7 @@ public class BillDetailAdmin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         List<BillDetails> bd = BillDetailDao.getInstance().getById(id);
-        List<Bills> tp = BillDao.getInstance().getAll();
+        String tp = BillDao.getInstance().totalPrice(id);
 
 
         request.setAttribute("bd", bd);

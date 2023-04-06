@@ -50,7 +50,8 @@
 
 
           </table>
-
+        <p style="padding-left: 1000px; color: red">Tổng tiền: ${tp} VND</p>
+          <p style="padding-left: 1000px; color: red">Phí ship: 15000 VND</p>
         </div>
 
       </div>

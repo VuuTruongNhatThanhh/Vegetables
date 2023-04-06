@@ -62,6 +62,8 @@
             </c:forEach>
             </tbody>
           </table>
+          <p style="padding-left: 450px; color: red">Tổng tiền: ${tp} VND</p>
+          <p style="padding-left: 450px; color: red">Phí ship: 15000 VND</p>
         </div>
       </div>
     </div>

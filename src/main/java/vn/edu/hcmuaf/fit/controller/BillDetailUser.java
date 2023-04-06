@@ -1,5 +1,6 @@
 package vn.edu.hcmuaf.fit.controller;
 
+import vn.edu.hcmuaf.fit.Dao.BillDao;
 import vn.edu.hcmuaf.fit.Dao.BillDetailDao;
 import vn.edu.hcmuaf.fit.model.BillDetails;
 
@@ -15,8 +16,10 @@ public class BillDetailUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         List<BillDetails> bd = BillDetailDao.getInstance().getById(id);
+        String tp = BillDao.getInstance().totalPrice(id);
         request.setAttribute("bd", bd);
         request.setAttribute("id", id);
+        request.setAttribute("tp", tp);
         request.getRequestDispatcher("billdetailuser.jsp").forward(request, response);
     }
 
