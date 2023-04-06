@@ -55,8 +55,8 @@
 <section class="ftco-section">
     <%--    <%for(Product p : (List<Product>)request.getAttribute("list"))%>--%>
     <div class="container">
-<%--        <%=user_name %>--%>
-<%--        <%=user_email %>--%>
+        <%--        <%=user_name %>--%>
+        <%--        <%=user_email %>--%>
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <h2 class="mb-4">Sản phẩm hot</h2>

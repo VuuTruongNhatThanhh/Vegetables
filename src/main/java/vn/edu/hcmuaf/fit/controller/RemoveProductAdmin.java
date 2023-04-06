@@ -26,6 +26,8 @@ public class RemoveProductAdmin extends HttpServlet {
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
         String idP = request.getParameter("idP");
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT","Xóa sản phẩm: "+ProductDao.getInstance().selectName(idP),0));
+
         ProductDao.getInstance().delete(idP);
         Product p = ProductDao.getInstance().getProductById(idP);
         PrintWriter out = response.getWriter();
@@ -55,7 +57,6 @@ public class RemoveProductAdmin extends HttpServlet {
         } else {
             out.println("");
         }
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT","Xóa sản phẩm: mã sp: "+idP,0));
     }
 
     @Override
