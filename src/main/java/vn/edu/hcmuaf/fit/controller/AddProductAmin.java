@@ -7,6 +7,7 @@ import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,8 +19,7 @@ import java.util.*;
 
 @WebServlet(name = "AddProductAmin", value = "/AddProductAmin")
 public class AddProductAmin extends HttpServlet {
-
-
+    private static  String name = "product";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<TypeProduct> types = TypeProductDao.getInstance().getAll();
@@ -27,6 +27,17 @@ public class AddProductAmin extends HttpServlet {
         request.setAttribute("types", types);
         request.setAttribute("action", "AddProductAmin");
         request.setAttribute("title", "Thêm sản phẩm");
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+
         request.getRequestDispatcher("AdminWeb/addProduct.jsp").forward(request, response);
     }
 

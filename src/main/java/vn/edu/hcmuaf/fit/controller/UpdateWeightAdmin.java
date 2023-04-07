@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.model.Weight;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,6 +16,7 @@ import java.net.InetAddress;
 
 @WebServlet(name = "UpdateWeightAdmin", value = "/UpdateWeightAdmin")
 public class UpdateWeightAdmin extends HttpServlet {
+    private static  String name = "product";
     String url;
 
     @Override
@@ -28,6 +30,17 @@ public class UpdateWeightAdmin extends HttpServlet {
         request.setAttribute("w", w);
         request.setAttribute("title", "Sửa khối lượng");
         request.setAttribute("action", "UpdateWeightAdmin");
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+
         request.getRequestDispatcher("AdminWeb/addWeight.jsp").forward(request, response);
     }
 

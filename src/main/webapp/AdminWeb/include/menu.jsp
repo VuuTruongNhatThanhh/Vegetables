@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="sidebar">
     <div class="logo-details">
         <a><img src="../../images/logo.png"></a>
@@ -34,12 +35,15 @@
                 <span class="links_name">Quản Lý Tài Khoản</span>
             </a>
         </li>
+
         <li>
+
             <a href="/LogAdmin">
                 <i class="fa-solid fa-clock-rotate-left"></i>
                 <span class="links_name">Quản Lý Log</span>
             </a>
         </li>
+
         <li>
             <a href="/LogAdmin">
                 <i class="fa-solid fa-comments"></i>

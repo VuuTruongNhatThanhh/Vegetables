@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.controller;
 
 
 import vn.edu.hcmuaf.fit.Dao.UserDao;
+import vn.edu.hcmuaf.fit.Dao.permissionDao;
 import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.User;
@@ -32,6 +33,7 @@ public class SignUp extends HttpServlet {
         String email = request.getParameter("signUpEmail");
         String pass = request.getParameter("signUpPass");
         String check = request.getParameter("checkPass");
+        String id_u = UserDao.getInstance().getNewId();
 
 //        generate hash code with help activation link
         String myHash;
@@ -66,11 +68,18 @@ public class SignUp extends HttpServlet {
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"SIGN UP","Đăng kí tài khoản thất bại do tài khoản đã tồn tại",0));
         } else if (pass.equals(check)) {
             pass = SHA1.hashPassword(pass);
+
+
+
             String str =   UserDao.getInstance().addDB(email, pass, uname, 2, myHash);
+
 //            UserDao.getInstance().addDB(email, pass, uname, 2, myHash);
 //            response.sendRedirect("/login.jsp");
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"SIGN UP","Đăng kí tài khoản thành công",0));
+
             if(str.equals("SUCCESS")){
+                String permiss = permissionDao.getInstance().addDB("1",id_u,2);
+                String permiss2 = permissionDao.getInstance().addDB("2",id_u,2);
                response.sendRedirect("verify.jsp");
             }
 

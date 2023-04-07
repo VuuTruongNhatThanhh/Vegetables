@@ -11,6 +11,7 @@ import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -25,6 +26,7 @@ import java.util.List;
 
 @WebServlet(name = "AddPicAdmin", value = "/AddPicAdmin")
 public class AddPicAdmin extends HttpServlet {
+    private static  String name = "product";
     private static final long serialVersionUID = 1L;
     private ServletFileUpload uploader = null;
 
@@ -40,6 +42,17 @@ public class AddPicAdmin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         id = request.getParameter("id");
         request.setAttribute("id", id);
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+
         request.getRequestDispatcher("AdminWeb/addPic.jsp").forward(request, response);
     }
 
