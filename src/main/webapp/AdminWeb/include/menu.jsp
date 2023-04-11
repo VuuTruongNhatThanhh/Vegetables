@@ -18,7 +18,7 @@
             </a>
         </li>
         <li>
-            <a href="/ProductAdmin">
+            <a href="/TypeAdmin">
                 <i class="fa-solid fa-box-archive"></i>
                 <span class="links_name">Quản Lý Loại Sản Phẩm</span>
             </a>

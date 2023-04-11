@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.model;
 
+import vn.edu.hcmuaf.fit.Dao.TypeProductDao;
+
 public class TypeProduct {
     private String id;
     private String name;
@@ -39,5 +41,8 @@ public class TypeProduct {
 
     public void setTypeFather(String typeFather) {
         this.typeFather = typeFather;
+    }
+    public String getTypefather(){
+        return TypeProductDao.getInstance().getType(typeFather);
     }
 }

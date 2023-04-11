@@ -2,6 +2,8 @@ package vn.edu.hcmuaf.fit.Dao;
 
 import vn.edu.hcmuaf.fit.database.DBConnect;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
+import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.SendingEmail;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,7 +29,7 @@ public class TypeProductDao {
             PreparedStatement ps = DBConnect.getInstance().get(query);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(new TypeProduct(rs.getString(1), rs.getString(2)));
+                result.add(new TypeProduct(rs.getString(1), rs.getString(2), rs.getString(3)));
             }
             rs.close();
             ps.close();
@@ -105,6 +107,59 @@ public class TypeProductDao {
             throw new RuntimeException(e);
         }
         return null;
+    }
+    public String getNewId() {
+        List<TypeProduct> list = TypeProductDao.getInstance().getAll();
+        int id = 0;
+        for (TypeProduct u : list) {
+            int maxId = Integer.parseInt(u.getId().substring(u.getId().indexOf("P") + 1));
+            if (maxId > id) {
+                id = maxId;
+            }
+        }
+        return "LSP" + (id + 1);
+    }
+
+    public String addDB(String name, String typeFather) {
+        String id = getNewId();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("insert into loaisp(MALSP, TENLSP, PHANLOAICHA) values (?,?,?)");
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, typeFather);
+
+            int i = ps.executeUpdate();
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+    }
+    public void update(String id, String name, String typeFather) {
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE loaisp set TENLSP = ?, PHANLOAICHA = ? where MALSP = ?");
+        try {
+            ps.setString(1, name);
+            ps.setString(2, typeFather);
+            ps.setString(3, id);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete(String id) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from loaisp where MALSP = ?");
+            ps.setString(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
 
