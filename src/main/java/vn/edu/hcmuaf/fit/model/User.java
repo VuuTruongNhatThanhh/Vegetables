@@ -106,11 +106,15 @@ public class User {
                 res = "Admin";
                 break;
             case 1:
-                res = "Mod";
+                res = "Mod bán hàng";
                 break;
             case 2:
                 res = "User";
                 break;
+            case 3:
+                res = "Mod nhập hàng";
+                break;
+
 
         }
         return res;

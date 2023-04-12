@@ -16,6 +16,7 @@
     <div class="home-content">
         <div class="manager-product">
             <div class="title">Danh Sách Log</div>
+            <a href="/AdminWeb/statisticalLog.jsp">Thống kê log</a>
             <div class="row">
                 <div class="col-md-12">
                     <div class="row element-button">

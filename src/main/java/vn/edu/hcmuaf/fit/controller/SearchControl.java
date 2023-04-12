@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,6 +27,12 @@ public class SearchControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keyword = request.getParameter("txt");
+        InetAddress addr = InetAddress.getLocalHost();
+
+        //Host IP Address
+        String ipAddress = addr.getHostAddress();
+        //Hostname
+        String hostname = addr.getHostName();
         int count = ProductDao.getInstance().getTotalBySearch(request.getParameter("txt"));
         int endpage = count / 24;
         if (count % 24 != 0) {
@@ -55,7 +62,10 @@ public class SearchControl extends HttpServlet {
         request.setAttribute("title", "Kết quả tìm kiếm của '" + request.getParameter("txt") + "'");
         request.getRequestDispatcher("product1.jsp").forward(request, response);
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.INFO,uu.getId(),"SEARCH","Tìm kiếm: "+keyword.toString(),0));
+        if(uu==null){
+            DB.me().insert(new Log(Log.INFO,null,ipAddress,"SEARCH","Tìm kiếm: "+keyword.toString(),0));
+        }
+        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"SEARCH","Tìm kiếm: "+keyword.toString(),0));
     }
 
     private void sortBy(String sort) {

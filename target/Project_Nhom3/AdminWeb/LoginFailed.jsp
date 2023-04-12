@@ -15,16 +15,16 @@
 <section class="home-section">
     <div class="home-content">
         <div class="manager-product">
-            <div class="title">Danh Sách Log</div>
-            <a href="/AdminWeb/statisticalLog.jsp">Thống kê log</a>
+            <div class="title">Thống kê tài khoản</div>
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="row element-button">
-<%--                        <div class="col-sm-2">--%>
-<%--                            <a class="btn btn-add btn-sm" href="/AddUserAdmin" title="Thêm">--%>
-<%--                                <i class="fas fa-plus"></i>--%>
-<%--                                Thêm tài khoản</a>--%>
-<%--                        </div>--%>
+                        <%--                        <div class="col-sm-2">--%>
+                        <%--                            <a class="btn btn-add btn-sm" href="/AddUserAdmin" title="Thêm">--%>
+                        <%--                                <i class="fas fa-plus"></i>--%>
+                        <%--                                Thêm tài khoản</a>--%>
+                        <%--                        </div>--%>
                     </div>
                     <table id="table1" class="table table-hover table-bordered">
                         <thead>
