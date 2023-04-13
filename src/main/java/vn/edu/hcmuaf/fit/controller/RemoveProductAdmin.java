@@ -5,6 +5,7 @@ import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,8 +17,10 @@ import java.util.List;
 
 @WebServlet(name = "RemoveProductAdmin", value = "/RemoveProductAdmin")
 public class RemoveProductAdmin extends HttpServlet {
+    private static  String name = "product";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         InetAddress addr = InetAddress.getLocalHost();
 
         //Host IP Address
@@ -26,6 +29,21 @@ public class RemoveProductAdmin extends HttpServlet {
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
         String idP = request.getParameter("idP");
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        if(per==1) {
+            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            return;
+        }
+
         DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT","Xóa sản phẩm: "+ProductDao.getInstance().selectName(idP),0));
 
         ProductDao.getInstance().delete(idP);

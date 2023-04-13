@@ -59,7 +59,7 @@
         <%--        <%=user_email %>--%>
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
-                <h2 class="mb-4">Sản phẩm hot</h2>
+                <h2 class="mb-4"><a style="color: black" href="HotControl">Sản phẩm hot</a></h2>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
-                            <span class="status">${p.getDiscount() == 0? "": p.getDiscount()}</span>
+                            <span class="status">${p.getDiscount() == 0? "": p.getDiscountShow()}</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
@@ -124,7 +124,7 @@
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <%--                <span class="subheading">Featured Products</span>--%>
-                <h2 class="mb-4">Ưu đãi</h2>
+                <h2 class="mb-4"><a style="color: black" href="/DiscountControl">Ưu đãi</a></h2>
                 <%--                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>--%>
             </div>
         </div>
@@ -138,7 +138,7 @@
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
-                            <span class="status">${p.getDiscount() == 0? "": p.getDiscount()}</span>
+                            <span class="status">${p.getDiscount() == 0? "": p.getDiscountShow()}</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
@@ -191,7 +191,7 @@
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <%--                <span class="subheading">Featured Products</span>--%>
-                <h2 class="mb-4">Sản phẩm mới</h2>
+                <h2 class="mb-4"><a href="NewProductControl" style="color: black">Sản phẩm mới</a></h2>
                 <%--                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>--%>
             </div>
         </div>
@@ -206,7 +206,7 @@
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
-                            <span class="status">${p.getDiscount() == 0? "": p.getDiscount()}</span>
+                            <span class="status">${p.getDiscount() == 0? "": p.getDiscountShow()}</span>
                             <div class="overlay"></div>
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">

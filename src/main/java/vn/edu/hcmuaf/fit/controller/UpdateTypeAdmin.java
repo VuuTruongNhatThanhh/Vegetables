@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.controller;
 
 import vn.edu.hcmuaf.fit.Dao.ProductDao;
 import vn.edu.hcmuaf.fit.Dao.TypeProductDao;
+import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 
 import javax.servlet.*;
@@ -17,8 +18,10 @@ public class UpdateTypeAdmin extends HttpServlet {
         List<TypeProduct> types = TypeProductDao.getInstance().getAll();
         String id = request.getParameter("id");
         String idType = request.getParameter("idType");
+        TypeProduct p = TypeProductDao.getInstance().getProductById(id);
 
         request.setAttribute("id", id);
+        request.setAttribute("p", p);
         request.setAttribute("idType", idType);
         request.setAttribute("types", types);
         request.setAttribute("action", "UpdateTypeAdmin");

@@ -33,11 +33,11 @@ public class LoadControl extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String unamefb = request.getParameter("user_name");
-
-
-
-        UserDao.getInstance().addDB(null,null,unamefb,2,null);
-//        response.sendRedirect("/login.jsp");
+//        String unamefb = request.getParameter("user_name");
+//
+//
+//
+//        UserDao.getInstance().addDB(null,null,unamefb,2,null);
+////        response.sendRedirect("/login.jsp");
     }
 }

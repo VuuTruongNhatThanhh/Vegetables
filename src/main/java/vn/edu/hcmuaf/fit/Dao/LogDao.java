@@ -74,7 +74,7 @@ public class LogDao {
     public String NumberAccessMod(int id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select count(*) from log JOIN taikhoan ON log.userr = taikhoan.MATK where taikhoan.PHANQUYEN = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select count(*) from log JOIN permission ON log.userr = permission.u_id where permission.rs_id =1 AND permission.per = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

@@ -22,7 +22,7 @@
         </div>
         <div class="form-group col-md-4">
           <label class="control-label">Tên loại</label>
-          <input name="name" class="form-control" type="text">
+          <input name="name" class="form-control" type="text" value="${p == null?"":p.name}">
         </div>
         <div class="form-group col-md-4 ">
           <label class="control-label">Phân loại cha</label>

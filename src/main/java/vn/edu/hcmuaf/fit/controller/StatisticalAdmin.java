@@ -16,7 +16,7 @@ import java.util.List;
 
 @WebServlet(name = " StatisticalAdmin", value = "/StatisticalAdmin")
 public class StatisticalAdmin extends HttpServlet {
-    private static  String name = "product";
+    private static  String name = "home";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String date = request.getParameter("date");

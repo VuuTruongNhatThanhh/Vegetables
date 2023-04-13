@@ -60,6 +60,7 @@
                         </c:forEach>
                         </tbody>
                     </table>
+                    <a href="ProductAdmin">Quay lại trang quản lý sản phẩm</a>
                 </div>
             </div>
         </div>

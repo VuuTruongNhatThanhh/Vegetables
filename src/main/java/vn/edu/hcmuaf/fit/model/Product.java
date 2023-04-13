@@ -150,6 +150,12 @@ public class Product {
         return false;
     }
 
+    public String getDiscountShow() {
+        String rs =discount+"%";
+        return rs;
+    }
+
+
 
     @Override
     public String toString() {

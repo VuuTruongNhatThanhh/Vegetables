@@ -12,6 +12,12 @@
             </a>
         </li>
         <li>
+            <a href="/LoadControl">
+                <i class="fa-solid fa-shopping-basket"></i>
+                <span class="links_name">Đến trang khách hàng</span>
+            </a>
+        </li>
+        <li>
             <a href="/ProductAdmin">
                 <i class="fa-solid fa-carrot"></i>
                 <span class="links_name">Quản Lý Sản Phẩm</span>
@@ -33,6 +39,12 @@
             <a href="/UserAdmin">
                 <i class="fa-solid fa-user"></i>
                 <span class="links_name">Quản Lý Tài Khoản</span>
+            </a>
+        </li>
+        <li>
+            <a href="/LevelUpUser">
+                <i class="fa-solid fa-level-up"></i>
+                <span class="links_name">Thăng/ hạ quyền tài khoản</span>
             </a>
         </li>
 

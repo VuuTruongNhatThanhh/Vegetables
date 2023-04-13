@@ -38,7 +38,7 @@
 <%--            <span class="form__span">hoặc dùng tài khoản email</span>--%>
             <input class="form__input" name="email" type="email" placeholder="Email">
             <input class="form__input" name="pass" type="password" id="password" placeholder="Mật khẩu">
-            <i style="padding-bottom: 100px" id="show" type="submit" class="fa-solid fa-eye passButton"></i>
+            <i style="padding-top: 580px" id="show" type="submit" class="fa-solid fa-eye passButton"></i>
             <a href="forgetpass.jsp" class="form__link">Quên mật khẩu?</a>
             <p style="color: red;font-size: 18px"><%=error%></p>
             <input type="submit" class="form__button button submit user-link" value="ĐĂNG NHẬP">

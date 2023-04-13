@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.Dao;
 
 import vn.edu.hcmuaf.fit.database.DBConnect;
+import vn.edu.hcmuaf.fit.model.Product;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 import vn.edu.hcmuaf.fit.model.User;
 import vn.edu.hcmuaf.fit.services.SendingEmail;
@@ -160,6 +161,23 @@ public class TypeProductDao {
         }
 
 
+    }
+    public TypeProduct getProductById(String id) {
+
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp WHERE MALSP = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                TypeProduct p = new TypeProduct(rs.getString(1), rs.getString(2), rs.getString(3));
+                rs.close();
+                ps.close();
+                return p;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
 

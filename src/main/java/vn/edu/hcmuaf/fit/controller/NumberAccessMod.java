@@ -15,7 +15,7 @@ public class NumberAccessMod extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Log> lg = LogDao.getInstance().getAll();
         String numberAccess = LogDao.getInstance().NumberAccessMod(1);
-        String numberAccess2 = LogDao.getInstance().NumberAccessMod(3);
+        String numberAccess2 = LogDao.getInstance().NumberAccessMod(0);
         request.setAttribute("lg", lg);
         request.setAttribute("na", numberAccess);
         request.setAttribute("na2", numberAccess2);

@@ -143,6 +143,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.jsp">Liên hệ</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="DiscountControl">Ưu đãi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="NewProductControl">Mới</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

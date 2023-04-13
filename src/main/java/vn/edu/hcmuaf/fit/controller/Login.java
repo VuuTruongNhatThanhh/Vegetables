@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
                 url = url.replaceAll("-", "&");
                 response.sendRedirect(url);
             } else {
-                if (user.getRoleId() < 2 || user.getRoleId()==3) {
+                if (user.getRoleId() < 2) {
                     response.sendRedirect("/StatisticalAdmin");
                     DB.me().insert(new Log(Log.ALERT,null,ipAddress,"LOGIN","Đăng nhập vào admin thành công: Email: "+email.toString(),0));
                 } else {

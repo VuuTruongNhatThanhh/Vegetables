@@ -334,6 +334,24 @@ public class ProductDao {
         }
         return res;
     }
+    public List<Product> getLastAll() {
+        List<Product> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where TINHTRANG = 1 and DATEDIFF(Date(NOW()), NGAYTHEM) < 7");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
+                p.setPics(PictureDao.getInstance().getByIdProduct(p.getId()));
+                p.setWeights(WeightDao.getInstance().getByIdProduct(p.getId()));
+                res.add(p);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
 
     public List<Product> getDiscount() {
         List<Product> res = new LinkedList<>();
@@ -354,10 +372,44 @@ public class ProductDao {
         return res;
     }
 
+    public List<Product> getDiscountAll() {
+        List<Product> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham WHERE DISCOUNT !=0 and TINHTRANG = 1 ORDER BY DISCOUNT DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
+                p.setPics(PictureDao.getInstance().getByIdProduct(p.getId()));
+                p.setWeights(WeightDao.getInstance().getByIdProduct(p.getId()));
+                res.add(p);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
     public List<Product> getHot() {
         List<Product> res = new LinkedList<>();
         try {
             PreparedStatement ps = DBConnect.getInstance().get("select MASP from cthd GROUP BY MASP HAVING sum(SL) > 5 ORDER BY SL DESC LIMIT 8");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(getProductById(rs.getString(1)));
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Product> getHotAll() {
+        List<Product> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MASP from cthd GROUP BY MASP HAVING sum(SL) > 5 ORDER BY SL DESC");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));
