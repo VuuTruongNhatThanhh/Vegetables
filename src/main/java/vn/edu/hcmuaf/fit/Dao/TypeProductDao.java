@@ -179,6 +179,24 @@ public class TypeProductDao {
         }
         return null;
     }
+    public String selectTypeName(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENLSP from loaisp WHERE MALSP = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
 
 }
