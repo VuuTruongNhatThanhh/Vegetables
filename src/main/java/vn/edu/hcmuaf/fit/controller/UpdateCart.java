@@ -34,7 +34,7 @@ public class UpdateCart extends HttpServlet {
         request.getSession().setAttribute("items", items);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"CART","Thay đổi số lượng: Mã sp: "+idP+", Mã khối lượng: "+ idW+", Số lượng thay đổi: "+num,0));
+        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"CART","Thay đổi số lượng. Sản phẩm: "+ProductDao.getInstance().selectName(idP)+", Khối lượng: "+ WeightDao.getInstance().selectWeight(idW)+", số lượng thay đổi: "+num,0));
 
     }
 
