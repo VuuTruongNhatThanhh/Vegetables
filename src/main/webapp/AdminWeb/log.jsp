@@ -60,6 +60,7 @@
                         </tbody>
 
                     </table>
+                    <a href="RemoveAllLogAdmin">Xóa tất cả log</a>
                 </div>
             </div>
         </div>
@@ -77,7 +78,7 @@
 
     function remove(id) {
         $.ajax({
-                url: "/RemoveUserAdmin",
+                url: "/RemoveLogAdmin",
                 type: "get",
                 data: {
                     idU: id

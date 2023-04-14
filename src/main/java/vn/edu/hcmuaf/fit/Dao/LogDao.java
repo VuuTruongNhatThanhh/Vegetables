@@ -90,6 +90,29 @@ public class LogDao {
         return result;
     }
 
+    public void delete(String id) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from log where id = ?");
+            ps.setString(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+    public void deleteAll() {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from log");
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
 }
