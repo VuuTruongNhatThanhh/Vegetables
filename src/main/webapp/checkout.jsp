@@ -77,32 +77,44 @@
                                         </p>
                                         <p class="form-row-first address-field update_totals_on_change validate-required"
                                            id="billing_state_field" data-priority="30">
-                                            <label for="billing_province" class="">Tỉnh/Thành phố
+                                            <label for="city" class="">Tỉnh/Thành phố
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-                                            <span class="woocommerce-input-wrapper">
-                                                 <input type="text" class="input-text " name="province"
-                                                        id="billing_province" placeholder="ví dụ: Hồ Chí Minh"
-                                                        value="${shipment == null?"":shipment.province}">
-                                            </span>
+<%--                                            <span class="woocommerce-input-wrapper">--%>
+<%--                                                 <input type="text" class="input-text " name="province"--%>
+<%--                                                        id="billing_province" placeholder="ví dụ: Hồ Chí Minh"--%>
+<%--                                                        value="${shipment == null?"":shipment.province}">--%>
+<%--                                            </span>--%>
+                                            <select id="city" required="" class="form-control here"
+                                                    style="width: 300px" onchange="update()">
+                                                <option value="" >${shipment == null?"Tỉnh/Thành phố":shipment.province}</option>
+                                            </select>
                                         </p>
                                         <p class="form-row-last address-field update_totals_on_change validate-required validate-required"
                                            id="billing_city_field" data-priority="40">
-                                            <label for="billing_district" class="">Quận/Huyện
+                                            <label for="dist" class="">Quận/Huyện
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-                                            <input type="text" class="input-text " name="district"
-                                                   id="billing_district" placeholder="ví dụ: Quận 9"
-                                                   value="${shipment == null?"":shipment.district}">
+<%--                                            <input type="text" class="input-text " name="district"--%>
+<%--                                                   id="billing_district" placeholder="ví dụ: Quận 9"--%>
+<%--                                                   value="${shipment == null?"":shipment.district}">--%>
+                                            <select id="dist" required="" class="form-control here"
+                                                    style="width: 300px" onchange="update()">
+                                                <option value="">${shipment == null?"Quận/Huyện":shipment.district}</option>
+                                            </select>
                                         </p>
                                         <p class="form-row-first address-field update_totals_on_change validate-required validate-required"
                                            id="billing_address_2_field" data-priority="50">
-                                            <label for="billing_ward" class="">Xã/Phường
+                                            <label for="ward" class="">Xã/Phường
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-                                            <input type="text" class="input-text " name="ward"
-                                                   id="billing_ward" placeholder="ví dụ: Tăng Nhơn Phú A"
-                                                   value="${shipment == null?"":shipment.ward}">
+<%--                                            <input type="text" class="input-text " name="ward"--%>
+<%--                                                   id="billing_ward" placeholder="ví dụ: Tăng Nhơn Phú A"--%>
+<%--                                                   value="${shipment == null?"":shipment.ward}">--%>
+                                            <select id="ward" required="" class="form-control here"
+                                                    style="width: 300px" onchange="update()">
+                                                <option value="">${shipment == null?"Xã/Phường":shipment.ward}</option>
+                                            </select>
                                         </p>
                                         <p class="form-row-last validate-required" id="billing_address_1_field"
                                            data-priority="60">
@@ -116,6 +128,11 @@
                                                        autocomplete="address-line1">
                                             </span>
                                         </p>
+
+                                        <input class="p" name="province" type="hidden" value="${shipment.province}" id="text1">
+                                        <input class="d" name="district" type="hidden" value="${shipment.district}" id="text2">
+                                        <input class="w" name="ward" type="hidden" value="${shipment.ward}" id="text3">
+
                                     </div>
                                 </div>
                             </div>
@@ -262,5 +279,64 @@
     <script src="bootstrap/js/jquery.min.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("dist");
+        var wards = document.getElementById("ward");
+
+
+        var Parameter = {
+            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+            method: "GET",
+            responseType: "application/json",
+        };
+        var promise = axios(Parameter);
+        promise.then(function (result) {
+            renderCity(result.data);
+        });
+        function update(){
+            var citis = document.getElementById("city");
+            var districts = document.getElementById("dist");
+            var wards = document.getElementById("ward");
+
+            var option1 = citis.options[citis.selectedIndex];
+            var option2 = districts.options[districts.selectedIndex];
+            var option3 = wards.options[wards.selectedIndex];
+
+            document.getElementById('text1').value = option1.text;
+            document.getElementById('text2').value = option2.text;
+            document.getElementById('text3').value = option3.text;
+        }
+        update();
+
+        function renderCity(data) {
+            for (const x of data) {
+                citis.options[citis.options.length] = new Option(x.Name, x.Id);
+            }
+            citis.onchange = function () {
+                dist.length = 1;
+                ward.length = 1;
+                if(this.value != ""){
+                    const result = data.filter(n => n.Id === this.value);
+
+                    for (const k of result[0].Districts) {
+                        dist.options[dist.options.length] = new Option(k.Name, k.Id);
+                    }
+                }
+            };
+            dist.onchange = function () {
+                ward.length = 1;
+                const dataCity = data.filter((n) => n.Id === citis.value);
+                if (this.value != "") {
+                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                    for (const w of dataWards) {
+                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                    }
+                }
+            };
+        }
+    </script>
 </body>
 </html>

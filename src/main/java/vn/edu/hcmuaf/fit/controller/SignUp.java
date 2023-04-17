@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.controller;
 
 
+import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
 import vn.edu.hcmuaf.fit.Dao.UserDao;
 import vn.edu.hcmuaf.fit.Dao.permissionDao;
 import vn.edu.hcmuaf.fit.bean.Log;
@@ -69,10 +70,26 @@ public class SignUp extends HttpServlet {
         } else if (pass.equals(check)) {
             pass = SHA1.hashPassword(pass);
 
+                String uid = UserDao.getInstance().getNewId();
+            String idinfo =    ShipmentDetailDao.getInstance().addDB2(null, null, null, null, null, null, uid);
+
+
+            permissionDao.getInstance().addDB("0",uid,2);
+            permissionDao.getInstance().addDB("1",uid,2);
+            permissionDao.getInstance().addDB("2",uid,2);
+            permissionDao.getInstance().addDB("6",uid,2);
+            permissionDao.getInstance().addDB("7",uid,2);
+            permissionDao.getInstance().addDB("8",uid,2);
+            permissionDao.getInstance().addDB("9",uid,2);
+            permissionDao.getInstance().addDB("10",uid,2);
+            permissionDao.getInstance().addDB("11",uid,2);
+            permissionDao.getInstance().addDB("12",uid,2);
+
+
+
 
 
             String str =   UserDao.getInstance().addDB(email, pass, uname, 2, myHash);
-
 //            UserDao.getInstance().addDB(email, pass, uname, 2, myHash);
 //            response.sendRedirect("/login.jsp");
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"SIGN UP","Đăng kí tài khoản thành công",0));

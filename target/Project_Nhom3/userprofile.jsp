@@ -73,7 +73,7 @@
                             </div>
                         </form>
                         <div class="form-group row">
-                            <a href="updateuser.jsp">
+                            <a href="updateuser.jsp?id=${ship.id}">
                                 <button class="btn-black"
                                         style="background-color: var(--main-color); color: white">Cập nhật thông
                                     tin cá nhân

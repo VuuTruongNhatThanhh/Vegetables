@@ -85,6 +85,36 @@ public class ShipmentDetailDao {
         return id;
 
     }
+    public String addDB2(String name, String phone, String province, String district, String ward, String address, String idU) {
+        String id = getNewId();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO ttgiaohang (MATT,HOTENNHAN,SDT, TINH, QUANHUYEN, XAPHUONG, DIACHI, SUDUNG,MATK) VALUES(?,?,?,?,?,?,?,1,?)");
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, phone);
+            ps.setString(4, province);
+            ps.setString(5, district);
+            ps.setString(6, ward);
+            ps.setString(7, address);
+            ps.setString(8, idU);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+
+    }
+    public void deleteOldInfo(String idu) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from ttgiaohang where MATK = ? AND SUDUNG = 1 ");
+            ps.setString(1, idu);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public void delete(String id) {
         try {
@@ -204,10 +234,29 @@ public class ShipmentDetailDao {
         }
         return result;
     }
+    public void update(String uid, String name, String phone, String province, String district, String ward, String address) {
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE ttgiaohang set HOTENNHAN = ?, SDT = ?, TINH = ?, QUANHUYEN = ?, XAPHUONG = ?, DIACHI = ? where MATK = ? AND SUDUNG = 1 ");
+        try {
+            ps.setString(1, name);
+            ps.setString(2, phone);
+            ps.setString(3, province);
+            ps.setString(4, district);
+            ps.setString(5, ward);
+            ps.setString(6, address);
+            ps.setString(7, uid);
+
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 
     public static void main(String[] args) {
         ShipmentDetailDao ss = new ShipmentDetailDao();
-        System.out.println(ss.getNewId());
+//        System.out.println(ss.getNewId());
+        ss.update("TT2","thanhh","0919588665","DN","Bien Hoa","Tam Hiep","451/15");
     }
 }

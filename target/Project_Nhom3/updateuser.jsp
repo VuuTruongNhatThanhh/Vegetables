@@ -18,7 +18,7 @@
 <br>
 <div class="row" style="display: flex; padding-left: 325px; padding-right: 415px;">
     <div class="col-md-12">
-        <form method="get">
+        <form method="post" action="updateInfoUser">
             <div class="form-group row">
                 <label for="username" class="col-4 col-form-label">Tên<b
                         style="color: red">*</b></label>
@@ -30,7 +30,7 @@
             <div class="form-group row">
                 <label for="name" class="col-4 col-form-label">Số điện thoại<b style="color: red">*</b></label>
                 <div class="col-8">
-                    <input id="name" name="name" placeholder="Số điện thoại" class="form-control here"
+                    <input id="name" name="phone" placeholder="Số điện thoại" class="form-control here"
                            type="text">
                 </div>
             </div>
@@ -39,40 +39,49 @@
                 <div class="col-8">
                     <div class="col-6">
                         <label>Tỉnh/Thành phố<b style="color: red">*</b></label>
-                        <select name="calc_shipping_provinces" required="" class="form-control here"
-                                style="width: 300px">
-                            <option value="">Tỉnh / Thành phố</option>
+                        <select id="city" required="" class="form-control here"
+                                style="width: 300px" onchange="update()">
+                            <option value="" >Tỉnh / Thành phố</option>
                         </select>
                         <label>Quận/Huyện<b style="color: red">*</b></label>
-                        <select name="calc_shipping_district" required="" class="form-control here"
-                                style="width: 300px">
+                        <select id="dist" required="" class="form-control here"
+                                style="width: 300px" onchange="update()">
                             <option value="">Quận / Huyện</option>
                         </select>
-                        <input class="billing_address_1" name="" type="hidden" value="">
-                        <input class="billing_address_2" name="" type="hidden" value="">
+
+                        <label>Xã/Phường<b style="color: red">*</b></label>
+                        <select id="ward" required="" class="form-control here"
+                                style="width: 300px" onchange="update()">
+                            <option value="">Xã / Phường</option>
+                        </select>
+
+                        <input class="p" name="city" type="hidden" value="" id="text1">
+                        <input class="d" name="dist" type="hidden" value="" id="text2">
+                        <input class="w" name="ward" type="hidden" value="" id="text3">
+
                     </div>
                     <div class="col-6">
-                        <label for="district">Xã/Phường<b style="color: red">*</b></label>
-                        <input id="district" name="district" placeholder="Xã / Phường" required="required"
-                               class="form-control here" style="width: 300px" type="text">
-                        <label for="ward">Tên đường</label>
-                        <input id="ward" name="ward" placeholder="Tên đường" class="form-control here"
-                               style="width: 300px" type="text">
+<%--                        <label for="district">Xã/Phường<b style="color: red">*</b></label>--%>
+<%--                        <input id="district" name="ward" placeholder="Xã / Phường" required="required"--%>
+<%--                               class="form-control here" style="width: 300px" type="text">--%>
+<%--                        <label for="ward">Tên đường</label>--%>
+<%--                        <input id="ward" name="ward" placeholder="Tên đường" class="form-control here"--%>
+<%--                               style="width: 300px" type="text">--%>
                         <label for="address">Số nhà<b style="color: red">*</b></label>
                         <input id="address" name="address" placeholder="Số nhà" class="form-control here"
                                style="width: 300px" type="text">
                     </div>
                 </div>
             </div>
+<%--            <div class="form-group row">--%>
+<%--                <label for="email" class="col-4 col-form-label">Email<b style="color: red">*</b></label>--%>
+<%--                <div class="col-8">--%>
+<%--                    <input id="email" name="email" placeholder="Email" class="form-control here"--%>
+<%--                           required="required" type="text">--%>
+<%--                </div>--%>
+<%--            </div>--%>
             <div class="form-group row">
-                <label for="email" class="col-4 col-form-label">Email<b style="color: red">*</b></label>
-                <div class="col-8">
-                    <input id="email" name="email" placeholder="Email" class="form-control here"
-                           required="required" type="text">
-                </div>
-            </div>
-            <div class="form-group row">
-                <a href="updateuser.jsp">
+                <a>
                     <button name="submit" type="submit" class="btn btn-black"
                             style="background-color: var(--main-color); color: white">Cập nhật
                     </button>
@@ -102,75 +111,64 @@
 <script src="js/main.js"></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script src='https://cdn.jsdelivr.net/gh/vietblogdao/js/districts.min.js'></script>
-<script>//<![CDATA[
-if (address_2 = localStorage.getItem('address_2_saved')) {
-    $('select[name="calc_shipping_district"] option').each(function () {
-        if ($(this).text() == address_2) {
-            $(this).attr('selected', '')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("dist");
+    var wards = document.getElementById("ward");
+
+
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+    function update(){
+        var citis = document.getElementById("city");
+        var districts = document.getElementById("dist");
+        var wards = document.getElementById("ward");
+
+        var option1 = citis.options[citis.selectedIndex];
+        var option2 = districts.options[districts.selectedIndex];
+        var option3 = wards.options[wards.selectedIndex];
+
+        document.getElementById('text1').value = option1.text;
+        document.getElementById('text2').value = option2.text;
+        document.getElementById('text3').value = option3.text;
+    }
+    update();
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Id);
         }
-    })
-    $('input.billing_address_2').attr('value', address_2)
-}
-if (district = localStorage.getItem('district')) {
-    $('select[name="calc_shipping_district"]').html(district)
-    $('select[name="calc_shipping_district"]').on('change', function () {
-        var target = $(this).children('option:selected')
-        target.attr('selected', '')
-        $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
-        address_2 = target.text()
-        $('input.billing_address_2').attr('value', address_2)
-        district = $('select[name="calc_shipping_district"]').html()
-        localStorage.setItem('district', district)
-        localStorage.setItem('address_2_saved', address_2)
-    })
-}
-$('select[name="calc_shipping_provinces"]').each(function () {
-    var $this = $(this),
-        stc = ''
-    c.forEach(function (i, e) {
-        e += +1
-        stc += '<option value=' + e + '>' + i + '</option>'
-        $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
-        if (address_1 = localStorage.getItem('address_1_saved')) {
-            $('select[name="calc_shipping_provinces"] option').each(function () {
-                if ($(this).text() == address_1) {
-                    $(this).attr('selected', '')
+        citis.onchange = function () {
+            dist.length = 1;
+            ward.length = 1;
+            if(this.value != ""){
+                const result = data.filter(n => n.Id === this.value);
+
+                for (const k of result[0].Districts) {
+                    dist.options[dist.options.length] = new Option(k.Name, k.Id);
                 }
-            })
-            $('input.billing_address_1').attr('value', address_1)
-        }
-        $this.on('change', function (i) {
-            i = $this.children('option:selected').index() - 1
-            var str = '',
-                r = $this.val()
-            if (r != '') {
-                arr[i].forEach(function (el) {
-                    str += '<option value="' + el + '">' + el + '</option>'
-                    $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>' + str)
-                })
-                var address_1 = $this.children('option:selected').text()
-                var district = $('select[name="calc_shipping_district"]').html()
-                localStorage.setItem('address_1_saved', address_1)
-                localStorage.setItem('district', district)
-                $('select[name="calc_shipping_district"]').on('change', function () {
-                    var target = $(this).children('option:selected')
-                    target.attr('selected', '')
-                    $('select[name="calc_shipping_district"] option').not(target).removeAttr('selected')
-                    var address_2 = target.text()
-                    $('input.billing_address_2').attr('value', address_2)
-                    district = $('select[name="calc_shipping_district"]').html()
-                    localStorage.setItem('district', district)
-                    localStorage.setItem('address_2_saved', address_2)
-                })
-            } else {
-                $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>')
-                district = $('select[name="calc_shipping_district"]').html()
-                localStorage.setItem('district', district)
-                localStorage.removeItem('address_1_saved', address_1)
             }
-        })
-    })
-})
-//]]></script>
+        };
+        dist.onchange = function () {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+            }
+        };
+    }
+</script>
 </body>
 </html>

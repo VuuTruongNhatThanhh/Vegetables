@@ -24,7 +24,7 @@ public class RemoveTypeAdmin extends HttpServlet {
         //Hostname
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE TYPE PRODUCT","Xóa loại sản phẩm: "+TypeProductDao.getInstance().selectTypeName(idP),0));       
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE TYPE PRODUCT","Xóa loại sản phẩm: "+TypeProductDao.getInstance().selectTypeName(idP),0));
 
         TypeProductDao.getInstance().delete(idP);
 

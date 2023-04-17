@@ -14,7 +14,7 @@ import java.util.List;
 
 @WebServlet(name = "UserAdmin", value = "/UserAdmin")
 public class UserAdmin extends HttpServlet {
-    private static  String name = "log";
+    private static  String name = "user";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
