@@ -38,6 +38,22 @@ public class ReviewDao {
         return res;
     }
 
+    public List<Review> getAllNull() {
+        List<Review> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MASP, MATK,NGAYDG, ND, SO_SAO from danhgia");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Review(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5)));
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
     public List<Review> getReview(String idP, int amount) {
         List<Review> res = new LinkedList<>();
         try {
@@ -101,4 +117,19 @@ public class ReviewDao {
             throw new RuntimeException(e);
         }
     }
+
+    public void delete(String idP, String idU) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from danhgia where MASP = ? AND MATK = ?");
+            ps.setString(1, idP);
+            ps.setString(2, idU);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
 }

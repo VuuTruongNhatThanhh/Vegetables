@@ -120,6 +120,8 @@
                             <th scope="col">Sản phẩm</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
+                            <th scope="col"></th>
+
 
                         </tr>
                         </thead>
@@ -131,6 +133,14 @@
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
+                                <td>
+                                    <button style="background: #f7c3c2;border: none;color: #de0400;"
+                                            onclick="removee('${b.id}','${auth.id}')"
+                                            class="btn btn-primary btn-sm trash"
+                                            type="button" title="Xóa">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

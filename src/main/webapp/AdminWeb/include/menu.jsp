@@ -57,7 +57,7 @@
         </li>
 
         <li>
-            <a href="/LogAdmin">
+            <a href="/ReviewAdmin">
                 <i class="fa-solid fa-comments"></i>
                 <span class="links_name">Quản Lý Bình Luận</span>
             </a>

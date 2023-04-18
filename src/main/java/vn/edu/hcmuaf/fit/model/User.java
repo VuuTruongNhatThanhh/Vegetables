@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.model;
 
 import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
+import vn.edu.hcmuaf.fit.Dao.UserDao;
 
 public class User {
     private String id;
@@ -146,4 +147,7 @@ public class User {
         }
         return res;
     }
+
+
+
 }

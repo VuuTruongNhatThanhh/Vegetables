@@ -14,7 +14,7 @@
 <%@include file="include/menu.jsp" %>
 <section class="home-section">
     <div class="home-content">
-        <div class="manager-checkout">
+        <div class="manager-checkout" style="width: 98%">
             <div class="title">Quản Lý Đơn Hàng</div>
             <div class="row">
                 <div class="col-md-12">

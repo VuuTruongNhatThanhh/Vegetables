@@ -184,11 +184,11 @@ public class UserDao {
         }
         return result;
     }
-    public String selectrolename(String id) {
+    public String selectrolename(int id) {
         String result = "";
         try {
             PreparedStatement ps = DBConnect.getInstance().get("SELECT PHANQUYEN from taikhoan WHERE MATK = ?");
-            ps.setString(1, id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 result = rs.getString(1);

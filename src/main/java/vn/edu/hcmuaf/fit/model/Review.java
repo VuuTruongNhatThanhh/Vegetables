@@ -1,5 +1,7 @@
 package vn.edu.hcmuaf.fit.model;
 
+import vn.edu.hcmuaf.fit.Dao.ProductDao;
+import vn.edu.hcmuaf.fit.Dao.ReviewDao;
 import vn.edu.hcmuaf.fit.Dao.UserDao;
 
 import java.sql.Date;
@@ -64,6 +66,10 @@ public class Review {
 
     public String getName() {
         return UserDao.getInstance().getNameById(idU);
+    }
+
+    public String getNameP() {
+        return ProductDao.getInstance().selectName(idP);
     }
 
     @Override
