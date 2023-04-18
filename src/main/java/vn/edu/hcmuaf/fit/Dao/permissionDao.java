@@ -101,6 +101,19 @@ public class permissionDao {
             throw new RuntimeException(e);
         }
     }
+    public void delete(String uid) {
+
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from permission where u_id = ?");
+            ps.setString(1, uid);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
 

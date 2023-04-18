@@ -102,6 +102,18 @@ public class LogDao {
 
 
     }
+    public void deleteUser(String id) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete from log where userr = ?");
+            ps.setString(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
     public void deleteAll() {
         try {
             PreparedStatement ps = DBConnect.getInstance().get("delete from log");

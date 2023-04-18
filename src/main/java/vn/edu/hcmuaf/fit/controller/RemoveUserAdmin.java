@@ -1,7 +1,6 @@
 package vn.edu.hcmuaf.fit.controller;
 
-import vn.edu.hcmuaf.fit.Dao.ProductDao;
-import vn.edu.hcmuaf.fit.Dao.UserDao;
+import vn.edu.hcmuaf.fit.Dao.*;
 import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.User;
@@ -24,6 +23,12 @@ public class RemoveUserAdmin extends HttpServlet {
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
         String id = request.getParameter("idU");
+
+        permissionDao.getInstance().delete(id);
+        LogDao.getInstance().deleteUser(id);
+        ShipmentDetailDao.getInstance().delete(id);
+//        BillDao.getInstance().deleteByUserId(id);
+
         DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE USER","Xóa tải khoản. Email: "+ UserDao.getInstance().selectemail(id)+", quyền: "+UserDao.getInstance().selectrolename(id),0));
 
         UserDao.getInstance().delete(id);

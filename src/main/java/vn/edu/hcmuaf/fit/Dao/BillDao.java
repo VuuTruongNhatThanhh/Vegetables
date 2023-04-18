@@ -363,6 +363,19 @@ public class BillDao {
         }
     }
 
+//    public void deleteByUserId(String id) {
+//        try {
+//            PreparedStatement ps = DBConnect.getInstance().get("delete from hoadon where MATK = ?");
+//            ps.setString(1, id);
+//            ps.executeUpdate();
+//            ps.close();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//
+//    }
+
     private List<Bills> getById(String id) {
         List<Bills> res = new LinkedList<>();
         try {
@@ -399,6 +412,11 @@ public class BillDao {
         }
         return result;
     }
+
+    public static void main(String[] args) {
+
+    }
+
 
 
 }

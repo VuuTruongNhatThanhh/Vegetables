@@ -136,12 +136,25 @@ public class BillDetailDao {
         }
         return result;
     }
+    public void deleteByUserId(String id) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("delete cthd from cthd INNER JOIN hoadon on cthd.MAHD = hoadon.MAHD where hoadon.MATK = ?");
+            ps.setString(1, id);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
 
 
 
     public static void main(String[] args) {
-
+BillDetailDao bdd = new BillDetailDao();
+bdd.deleteByUserId("TK12");
     }
 
 }
