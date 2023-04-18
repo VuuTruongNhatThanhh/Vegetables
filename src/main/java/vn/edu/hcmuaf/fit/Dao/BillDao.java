@@ -241,11 +241,11 @@ public class BillDao {
     public List<Bills> ConfirmBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon where TRANGTHAI = 1 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 1 and MATK = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
             }
             rs.close();
             ps.close();
@@ -259,11 +259,11 @@ public class BillDao {
     public List<Bills> deliveredBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon where TRANGTHAI = 2 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 and MATK = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
             }
             rs.close();
             ps.close();
@@ -277,11 +277,11 @@ public class BillDao {
     public List<Bills> CancelBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon where TRANGTHAI = 5 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 3 and MATK = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
             }
             rs.close();
             ps.close();
@@ -294,11 +294,11 @@ public class BillDao {
     public List<Bills> ShipBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon where TRANGTHAI = 5 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 5 and MATK = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
             }
             rs.close();
             ps.close();

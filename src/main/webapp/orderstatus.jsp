@@ -49,6 +49,7 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col"></th>
                         </tr>
@@ -59,6 +60,7 @@
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
                                     <button style="background: #f7c3c2;border: none;color: #de0400;"
@@ -84,6 +86,7 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col"></th>
                         </tr>
@@ -94,6 +97,7 @@
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
 
@@ -114,6 +118,7 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
 
                         </tr>
@@ -124,6 +129,7 @@
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                             </tr>
                         </c:forEach>
@@ -141,7 +147,10 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
+                            <th scope="col">
+                            </th>
 
                         </tr>
                         </thead>
@@ -151,7 +160,14 @@
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
+                                <td>
+                                    <button onclick="removee('${b.id}')" class="btn btn-danger btn-sm trash"
+                                            type="button" title="Xóa">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -168,6 +184,7 @@
                             <th scope="col">Mã đơn hàng</th>
                             <th scope="col">Ngày đặt</th>
                             <th scope="col">Sản phẩm</th>
+                            <th scope="col">Địa chỉ</th>
                             <th scope="col">Tổng tiền</th>
                             <th scope="col"></th>
                         </tr>
@@ -178,6 +195,7 @@
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
                                 <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
                                     <button style="background-color: #2c9700;color: #ffffff;"
@@ -234,6 +252,19 @@
                 success: function (data) {
                     $("tr").remove("#" + id)
                     $("#cancel").html(data);
+                }
+            }
+        )
+    }
+    function removee(id) {
+        $.ajax({
+                url: "/RemoveBill",
+                type: "get",
+                data: {
+                    id: id
+                },
+                success: function () {
+                    $("tr").remove("#" + id)
                 }
             }
         )

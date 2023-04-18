@@ -95,8 +95,8 @@ public class SignUp extends HttpServlet {
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"SIGN UP","Đăng kí tài khoản thành công",0));
 
             if(str.equals("SUCCESS")){
-                String permiss = permissionDao.getInstance().addDB("1",id_u,2);
-                String permiss2 = permissionDao.getInstance().addDB("2",id_u,2);
+//                String permiss = permissionDao.getInstance().addDB("1",id_u,2);
+//                String permiss2 = permissionDao.getInstance().addDB("2",id_u,2);
                response.sendRedirect("verify.jsp");
             }
 
