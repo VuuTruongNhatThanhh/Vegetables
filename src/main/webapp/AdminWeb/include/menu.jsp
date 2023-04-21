@@ -63,6 +63,12 @@
             </a>
         </li>
         <li>
+            <a href="/PreferentialAdmin">
+                <i class="fa-solid fa-gift"></i>
+                <span class="links_name">Quản Lý Ưu Đãi</span>
+            </a>
+        </li>
+        <li>
             <a href="/LogAdmin">
                 <i class="fa-solid fa-newspaper"></i>
                 <span class="links_name">Quản Lý Tin Tức</span>

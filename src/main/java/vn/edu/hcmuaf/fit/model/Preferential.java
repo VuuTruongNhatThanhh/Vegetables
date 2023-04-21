@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.model;
 
 
+import vn.edu.hcmuaf.fit.Dao.PreferentialDao;
+
 import java.sql.Date;
 
 public class Preferential {
@@ -46,5 +48,17 @@ public class Preferential {
 
     public void setDayEnd(Date dayEnd) {
         this.dayEnd = dayEnd;
+    }
+
+    public String nicedayStart(){
+        String rs  = "";
+        return rs+PreferentialDao.getInstance().niceDayStart(id);
+
+    }
+
+    public String nicedayEnd(){
+        String rs  = "";
+        return rs+PreferentialDao.getInstance().niceDayEnd(id);
+
     }
 }
