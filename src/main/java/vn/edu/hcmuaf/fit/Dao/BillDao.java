@@ -85,6 +85,23 @@ public class BillDao {
             throw new RuntimeException(e);
         }
     }
+    public int totalInComeMonth(int dateRange, int year) {
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT sum(TONGTIEN) from hoadon where TRANGTHAI = 2 AND MONTH(NGHD) = ? AND YEAR(NGHD) = ?");
+            ps.setInt(1, dateRange);
+            ps.setInt(2, year);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int res = rs.getInt(1);
+            rs.close();
+            ps.close();
+            return res;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public int totalBillCancelled(int dateRange) {
         try {
@@ -171,6 +188,86 @@ public class BillDao {
         List<Bills> res = new LinkedList<>();
         try {
             PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Bills> DeliverBillDay() {
+        List<Bills> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 0 ");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Bills> DeliverBillWeek() {
+        List<Bills> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 7 ");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Bills> DeliverBillMonth() {
+        List<Bills> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 30 ");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Bills> DeliverBillQuater() {
+        List<Bills> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 90 ");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
+            }
+            rs.close();
+            ps.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public List<Bills> DeliverBillYear() {
+        List<Bills> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 365 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));

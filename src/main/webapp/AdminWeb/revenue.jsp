@@ -184,12 +184,18 @@
               </c:forEach>
               </tbody>
             </table>
-            <p >Doanh thu của cửa hàng trong ngày: ${inComeDay} VND</p>
-            <p >Doanh thu của cửa hàng trong tuần: ${inComeWeek} VND</p>
-            <p >Doanh thu của cửa hàng trong tháng: ${inComeMonth} VND</p>
-            <p >Doanh thu của cửa hàng trong quý: ${inComeQuarter} VND</p>
-            <p >Doanh thu của cửa hàng trong năm: ${inComeYear} VND</p>
+            <a href="RevenueDay" style="color: black"><p >Doanh thu của cửa hàng trong ngày: ${inComeDay} VND</p></a>
+           <a href="RevenueWeek" style="color: black"><p >Doanh thu của cửa hàng trong tuần: ${inComeWeek} VND</p></a>
+            <a href="RevenueMonth" style="color: black"><p >Doanh thu của cửa hàng trong tháng: ${inComeMonth} VND</p></a>
+            <a href="RevenueQuarter" style="color: black"><p >Doanh thu của cửa hàng trong quý: ${inComeQuarter} VND</p></a>
+            <a href="RevenueYear" style="color: black">    <p >Doanh thu của cửa hàng trong năm: ${inComeYear} VND</p></a>
 <%--            <div><a href="/AdminWeb/RevenueChart.jsp">Biểu đồ thống kê doanh thu trong năm</a></div>--%>
+         <div><p style="font-weight: bold">Chọn năm để thống kê doanh thu: </p> <select  id="select">
+              <option value="2021" ${year == 2021?"selected":""}>2021</option>
+              <option value="2022" ${year == 2022?"selected":""}>2022</option>
+              <option value="2023" ${year == 2023?"selected":""}>2023</option>
+            </select>
+         </div>
             <div style="padding-left: 150px"><canvas id="myChart" style="width:200%;max-width:1000px"></canvas></div>
 
           </div>
@@ -298,7 +304,7 @@
 </script>
 <script>
   var xValues = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
-  var yValues = [11000000, 10000000, 9000000, 8000000, 7000000, 6000000, 5000000, 4000000, 3000000, 2000000, 1000000, 500000];
+  var yValues = [${totalinComeJan}, ${totalinComeFeb}, ${totalinComeMar}, ${totalinComeApr}, ${totalinComeMay}, ${totalinComeJune}, ${totalinComeJul}, ${totalinComeAug}, ${totalinComeSep}, ${totalinComeOct}, ${totalinComeNov}, ${totalinComeDec}];
   var barColors = ["#82CD47", "#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47"];
 
   new Chart("myChart", {
@@ -317,6 +323,14 @@
         text: "Thống kê doanh thu các tháng trong năm"
       }
     }
+  });
+</script>
+<script>
+  document.getElementById('select').addEventListener('change', function () {
+    val = $("#select").val();
+    url = window.location.pathname;
+    window.location.href = url + "?year=" + val;
+
   });
 </script>
 </body>

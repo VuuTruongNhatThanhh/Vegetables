@@ -48,7 +48,7 @@
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Đơn Hàng Hủy</div>
+                       <a href="Cancel" style="color: black"> <div class="box-topic">Đơn Hàng Hủy</div></a>
                         <div class="number">${cancel} đơn hàng</div>
                     </div>
                     <i class="fa-solid fa-scroll cart four"></i>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="top-sales box">
-                <div class="title">Sản Phẩm Bán Chạy</div>
+                <a href="/LoadControl" style="color: black"><div class="title">Sản Phẩm Bán Chạy</div></a>
                 <ul class="top-sales-details">
                     <c:forEach items="${hot}" begin="0" end="6" var="hot">
                         <li>

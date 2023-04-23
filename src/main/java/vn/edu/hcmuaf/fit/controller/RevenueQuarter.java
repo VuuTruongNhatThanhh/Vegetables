@@ -1,0 +1,26 @@
+package vn.edu.hcmuaf.fit.controller;
+
+import vn.edu.hcmuaf.fit.Dao.BillDao;
+import vn.edu.hcmuaf.fit.model.Bills;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.util.List;
+
+@WebServlet(name = "RevenueQuarter", value = "/RevenueQuarter")
+public class RevenueQuarter extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Bills> bd = BillDao.getInstance().DeliverBillQuater();
+        request.setAttribute("bd", bd);
+
+        request.getRequestDispatcher("AdminWeb/revenueQuarter.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+}

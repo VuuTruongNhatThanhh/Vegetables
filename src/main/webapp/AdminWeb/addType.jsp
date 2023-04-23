@@ -28,7 +28,7 @@
           <label class="control-label">Phân loại cha</label>
           <select name="typeFather" class="form-control">
             <option>-- Chọn loại sản phẩm --</option>
-            <option >Thanh</option>
+<%--            <option >Thanh</option>--%>
             <option value="LSP00001">Rau</option>
             <option value="LSP00005">Củ</option>
             <option value="LSP00006">Quả</option>

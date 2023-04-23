@@ -16,17 +16,17 @@
 <section class="home-section">
   <div class="home-content">
     <div class="manager-checkout" style="width: 98%">
-      <div class="title">Thống kê doanh thu</div>
+      <div class="title">Thống kê doanh thu trong ngày</div>
       <div class="row">
         <div class="col-md-12">
           <div class="tab row element-button">
-<%--            <button class="tablinks col-sm-2" id="defaultOpen" onclick="openCity(event, 'tab1')">Chờ xác--%>
-<%--              nhận--%>
-<%--            </button>--%>
-<%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab2')">Đã xác nhận</button>--%>
-<%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab5')">Đã gửi cho bưu cục</button>--%>
+            <%--            <button class="tablinks col-sm-2" id="defaultOpen" onclick="openCity(event, 'tab1')">Chờ xác--%>
+            <%--              nhận--%>
+            <%--            </button>--%>
+            <%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab2')">Đã xác nhận</button>--%>
+            <%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab5')">Đã gửi cho bưu cục</button>--%>
             <button class="tablinks col-sm-2" id="defaultOpen" onclick="openCity(event, 'tab4')">Đơn hàng</button>
-<%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab3')">Đã hủy</button>--%>
+            <%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab3')">Đã hủy</button>--%>
           </div>
           <div id="tab1" class="tabcontent">
             <table id="table-id-1" class="table table-hover table-bordered">
@@ -184,21 +184,7 @@
               </c:forEach>
               </tbody>
             </table>
-            <a href="RevenueDay" style="color: black"><p >Doanh thu của cửa hàng trong ngày: ${inComeDay} VND</p></a>
-           <a href="RevenueWeek" style="color: black"><p >Doanh thu của cửa hàng trong tuần: ${inComeWeek} VND</p></a>
-            <a href="RevenueMonth" style="color: black"><p >Doanh thu của cửa hàng trong tháng: ${inComeMonth} VND</p></a>
-            <a href="RevenueQuarter" style="color: black"><p >Doanh thu của cửa hàng trong quý: ${inComeQuarter} VND</p></a>
-            <a href="RevenueYear" style="color: black">    <p >Doanh thu của cửa hàng trong năm: ${inComeYear} VND</p></a>
-<%--            <div><a href="/AdminWeb/RevenueChart.jsp">Biểu đồ thống kê doanh thu trong năm</a></div>--%>
-         <div><p style="font-weight: bold">Chọn năm để thống kê doanh thu: </p> <select  id="select">
-              <option value="2021" ${year == 2021?"selected":""}>2021</option>
-              <option value="2022" ${year == 2022?"selected":""}>2022</option>
-              <option value="2023" ${year == 2023?"selected":""}>2023</option>
-            </select>
-         </div>
-            <div style="padding-left: 150px"><canvas id="myChart" style="width:200%;max-width:1000px"></canvas></div>
 
-          </div>
           <%--                    --------------------------------------------%>
           <div id="tab5" class="tabcontent">
             <table id="table-id-5" class="table table-hover table-bordered">
@@ -246,7 +232,7 @@
     </div>
 
   </div>
-<%--  <p style="color: red">Thanhhhhhhh</p>--%>
+  <%--  <p style="color: red">Thanhhhhhhh</p>--%>
 </section>
 <script src="../bootstrap/js/jquery.min.js"></script>
 <script src="../AdminWeb/js/jquery.dataTables.js"></script>
@@ -323,14 +309,6 @@
         text: "Thống kê doanh thu các tháng trong năm"
       }
     }
-  });
-</script>
-<script>
-  document.getElementById('select').addEventListener('change', function () {
-    val = $("#select").val();
-    url = window.location.pathname;
-    window.location.href = url + "?year=" + val;
-
   });
 </script>
 </body>

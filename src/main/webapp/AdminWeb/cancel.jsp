@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <head>
   <meta charset="UTF-8">
   <title>Quản lý</title>
@@ -16,7 +15,7 @@
 <section class="home-section">
   <div class="home-content">
     <div class="manager-checkout" style="width: 98%">
-      <div class="title">Thống kê doanh thu</div>
+      <div class="title">Quản Lý Đơn Hàng</div>
       <div class="row">
         <div class="col-md-12">
           <div class="tab row element-button">
@@ -25,8 +24,8 @@
 <%--            </button>--%>
 <%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab2')">Đã xác nhận</button>--%>
 <%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab5')">Đã gửi cho bưu cục</button>--%>
-            <button class="tablinks col-sm-2" id="defaultOpen" onclick="openCity(event, 'tab4')">Đơn hàng</button>
-<%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab3')">Đã hủy</button>--%>
+<%--            <button class="tablinks col-sm-2" onclick="openCity(event, 'tab4')">Đã giao</button>--%>
+            <button class="tablinks col-sm-2" id="defaultOpen" onclick="openCity(event, 'tab3')">Đã hủy</button>
           </div>
           <div id="tab1" class="tabcontent">
             <table id="table-id-1" class="table table-hover table-bordered">
@@ -165,7 +164,8 @@
                 <th scope="col">Sản phẩm</th>
                 <th scope="col">Địa chỉ</th>
                 <th scope="col">Tổng tiền</th>
-
+                <th>
+                </th>
               </tr>
               </thead>
               <tbody>
@@ -179,25 +179,17 @@
                   <td><a href="/BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
                   <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
                   <td>${bw.total} VND</td>
+                  <td>
 
+                    <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                            type="button" title="Xóa">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </td>
                 </tr>
               </c:forEach>
               </tbody>
             </table>
-            <a href="RevenueDay" style="color: black"><p >Doanh thu của cửa hàng trong ngày: ${inComeDay} VND</p></a>
-           <a href="RevenueWeek" style="color: black"><p >Doanh thu của cửa hàng trong tuần: ${inComeWeek} VND</p></a>
-            <a href="RevenueMonth" style="color: black"><p >Doanh thu của cửa hàng trong tháng: ${inComeMonth} VND</p></a>
-            <a href="RevenueQuarter" style="color: black"><p >Doanh thu của cửa hàng trong quý: ${inComeQuarter} VND</p></a>
-            <a href="RevenueYear" style="color: black">    <p >Doanh thu của cửa hàng trong năm: ${inComeYear} VND</p></a>
-<%--            <div><a href="/AdminWeb/RevenueChart.jsp">Biểu đồ thống kê doanh thu trong năm</a></div>--%>
-         <div><p style="font-weight: bold">Chọn năm để thống kê doanh thu: </p> <select  id="select">
-              <option value="2021" ${year == 2021?"selected":""}>2021</option>
-              <option value="2022" ${year == 2022?"selected":""}>2022</option>
-              <option value="2023" ${year == 2023?"selected":""}>2023</option>
-            </select>
-         </div>
-            <div style="padding-left: 150px"><canvas id="myChart" style="width:200%;max-width:1000px"></canvas></div>
-
           </div>
           <%--                    --------------------------------------------%>
           <div id="tab5" class="tabcontent">
@@ -237,16 +229,12 @@
                 </tr>
               </c:forEach>
               </tbody>
-
             </table>
-
           </div>
         </div>
       </div>
     </div>
-
   </div>
-<%--  <p style="color: red">Thanhhhhhhh</p>--%>
 </section>
 <script src="../bootstrap/js/jquery.min.js"></script>
 <script src="../AdminWeb/js/jquery.dataTables.js"></script>
@@ -301,37 +289,6 @@
             }
     )
   }
-</script>
-<script>
-  var xValues = ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"];
-  var yValues = [${totalinComeJan}, ${totalinComeFeb}, ${totalinComeMar}, ${totalinComeApr}, ${totalinComeMay}, ${totalinComeJune}, ${totalinComeJul}, ${totalinComeAug}, ${totalinComeSep}, ${totalinComeOct}, ${totalinComeNov}, ${totalinComeDec}];
-  var barColors = ["#82CD47", "#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47","#82CD47"];
-
-  new Chart("myChart", {
-    type: "bar",
-    data: {
-      labels: xValues,
-      datasets: [{
-        backgroundColor: barColors,
-        data: yValues
-      }]
-    },
-    options: {
-      legend: {display: false},
-      title: {
-        display: true,
-        text: "Thống kê doanh thu các tháng trong năm"
-      }
-    }
-  });
-</script>
-<script>
-  document.getElementById('select').addEventListener('change', function () {
-    val = $("#select").val();
-    url = window.location.pathname;
-    window.location.href = url + "?year=" + val;
-
-  });
 </script>
 </body>
 </html>

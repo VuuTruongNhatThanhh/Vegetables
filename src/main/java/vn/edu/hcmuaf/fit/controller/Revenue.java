@@ -19,11 +19,31 @@ public class Revenue extends HttpServlet {
         List<Bills> bd = BillDao.getInstance().DeliverBill();
         List<Bills> bs = BillDao.getInstance().MoveToShipper();
 
+        String year = request.getParameter("year");
+        if (year == null) {
+            year = "2023";
+        }
+        int yearRange = Integer.parseInt(year);
+
         int inComeDay = BillDao.getInstance().totalInCome(0);
         int inComeWeek = BillDao.getInstance().totalInCome(7);
         int inComeMonth = BillDao.getInstance().totalInCome(30);
         int inComeQuarter = BillDao.getInstance().totalInCome(90);
         int inComeYear = BillDao.getInstance().totalInCome(365);
+
+        int totalicomeJan = BillDao.getInstance().totalInComeMonth(1, yearRange);
+        int totalicomeFeb = BillDao.getInstance().totalInComeMonth(2, yearRange);
+        int totalicomeMarch = BillDao.getInstance().totalInComeMonth(3, yearRange);
+        int totalicomeApr = BillDao.getInstance().totalInComeMonth(4, yearRange);
+        int totalicomeMay = BillDao.getInstance().totalInComeMonth(5, yearRange);
+        int totalicomeJun = BillDao.getInstance().totalInComeMonth(6, yearRange);
+        int totalicomeJul = BillDao.getInstance().totalInComeMonth(7, yearRange);
+        int totalicomeAug = BillDao.getInstance().totalInComeMonth(8, yearRange);
+        int totalicomeSep = BillDao.getInstance().totalInComeMonth(9, yearRange);
+        int totalicomeOc = BillDao.getInstance().totalInComeMonth(10, yearRange);
+        int totalicomeNov = BillDao.getInstance().totalInComeMonth(11, yearRange);
+        int totalicomeDec = BillDao.getInstance().totalInComeMonth(12, yearRange);
+
 
 
 
@@ -38,6 +58,20 @@ public class Revenue extends HttpServlet {
         request.setAttribute("inComeMonth", inComeMonth);
         request.setAttribute("inComeQuarter", inComeQuarter);
         request.setAttribute("inComeYear", inComeYear);
+
+        request.setAttribute("totalinComeJan", totalicomeJan);
+        request.setAttribute("totalinComeJFeb", totalicomeFeb);
+        request.setAttribute("totalinComeMar", totalicomeMarch);
+        request.setAttribute("totalinComeApr", totalicomeApr);
+        request.setAttribute("totalinComeMay", totalicomeMay);
+        request.setAttribute("totalinComeJune", totalicomeJun);
+        request.setAttribute("totalinComeJul", totalicomeJul);
+        request.setAttribute("totalinComeAug", totalicomeAug);
+        request.setAttribute("totalinComeSep", totalicomeSep);
+        request.setAttribute("totalinComeOct", totalicomeOc);
+        request.setAttribute("totalinComeNov", totalicomeNov);
+        request.setAttribute("totalinComeDec", totalicomeDec);
+        request.setAttribute("year", yearRange);
 
         request.getRequestDispatcher("AdminWeb/revenue.jsp").forward(request, response);
     }

@@ -29,7 +29,7 @@ public class StatisticalAdmin extends HttpServlet {
         int billCancelled = BillDao.getInstance().totalBillCancelled(dateRange);
         int soldOut = ProductDao.getInstance().totalProductSoldOut();
         List<Bills> bw = BillDao.getInstance().RecentBill();
-        List<Product> hot = ProductDao.getInstance().getHot();
+        List<Product> hot = ProductDao.getInstance().getHotSelect(dateRange);
         request.setAttribute("date", dateRange);
         request.setAttribute("bw", bw);
         request.setAttribute("hot", hot);
