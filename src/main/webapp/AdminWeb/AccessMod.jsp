@@ -16,8 +16,8 @@
   <div class="home-content">
     <div class="manager-product">
       <div class="title">Số lần truy cập</div>
-      <div>Số lần nhân viên bán hàng truy cập: ${na} </div>
-      <div>Số lần nhân viên nhập hàng truy cập: ${na2} </div>
+      <div>Số lần mod truy cập: ${na} </div>
+      <div>Số lần admin truy cập: ${na2} </div>
 
 
     </div>

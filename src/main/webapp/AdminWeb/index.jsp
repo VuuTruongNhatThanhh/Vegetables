@@ -27,21 +27,21 @@
             <div class="overview-boxes">
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Tổng Đơn Hàng</div>
+                        <a href="/BillAdmin" style="color: black"><div class="box-topic">Tổng Đơn Hàng</div></a>
                         <div class="number">${totalBill} đơn hàng</div>
                     </div>
                     <i class="fa-solid fa-cart-plus cart"></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Hết Hàng</div>
+                       <a href="/OutOfStockProduct" style="color: black"> <div class="box-topic">Hết Hàng</div></a>
                         <div class="number">${sold} sản phẩm</div>
                     </div>
                     <i class="fa-solid fa-xmark cart two"></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Doanh Thu</div>
+                       <a  href="Revenue" style="color: black"><div class="box-topic">Doanh Thu</div></a>
                         <div class="number">${inCome} VND</div>
                     </div>
                     <i class="fa-solid fa-sack-dollar cart three"></i>
@@ -57,7 +57,7 @@
         </div>
         <div class="sales-boxes">
             <div class="recent-sales box">
-                <div class="title">Đơn Hàng Gần Đây</div>
+                <div class="title">Đơn Hàng Chưa Xác Nhận</div>
                 <div class="sales-details">
                     <table class="table table-hover table-bordered">
                         <thead>

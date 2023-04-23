@@ -68,18 +68,18 @@
                 <span class="links_name">Quản Lý Ưu Đãi</span>
             </a>
         </li>
-        <li>
-            <a href="/LogAdmin">
-                <i class="fa-solid fa-newspaper"></i>
-                <span class="links_name">Quản Lý Tin Tức</span>
-            </a>
-        </li>
-        <li>
-            <a href="/LogAdmin">
-                <i class="fa-solid fa-phone"></i>
-                <span class="links_name">Quản Lý Liên Hệ</span>
-            </a>
-        </li>
+<%--        <li>--%>
+<%--            <a href="/LogAdmin">--%>
+<%--                <i class="fa-solid fa-newspaper"></i>--%>
+<%--                <span class="links_name">Quản Lý Tin Tức</span>--%>
+<%--            </a>--%>
+<%--        </li>--%>
+<%--        <li>--%>
+<%--            <a href="/LogAdmin">--%>
+<%--                <i class="fa-solid fa-phone"></i>--%>
+<%--                <span class="links_name">Quản Lý Liên Hệ</span>--%>
+<%--            </a>--%>
+<%--        </li>--%>
         <li class="${pageContext.request.contextPath}/AdminWeb/log_out">
             <a href="/Logout">
                 <i class="fa-solid fa-right-from-bracket"></i>

@@ -42,6 +42,24 @@ public class ProductDao {
         }
         return res;
     }
+    public List<Product> getOutOfStock() {
+        List<Product> res = new LinkedList<>();
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select sanpham.MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham JOIN khoiluong ON sanpham.MASP = khoiluong.MASP where khoiluong.SL = 0");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
+                p.setPics(PictureDao.getInstance().getByIdProduct(p.getId()));
+                p.setWeights(WeightDao.getInstance().getByIdProduct(p.getId()));
+                res.add(p);
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
 
     public int getNum(String id) {
         for (int i = 0; i < id.length(); i++) {
