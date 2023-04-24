@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="top-sales box">
-                <a href="/LoadControl" style="color: black"><div class="title">Sản Phẩm Bán Chạy</div></a>
+                <a href="/HotProductAdmin" style="color: black"><div class="title">Sản Phẩm Bán Chạy</div></a>
                 <ul class="top-sales-details">
                     <c:forEach items="${hot}" begin="0" end="6" var="hot">
                         <li>

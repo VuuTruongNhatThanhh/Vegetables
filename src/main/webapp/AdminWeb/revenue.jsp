@@ -194,6 +194,12 @@
               <option value="2021" ${year == 2021?"selected":""}>2021</option>
               <option value="2022" ${year == 2022?"selected":""}>2022</option>
               <option value="2023" ${year == 2023?"selected":""}>2023</option>
+           <option value="2024" ${year == 2024?"selected":""}>2024</option>
+           <option value="2025" ${year == 2025?"selected":""}>2025</option>
+           <option value="2026" ${year == 2026?"selected":""}>2026</option>
+           <option value="2027" ${year == 2027?"selected":""}>2027</option>
+           <option value="2028" ${year == 2028?"selected":""}>2028</option>
+           <option value="2029" ${year == 2029?"selected":""}>2029 </option>
             </select>
          </div>
             <div style="padding-left: 150px"><canvas id="myChart" style="width:200%;max-width:1000px"></canvas></div>

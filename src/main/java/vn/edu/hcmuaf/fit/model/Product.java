@@ -154,6 +154,9 @@ public class Product {
         String rs =discount+"%";
         return rs;
     }
+    public String getAmmount() {
+        return ProductDao.getInstance().selectAmount(id);
+    }
 
 
 
