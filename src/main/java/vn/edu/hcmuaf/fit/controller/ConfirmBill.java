@@ -30,7 +30,7 @@ public class ConfirmBill extends HttpServlet {
         BillDao.getInstance().confirm(id);
         List<Bills> lists = BillDao.getInstance().ConfirmBill();
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Bill Admin","Xác nhận đơn hàng. Mã đơn hàng: "+id,0));
+        DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Quản lý đơn hàng","Xác nhận đơn hàng. Mã đơn hàng: "+id,0));
         PrintWriter out = response.getWriter();
         for (Bills b : lists) {
          out.println("<tr id=\"" + b.getId() + "\">\n" +

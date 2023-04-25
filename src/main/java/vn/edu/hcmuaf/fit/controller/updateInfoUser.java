@@ -36,7 +36,7 @@ public class updateInfoUser extends HttpServlet {
         String address = request.getParameter("address");
         User uu = (User) request.getSession().getAttribute("auth");
 
-        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"USER INFO","Cập nhật thông tin người dùng. Tên: "+name+", sđt: " +phone+", địa chỉ: "+ address+", "+ward+", "+district+", "+province,0));
+        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Thông tin cá nhân","Cập nhật thông tin người dùng. Tên: "+name+", sđt: " +phone+", địa chỉ: "+ address+", "+ward+", "+district+", "+province,0));
 
         ShipmentDetailDao.getInstance().update(uu.getId(), name,phone,province,district,ward,address);
 //            ShipmentDetailDao.getInstance().addDB(name,id,province,district,ward,address, uu.getId());

@@ -28,7 +28,7 @@ public class ShipBill extends HttpServlet {
         BillDao.getInstance().ship(id);
         List<Bills> lists = BillDao.getInstance().ShipBill();
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Bill Admin","Đã chuyển đơn hàng cho bên vận chuyển. Mã đơn hàng: "+id,0));
+        DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Quản lý đơn hàng","Đã chuyển đơn hàng cho bên vận chuyển. Mã đơn hàng: "+id,0));
         PrintWriter out = response.getWriter();
         for (Bills b : lists) {
             out.println("<tr id=\"" + b.getId() + "\">\n" +

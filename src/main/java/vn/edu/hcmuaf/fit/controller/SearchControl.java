@@ -63,9 +63,9 @@ public class SearchControl extends HttpServlet {
         request.getRequestDispatcher("product1.jsp").forward(request, response);
         User uu = (User) request.getSession().getAttribute("auth");
         if(uu==null){
-            DB.me().insert(new Log(Log.INFO,null,ipAddress,"SEARCH","Tìm kiếm: "+keyword.toString(),0));
+            DB.me().insert(new Log(Log.INFO,null,ipAddress,"Tìm kiếm","Tìm kiếm: "+keyword.toString(),0));
         }
-        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"SEARCH","Tìm kiếm: "+keyword.toString(),0));
+        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Tìm kiếm","Tìm kiếm: "+keyword.toString(),0));
     }
 
     private void sortBy(String sort) {

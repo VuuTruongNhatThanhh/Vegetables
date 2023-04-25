@@ -60,7 +60,7 @@ public class ReviewControl extends HttpServlet {
         url = url.replaceAll("-", "&");
         response.sendRedirect(url);
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.INFO,uu.getId(),"COMMENT","Bình luận: "+mess.toString()+", Số sao: "+star.toString(),0));
+        DB.me().insert(new Log(Log.INFO,uu.getId(),"Đánh giá","Bình luận: "+mess.toString()+", Số sao: "+star.toString(),0));
     }
 
     private String printStar(int amount) {

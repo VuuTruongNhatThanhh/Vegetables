@@ -39,7 +39,7 @@ public class RemoveBill extends HttpServlet {
         String hostname = addr.getHostName();
 
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Bill Admin","Đã xóa đơn hàng. Mã đơn hàng: "+id,0));
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Quản lý đơn hàng","Đã xóa đơn hàng. Mã đơn hàng: "+id,0));
 
         BillDao.getInstance().delete(id);
     }

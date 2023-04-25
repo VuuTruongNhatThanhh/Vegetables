@@ -46,7 +46,7 @@ public class AddCart extends HttpServlet {
         request.getSession().setAttribute("item", items);
         response.sendRedirect(url);
         User uu = (User) request.getSession().getAttribute("auth");
-        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"CART","Thêm vào giỏ hàng. Tên sản phẩm: "+ProductDao.getInstance().selectName(idP)+", khối lượng: "+WeightDao.getInstance().selectWeight(idW) +", Số lượng: "+num,0));
+        DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Giỏ hàng","Thêm vào giỏ hàng. Tên sản phẩm: "+ProductDao.getInstance().selectName(idP)+", khối lượng: "+WeightDao.getInstance().selectWeight(idW) +", Số lượng: "+num,0));
     }
 
     @Override
