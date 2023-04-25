@@ -131,5 +131,43 @@ public class ReviewDao {
 
 
     }
+    public String selectContent(String idP, String idU) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT ND FROM danhgia WHERE MASP = ? AND MATK = ?");
+            ps.setString(1, idP);
+            ps.setString(2, idU);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public int selectStar(String idP, String idU) {
+        int result = 0;
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT SO_SAO FROM danhgia WHERE MASP = ? AND MATK = ?");
+            ps.setString(1, idP);
+            ps.setString(2, idU);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
 }

@@ -74,7 +74,7 @@ public class AddUserAdmin extends HttpServlet {
         response.sendRedirect("/UserAdmin");
         User uu = (User) request.getSession().getAttribute("auth");
 
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE USER","Thêm tài khoản mới: tên: "+name+", email: "+ email,0));
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE USER","Thêm tài khoản mới: tên: "+name+", email: "+ email+", quyền: "+UserDao.getInstance().getNameRole(role),0));
 
     }
 }

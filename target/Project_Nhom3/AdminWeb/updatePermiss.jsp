@@ -22,7 +22,7 @@
         </div>
         <div class="form-group col-md-4">
           <label class="control-label">Mã tài khoản</label>
-          <input name="name" class="form-control" type="text" value="${p == null?"":p.u_id}" readonly>
+          <input name="u_id" class="form-control" type="text" value="${p == null?"":p.u_id}" readonly>
         </div>
     <div class="form-group col-md-4">
         <label class="control-label">Quyền</label>

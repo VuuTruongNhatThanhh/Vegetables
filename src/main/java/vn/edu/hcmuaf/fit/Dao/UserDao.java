@@ -184,14 +184,14 @@ public class UserDao {
         }
         return result;
     }
-    public String selectrolename(int id) {
-        String result = "";
+    public int selectrolename(String id) {
+        int result = 0;
         try {
             PreparedStatement ps = DBConnect.getInstance().get("SELECT PHANQUYEN from taikhoan WHERE MATK = ?");
-            ps.setInt(1, id);
+            ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result = rs.getString(1);
+                result = rs.getInt(1);
                 rs.close();
                 ps.close();
                 return result;
@@ -201,6 +201,24 @@ public class UserDao {
             throw new RuntimeException(e);
         }
         return result;
+    }
+    public String getNameRole(int role) {
+        String res = "";
+        switch (role) {
+            case 0:
+                res = "Admin";
+                break;
+            case 1:
+                res = "Mod";
+                break;
+            case 2:
+                res = "User";
+                break;
+
+
+
+        }
+        return res;
     }
 
 

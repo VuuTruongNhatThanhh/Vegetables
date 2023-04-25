@@ -29,7 +29,7 @@ public class RemoveUserAdmin extends HttpServlet {
         ShipmentDetailDao.getInstance().delete(id);
 //        BillDao.getInstance().deleteByUserId(id);
 
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE USER","Xóa tải khoản. Email: "+ UserDao.getInstance().selectemail(id),0));
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE USER","Xóa tài khoản. Email: "+ UserDao.getInstance().selectemail(id)+", quyền: "+UserDao.getInstance().getNameRole(UserDao.getInstance().selectrolename(id)) ,0));
 
         UserDao.getInstance().delete(id);
     }

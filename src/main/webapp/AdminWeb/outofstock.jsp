@@ -18,13 +18,7 @@
       <div class="title">Danh Sách Sản Phẩm</div>
       <div class="row">
         <div class="col-md-12">
-          <div class="row element-button">
-            <div class="col-sm-2">
-              <a class="btn btn-add btn-sm" href="/AddProductAmin" title="Thêm">
-                <i class="fas fa-plus"></i>
-                Thêm sản phẩm</a>
-            </div>
-          </div>
+
           <table id="table-id" class="table table-hover table-bordered">
             <thead>
             <tr>
@@ -37,7 +31,7 @@
               <th scope="col">Ngày thêm</th>
               <th scope="col">Tình trạng</th>
               <th scope="col">Loại</th>
-              <th scope="col">Chức năng</th>
+
             </tr>
             </thead>
             <tbody>
@@ -67,17 +61,7 @@
                   <td><span class="badge bg-danger">Ngừng bán</span></td>
                 </c:if>
                 <td>${p.getNameType()}</td>
-                <td>
-                  <button onclick="removeP('${p.id}')" class="btn btn-primary btn-sm trash"
-                          type="button" title="Xóa">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                  <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"
-                          data-toggle="modal" data-target="#ModalUP"><a style="color: white;"
-                                                                        href="UpdateProductAdmin?id=${p.id}&idType=${p.idType}">
-                    <i class="fas fa-edit"></i></a>
-                  </button>
-                </td>
+
               </tr>
             </c:forEach>
             </tbody>

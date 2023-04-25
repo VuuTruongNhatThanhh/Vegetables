@@ -114,6 +114,101 @@ public class permissionDao {
 
 
     }
+    public String selectidRS(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT rs_id from permission WHERE id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String getNameRs(String id_rs) {
+        String res = "";
+        switch (id_rs) {
+            case "0":
+                res = "Trang chủ";
+                break;
+            case "1":
+                res = "Quản lý sản phẩm";
+                break;
+            case "2":
+                res = "Quản lý log";
+                break;
+            case "6":
+                res = "Quản lý loại sản phẩm";
+                break;
+            case "7":
+                res = "Quản lý hóa đơn";
+                break;
+            case "8":
+                res = "Quản lý tài khoản";
+                break;
+            case "9":
+                res = "Quản lý thăng/ hạ quyền tài khoản";
+                break;
+            case "10":
+                res = "Quản lý bình luận";
+                break;
+            case "11":
+                res = "Quản lý tin tức";
+                break;
+            case "12":
+                res = "Quản lý liên hệ";
+                break;
+
+
+
+        }
+        return res;
+
+    }
+    public String selecuid(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT u_id from permission WHERE id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String getNamePer(String per) {
+        String res = "";
+        switch (per) {
+            case "0":
+                res = "Toàn quyền";
+                break;
+            case "1":
+                res = "Xem";
+                break;
+            case "2":
+                res = "Không có quyền";
+                break;
+
+
+
+        }
+        return res;
+    }
+
 
 
 
