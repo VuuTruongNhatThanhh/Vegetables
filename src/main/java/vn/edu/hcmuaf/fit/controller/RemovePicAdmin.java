@@ -24,7 +24,7 @@ public class RemovePicAdmin extends HttpServlet {
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
         int id = Integer.parseInt(request.getParameter("idP"));
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT IMAGES","Xóa hình sản phẩm. Tên sản phẩm: "+ ProductDao.getInstance().selectImageName(id),0));
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Quản lý sản phẩm","Xóa hình sản phẩm. Tên sản phẩm: "+ ProductDao.getInstance().selectImageName(id),0));
 
         PictureDao.getInstance().delete(id);
     }
