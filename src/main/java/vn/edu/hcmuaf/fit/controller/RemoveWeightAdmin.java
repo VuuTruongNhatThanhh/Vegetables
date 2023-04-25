@@ -25,7 +25,7 @@ public class RemoveWeightAdmin extends HttpServlet {
         String hostname = addr.getHostName();
         User uu = (User) request.getSession().getAttribute("auth");
         String id = request.getParameter("idW");
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT WEIGHT","Xóa khối luợng. Tên sản phẩm: "+ ProductDao.getInstance().selectWeightName(id) +", khối lượng: "+ WeightDao.getInstance().selectWeight(id)+"g",0));
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Quản lý sản phẩm","Xóa khối luợng. Tên sản phẩm: "+ ProductDao.getInstance().selectWeightName(id) +", khối lượng: "+ WeightDao.getInstance().selectWeight(id)+"g",0));
 
         WeightDao.getInstance().delete(id);
 

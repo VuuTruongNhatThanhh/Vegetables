@@ -59,6 +59,6 @@ public class UpdateWeightAdmin extends HttpServlet {
         int price = Integer.parseInt(request.getParameter("price"));
         WeightDao.getInstance().update(id, weight, amount, price);
         response.sendRedirect(url);
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE PRODUCT WEIGHT","Sửa khối luợng. Tên sản phẩm: "+ ProductDao.getInstance().selectWeightName(id) +", khối lượng: "+ weight+"g, số lượng: "+amount+", giá tiền: "+price ,0));
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý sản phẩm","Sửa khối luợng. Tên sản phẩm: "+ ProductDao.getInstance().selectWeightName(id) +", khối lượng: "+ weight+"g, số lượng: "+amount+", giá tiền: "+price ,0));
     }
 }
