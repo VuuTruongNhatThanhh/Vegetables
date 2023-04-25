@@ -100,11 +100,9 @@ public class Permission implements Serializable {
             case "10":
                 res = "Quản lý bình luận";
                 break;
-            case "11":
-                res = "Quản lý tin tức";
-                break;
+
             case "12":
-                res = "Quản lý liên hệ";
+                res = "Quản lý ưu đãi";
                 break;
 
 

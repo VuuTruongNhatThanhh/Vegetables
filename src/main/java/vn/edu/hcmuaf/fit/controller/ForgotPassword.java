@@ -78,7 +78,7 @@ public class ForgotPassword extends HttpServlet {
                 // send message
                 Transport.send(message);
                 System.out.println("message sent successfully");
-                DB.me().insert(new Log(Log.ALERT,null,ipAddress,"FORGET PASS","Quên mật khẩu, OTP đã được gửi về email: "+email,0));
+                DB.me().insert(new Log(Log.ALERT,null,ipAddress,"Quên mật khẩu","Quên mật khẩu, OTP đã được gửi về email: "+email,0));
 
             }
 

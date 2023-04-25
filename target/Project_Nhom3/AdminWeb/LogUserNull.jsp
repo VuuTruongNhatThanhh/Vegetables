@@ -36,7 +36,6 @@
               <th scope="col">Vị trí</th>
               <th scope="col">Nội dung</th>
               <th scope="col">Ngày</th>
-              <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -49,12 +48,7 @@
                 <td>${lg.ip}</td>
                 <td>${lg.content}</td>
                 <td>${lg.creatAt}</td>
-                <td>
-                  <button onclick="remove('${lg.id}')" class="btn btn-primary btn-sm trash" type="button"
-                          title="Xóa">
-                    <i class="fas fa-trash-alt"></i>
-                  </button>
-                </td>
+
               </tr>
             </c:forEach>
             </tbody>

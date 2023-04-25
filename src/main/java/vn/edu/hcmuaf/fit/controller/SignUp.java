@@ -82,7 +82,6 @@ public class SignUp extends HttpServlet {
             permissionDao.getInstance().addDB("8",uid,2);
             permissionDao.getInstance().addDB("9",uid,2);
             permissionDao.getInstance().addDB("10",uid,2);
-            permissionDao.getInstance().addDB("11",uid,2);
             permissionDao.getInstance().addDB("12",uid,2);
 
 

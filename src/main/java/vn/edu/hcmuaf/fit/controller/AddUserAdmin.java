@@ -18,7 +18,7 @@ import java.net.InetAddress;
 
 @WebServlet(name = "AddUserAdmin", value = "/AddUserAdmin")
 public class AddUserAdmin extends HttpServlet {
-    private static  String name = "log";
+    private static  String name = "user";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = UserDao.getInstance().getNewId();
@@ -63,7 +63,6 @@ public class AddUserAdmin extends HttpServlet {
         permissionDao.getInstance().addDB("8",id_u,2);
         permissionDao.getInstance().addDB("9",id_u,2);
         permissionDao.getInstance().addDB("10",id_u,0);
-        permissionDao.getInstance().addDB("11",id_u,0);
         permissionDao.getInstance().addDB("12",id_u,0);
 
         ShipmentDetailDao.getInstance().addDB2(null, null, null, null, null, null, id_u);

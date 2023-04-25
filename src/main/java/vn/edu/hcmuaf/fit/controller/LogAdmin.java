@@ -25,10 +25,7 @@ public class LogAdmin extends HttpServlet {
             return;
         }
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
-        if(per==1) {
-            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
-            return;
-        }
+
         if(per==2) {
             response.sendRedirect("/errorAccessUser.jsp");
             return;

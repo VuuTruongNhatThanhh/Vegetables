@@ -27,7 +27,7 @@
 
       <div><a href="/LoginFailedLog">Thống kê tài khoản đăng nhập sai</a></div>
 
-      <div><a href="/NumberAccessMod">Thống kê số lần truy cập của nhân viên</a></div>
+<%--      <div><a href="/NumberAccessMod">Thống kê số lần truy cập của nhân viên</a></div>--%>
 
 
 

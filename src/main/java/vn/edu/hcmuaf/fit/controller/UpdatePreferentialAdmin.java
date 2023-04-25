@@ -7,6 +7,7 @@ import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.Preferential;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @WebServlet(name = "UpdatePreferentialAdmin", value = "/UpdatePreferentialAdmin")
 public class UpdatePreferentialAdmin extends HttpServlet {
+    private static  String name = "code";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
@@ -26,6 +28,23 @@ public class UpdatePreferentialAdmin extends HttpServlet {
         request.setAttribute("p", p);
         request.setAttribute("action", "UpdatePreferentialAdmin");
         request.setAttribute("title", "Sửa mã ưu đãi");
+
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        if(per==1) {
+            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            return;
+        }
+
+
         request.getRequestDispatcher("AdminWeb/addPreferential.jsp").forward(request, response);
     }
 

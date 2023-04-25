@@ -62,10 +62,7 @@
                            Trang bạn vừa bấm vào không được cấp quyền
                         </h3>
 
-                        <p>Lưu ý: </p>
-                        <p>- Nhân viên chỉ có thể truy cập vào những nơi sau:</p>
-                        <p>+Quản lý sản phẩm, loại sản phẩm</p>
-                        <p>+Quản lý đơn hàng, bình luận, tin tức, liên hệ</p>
+
 
                         <a href="/StatisticalAdmin" class="link_404">Trở về trang chính</a>
                     </div>

@@ -36,8 +36,8 @@
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
       ['Task', 'Hours per Day'],
-      ['Nhân viên bán hàng',${na} ],
-      ['Nhân viên nhập hàng', ${na2}],
+      ['Mod',${na} ],
+      ['Admin', ${na2}],
 
     ]);
 

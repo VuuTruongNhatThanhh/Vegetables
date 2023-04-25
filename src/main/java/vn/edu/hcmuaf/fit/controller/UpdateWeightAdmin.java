@@ -40,6 +40,10 @@ public class UpdateWeightAdmin extends HttpServlet {
             response.sendRedirect("/errorAccessUser.jsp");
             return;
         }
+        if(per==1) {
+            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            return;
+        }
 
         request.getRequestDispatcher("AdminWeb/addWeight.jsp").forward(request, response);
     }

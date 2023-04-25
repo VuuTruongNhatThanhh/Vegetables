@@ -8,6 +8,7 @@ import vn.edu.hcmuaf.fit.bean.Permission;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.TypeProduct;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @WebServlet(name = "UpdatePermissAdmin", value = "/UpdatePermissAdmin")
 public class UpdatePermissAdmin extends HttpServlet {
+    private static  String name = "level_user";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Permission> types = permissionDao.getInstance().getAll();
@@ -29,6 +31,22 @@ public class UpdatePermissAdmin extends HttpServlet {
         request.setAttribute("id", id);
         request.setAttribute("p", p);
         request.setAttribute("u_id", u_id);
+
+
+        if(request.getSession().getAttribute("auth")==null){
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
+        if(per==2) {
+            response.sendRedirect("/errorAccessUser.jsp");
+            return;
+        }
+        if(per==1) {
+            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            return;
+        }
+
         request.getRequestDispatcher("AdminWeb/updatePermiss.jsp").forward(request, response);
     }
 
