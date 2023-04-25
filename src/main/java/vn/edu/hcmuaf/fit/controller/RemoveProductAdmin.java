@@ -44,7 +44,7 @@ public class RemoveProductAdmin extends HttpServlet {
             return;
         }
 
-        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"MANAGE PRODUCT","Xóa sản phẩm: "+ProductDao.getInstance().selectName(idP),0));
+        DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Quản lý sản phẩm","Xóa sản phẩm: "+ProductDao.getInstance().selectName(idP),0));
 
         ProductDao.getInstance().delete(idP);
         Product p = ProductDao.getInstance().getProductById(idP);

@@ -65,7 +65,7 @@ public class UpdateProductAdmin extends HttpServlet {
         double discount = Integer.parseInt(dis);
         String dicription = request.getParameter("dicription_product");
         ProductDao.getInstance().update(id, name, discount, dicription, idType);
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE PRODUCT","Sửa thông tin sản phẩm: "+name+", loại sản phẩm: "+ProductDao.getInstance().selectTypeName(idType)+", giảm giá: "+dis+", mô tả: "+dicription,0));
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý sản phẩm","Sửa thông tin sản phẩm: "+name+", loại sản phẩm: "+ProductDao.getInstance().selectTypeName(idType)+", giảm giá: "+dis+", mô tả: "+dicription,0));
         response.sendRedirect("/ProductAdmin");
     }
 }
