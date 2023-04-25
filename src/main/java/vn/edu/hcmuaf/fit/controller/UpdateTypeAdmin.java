@@ -46,7 +46,7 @@ public class UpdateTypeAdmin extends HttpServlet {
         String name = request.getParameter("name");
         String idType = request.getParameter("typeFather");
 
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE TYPE PRODUCT","Sửa loại sản phẩm: "+name+", phân loại cha: " +TypeProductDao.getInstance().selectTypeName(idType),0));
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý loại sản phẩm","Sửa loại sản phẩm: "+name+", phân loại cha: " +TypeProductDao.getInstance().selectTypeName(idType),0));
 
         TypeProductDao.getInstance().update(id, name,idType);
         response.sendRedirect("/TypeAdmin");

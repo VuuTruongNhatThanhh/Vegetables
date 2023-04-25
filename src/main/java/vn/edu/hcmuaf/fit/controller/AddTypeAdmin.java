@@ -41,7 +41,7 @@ public class AddTypeAdmin extends HttpServlet {
         String name = request.getParameter("name");
         String typeFather = request.getParameter("typeFather");
 
-        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"MANAGE TYPE PRODUCT","Thêm loại sản phẩm mới: "+name+", phân loại cha: " +TypeProductDao.getInstance().selectTypeName(typeFather),0));        String id_u = TypeProductDao.getInstance().getNewId();
+        DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý loại sản phẩm","Thêm loại sản phẩm mới: "+name+", phân loại cha: " +TypeProductDao.getInstance().selectTypeName(typeFather),0));        String id_u = TypeProductDao.getInstance().getNewId();
 
 
         TypeProductDao.getInstance().addDB( name, typeFather);
