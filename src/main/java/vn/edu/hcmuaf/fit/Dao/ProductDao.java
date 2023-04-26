@@ -27,7 +27,7 @@ public class ProductDao {
     public List<Product> getAll() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -45,7 +45,7 @@ public class ProductDao {
     public List<Product> getOutOfStock() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select sanpham.MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham JOIN khoiluong ON sanpham.MASP = khoiluong.MASP where khoiluong.SL = 0");
+            PreparedStatement ps = DBConnect.getInstance().get("select products.id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products JOIN weight ON products.id = weight.id_product where weight.amount = 0");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -94,7 +94,7 @@ public class ProductDao {
     }
 
     public void addDB(String id, String name, double discount, String dicription, String idType) {
-        PreparedStatement ps = DBConnect.getInstance().get("insert into sanpham values (?,?,?,?, CURDATE(), 1, ?)");
+        PreparedStatement ps = DBConnect.getInstance().get("insert into products values (?,?,?,?, CURDATE(), 1, ?)");
         try {
             ps.setString(1, id);
             ps.setString(2, name);
@@ -110,7 +110,7 @@ public class ProductDao {
 
 
     public void update(String id, String name, double discount, String dicription, String idType) {
-        PreparedStatement ps = DBConnect.getInstance().get("UPDATE sanpham set TENSP = ?, DISCOUNT = ?, NGAYTHEM = CURDATE(), MOTA = ?, MALSP = ? where MASP = ?");
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE products set products.`name` = ?, discount = ?, date_add = CURDATE(), products.`describe` = ?, id_type = ? where id = ?");
         try {
             ps.setString(1, name);
             ps.setDouble(2, discount);
@@ -125,7 +125,7 @@ public class ProductDao {
 
     public void delete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from sanpham where MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from products where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -135,7 +135,7 @@ public class ProductDao {
 
     public void setIsDelete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update sanpham set TINHTRANG = 0 where MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update products set products.`status` = 0 where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -148,10 +148,10 @@ public class ProductDao {
         try {
             PreparedStatement ps = null;
             if (idType == null) {
-                ps = DBConnect.getInstance().get("select count(*) from sanpham where TINHTRANG = 1");
+                ps = DBConnect.getInstance().get("select count(*) from products where status = 1");
             } else {
                 res += totalProductParentType(idType);
-                ps = DBConnect.getInstance().get("select count(*) from sanpham where sanpham.MALSP = ? and TINHTRANG = 1");
+                ps = DBConnect.getInstance().get("select count(*) from products where products.id_type = ? and status = 1");
                 ps.setString(1, idType);
             }
             ResultSet rs = ps.executeQuery();
@@ -172,7 +172,7 @@ public class ProductDao {
         int res = 0;
         try {
             for (TypeProduct t : TypeProductDao.instance.getChildType(id)) {
-                PreparedStatement ps = DBConnect.getInstance().get("select count(*) from sanpham where sanpham.MALSP = ? and TINHTRANG = 1");
+                PreparedStatement ps = DBConnect.getInstance().get("select count(*) from products where products.id_type = ? and status = 1");
                 ps.setString(1, t.getId());
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
@@ -192,11 +192,11 @@ public class ProductDao {
         try {
             PreparedStatement ps = null;
             if (idType == null) {
-                ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where TINHTRANG = 1 limit ?, ?");
+                ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products where products.`status` = 1 limit ?, ?");
                 ps.setInt(1, pageid - 1);
                 ps.setInt(2, total);
             } else {
-                ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where sanpham.MALSP = ? and TINHTRANG = 1 limit ?, ?");
+                ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products where products.id_type = ? and products.`status` = 1 limit ?, ?");
                 ps.setString(1, idType);
                 ps.setInt(2, pageid - 1);
                 ps.setInt(3, total);
@@ -219,7 +219,7 @@ public class ProductDao {
     public List<Product> getByParentType(String id, int pageid, int total) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, sanpham.MALSP from sanpham join loaisp on sanpham.MALSP = loaisp.MALSP where loaisp.PHANLOAICHA = ? and TINHTRANG = 1 limit ?, ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select products.id, products.`name`, discount, products.`describe`, date_add, products.`status`, products.id_type from products join type_product on products.id_type = type_product.id where type_product.type_father = ? and products.`status` = 1 limit ?, ?");
             ps.setString(1, id);
             ps.setInt(2, pageid - 1);
             ps.setInt(3, total);
@@ -241,7 +241,7 @@ public class ProductDao {
     public List<Product> searchByName(String txtSearch, int pageid, int total) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP FROM sanpham WHERE TENSP like ? and TINHTRANG = 1 limit ?,?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type FROM products WHERE products.`name` like ? and products.`status` = 1 limit ?,?");
             ps.setString(1, "%" + txtSearch + "%");
             ps.setInt(2, pageid - 1);
             ps.setInt(3, total);
@@ -263,7 +263,7 @@ public class ProductDao {
     public int getTotalBySearch(String txtSearch) {
         int result = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) FROM sanpham WHERE TENSP like ? and TINHTRANG = 1");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) FROM products WHERE products.`name` like ? and products.`status` = 1");
             ps.setString(1, "%" + txtSearch + "%");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -282,7 +282,7 @@ public class ProductDao {
     public Product getProductById(String id) {
 
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP FROM sanpham WHERE MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type FROM products WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -301,7 +301,7 @@ public class ProductDao {
 
     public int totalProductSoldOut() {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) FROM sanpham join khoiluong on sanpham.MASP = khoiluong.MASP WHERE SL = 0 and TINHTRANG = 1");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) FROM products join weight on products.id = weight.id_product WHERE amount = 0 and products.`status` = 1");
             ResultSet rs = ps.executeQuery();
             rs.next();
             int res = rs.getInt(1);
@@ -316,7 +316,7 @@ public class ProductDao {
     public List<Product> getProductEqualsType(String idType, String idP) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where MALSP = ? and MASP not like ? and TINHTRANG = 1");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products where id_type = ? and id not like ? and products.`status` = 1");
             ps.setString(1, idType);
             ps.setString(2, idP);
             ResultSet rs = ps.executeQuery();
@@ -337,7 +337,7 @@ public class ProductDao {
     public List<Product> getLast() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where TINHTRANG = 1 and DATEDIFF(Date(NOW()), NGAYTHEM) < 7 LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products where products.`status` = 1 and DATEDIFF(Date(NOW()), date_add) < 7 LIMIT 8");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -355,7 +355,7 @@ public class ProductDao {
     public List<Product> getLastAll() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham where TINHTRANG = 1 and DATEDIFF(Date(NOW()), NGAYTHEM) < 7");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products where products.`status` = 1 and DATEDIFF(Date(NOW()), date_add) < 7");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -374,7 +374,7 @@ public class ProductDao {
     public List<Product> getDiscount() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham WHERE DISCOUNT !=0 and TINHTRANG = 1 ORDER BY DISCOUNT DESC LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products WHERE discount !=0 and products.`status` = 1 ORDER BY discount DESC LIMIT 8");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -393,7 +393,7 @@ public class ProductDao {
     public List<Product> getDiscountAll() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, TENSP, DISCOUNT, MOTA, NGAYTHEM, TINHTRANG, MALSP from sanpham WHERE DISCOUNT !=0 and TINHTRANG = 1 ORDER BY DISCOUNT DESC");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, products.`name`, discount, products.`describe`, date_add, products.`status`, id_type from products WHERE discount !=0 and products.`status` = 1 ORDER BY discount DESC");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Product p = new Product(rs.getString(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getDate(5), rs.getBoolean(6), rs.getString(7));
@@ -412,7 +412,7 @@ public class ProductDao {
     public List<Product> getHot() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP from cthd GROUP BY MASP HAVING sum(SL) > 5 ORDER BY SL DESC LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC LIMIT 8");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));
@@ -427,7 +427,7 @@ public class ProductDao {
     public List<Product> getHotSelect(int date) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP from cthd JOIN hoadon ON cthd.MAHD = hoadon.MAHD WHERE DATEDIFF(Date(NOW()),hoadon.NGHD)<= ? GROUP BY MASP HAVING sum(SL) > 5 ORDER BY SL DESC LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail JOIN bill ON bill_detail.id_bill = bill.id WHERE DATEDIFF(Date(NOW()),bill.date)<= ? GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC LIMIT 8");
             ps.setInt(1, date);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -443,7 +443,7 @@ public class ProductDao {
     public List<Product> getHotAll() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP from cthd GROUP BY MASP HAVING sum(SL) > 5 ORDER BY SL DESC");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));
@@ -459,7 +459,7 @@ public class ProductDao {
     public String selectName(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENSP FROM sanpham WHERE MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT products.`name` FROM products WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -477,7 +477,7 @@ public class ProductDao {
     public String selectWeightName(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENSP FROM sanpham JOIN khoiluong ON sanpham.MASP = khoiluong.MASP WHERE MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT products.`name` FROM products JOIN weight ON products.id = weight.id_product WHERE weight.id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -495,7 +495,7 @@ public class ProductDao {
     public String selectImageName(int id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENSP FROM sanpham JOIN anh ON sanpham.MASP = anh.MASP WHERE MAANH = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT products.`name` FROM products JOIN images ON products.id = images.id_product WHERE images.id = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -513,7 +513,7 @@ public class ProductDao {
     public String selectTypeName(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENLSP from loaisp WHERE MALSP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT type_product.`name` from type_product WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -531,7 +531,7 @@ public class ProductDao {
     public List<Product> selectProductNameInBill(String id) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT sanpham.TENSP FROM (hoadon JOIN cthd ON hoadon.MAHD = cthd.MAHD) JOIN sanpham ON cthd.MASP = sanpham.MASP WHERE hoadon.MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT products.`name` FROM (bill JOIN bill_detail ON bill.id = bill_detail.id_bill) JOIN products ON bill_detail.id_product = products.id WHERE bill.id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -550,7 +550,7 @@ public class ProductDao {
     public String selectAmount(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT SUM(SL) FROM cthd WHERE MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT SUM(amount) FROM bill_detail WHERE id_product = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

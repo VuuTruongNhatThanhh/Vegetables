@@ -23,7 +23,7 @@ public class PictureDao {
     public List<Pictures> getByIdProduct(String id) {
         List<Pictures> res = new ArrayList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAANH, URL from anh where anh.MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, URL from images where images.id_product = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -39,7 +39,7 @@ public class PictureDao {
 
     public void add(String url, String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO anh (URL, MASP) VALUES ( ?, ?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO images (URL, id_product) VALUES ( ?, ?)");
             ps.setString(1, url);
             ps.setString(2, id);
             ps.executeUpdate();
@@ -51,7 +51,7 @@ public class PictureDao {
 
     public void delete(int id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from anh where MAANH = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from images where id = ?");
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();

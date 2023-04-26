@@ -51,7 +51,7 @@ public class NewPassword extends HttpServlet {
 
             try {
 
-                PreparedStatement pst = DBConnect.getInstance().get("update taikhoan set MK = ? where EMAIL = ? ");
+                PreparedStatement pst = DBConnect.getInstance().get("update `user` set pass = ? where email = ? ");
                 pst.setString(1, newPassword);
                 pst.setString(2, (String) session.getAttribute("email"));
 

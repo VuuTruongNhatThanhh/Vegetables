@@ -27,7 +27,7 @@ public class WeightDao {
     public List<Weight> getByIdProduct(String id) {
         List<Weight> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAKL, KL, GIA_BAN, SL from khoiluong where khoiluong.MASP = ? order by khoiluong.KL ASC");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, weight, price, amount from weight where weight.id_product = ? order by weight.weight ASC");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -43,7 +43,7 @@ public class WeightDao {
 
     public Weight getWeightById(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAKL, KL, GIA_BAN, SL from khoiluong where MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, weight, price, amount from weight where id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -59,7 +59,7 @@ public class WeightDao {
     }
 
     public void updateAmount(Collection<CartDetails> list) {
-        PreparedStatement ps = DBConnect.getInstance().get("update khoiluong set SL = ?  where MAKL = ?");
+        PreparedStatement ps = DBConnect.getInstance().get("update weight set amount = ?  where id = ?");
         try {
             for (CartDetails cd : list) {
                 ps.setInt(1, cd.setAmount());
@@ -75,7 +75,7 @@ public class WeightDao {
     public String getNewId() {
         try {
             int max = 0;
-            PreparedStatement ps = DBConnect.getInstance().get("select MAKL from khoiluong");
+            PreparedStatement ps = DBConnect.getInstance().get("select id from weight");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String id = rs.getString(1);
@@ -91,7 +91,7 @@ public class WeightDao {
     }
 
     public void addDB(String id, int weight, int amount, int price, String idP) {
-        PreparedStatement ps = DBConnect.getInstance().get("insert into khoiluong values (?,?,?,?,?)");
+        PreparedStatement ps = DBConnect.getInstance().get("insert into weight values (?,?,?,?,?)");
         try {
             ps.setString(1, id);
             ps.setInt(2, weight);
@@ -108,7 +108,7 @@ public class WeightDao {
 
     public void delete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from khoiluong where MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from weight where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -119,7 +119,7 @@ public class WeightDao {
 
     public void update(String id, int weight, int amount, int price) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update khoiluong set KL = ?, GIA_BAN = ?, SL = ? where MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update weight set weight = ?, price = ?, amount = ? where id = ?");
             ps.setInt(1, weight);
             ps.setInt(2, price);
             ps.setInt(3, amount);
@@ -134,7 +134,7 @@ public class WeightDao {
     public String selectWeight(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT KL FROM khoiluong WHERE MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT weight FROM weight WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

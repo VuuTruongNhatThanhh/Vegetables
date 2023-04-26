@@ -37,7 +37,7 @@ public class UserDao {
     public List<User> getAll() {
         List<User> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MATK, EMAIL, MK, HOTEN, PHANQUYEN, HASH, ACTIVATE, DATE_ADD_HASH from taikhoan");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, email, pass, name, role, hash, activate, date_add_hash from user");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
@@ -65,7 +65,7 @@ public class UserDao {
     public String addDB(String email, String pass, String uname, int role, String hash) {
         String id = getNewId();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("insert into taikhoan(MATK, EMAIL, MK, HOTEN, PHANQUYEN, HASH, DATE_ADD_HASH) values (?,?,?,?,?,?,NOW())");
+            PreparedStatement ps = DBConnect.getInstance().get("insert into user(id, email, pass, name, role, hash, date_add_hash) values (?,?,?,?,?,?,NOW())");
             ps.setString(1, id);
             ps.setString(2, email);
             ps.setString(3, pass);
@@ -95,7 +95,7 @@ public class UserDao {
         ShipmentDetailDao.getInstance().delete(id);
         BillDao.getInstance().deleteByIdUser(id);
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from taikhoan where MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from user where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -130,7 +130,7 @@ public class UserDao {
     public String getNameById(String id) {
         String res = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select HOTEN from taikhoan where MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select name from user where id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) res = rs.getString(1);
@@ -143,7 +143,7 @@ public class UserDao {
     }
 
     public boolean check(String id, String currentpass) {
-        PreparedStatement st = DBConnect.getInstance().get("select MK from taikhoan where MATK = ?");
+        PreparedStatement st = DBConnect.getInstance().get("select pass from user where id = ?");
         try {
             st.setString(1,id);
             ResultSet rs = st.executeQuery();
@@ -157,7 +157,7 @@ public class UserDao {
 
     public void changePassword(String id, String password) {
         try {
-            PreparedStatement st = DBConnect.getInstance().get("update taikhoan set MK = ? where MATK = ?");
+            PreparedStatement st = DBConnect.getInstance().get("update user set pass = ? where id = ?");
             st.setString(1, password);
             st.setString(2, id);
             st.executeUpdate();
@@ -169,7 +169,7 @@ public class UserDao {
     public String selectemail(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT EMAIL from taikhoan WHERE MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT email from user WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -187,7 +187,7 @@ public class UserDao {
     public int selectrolename(String id) {
         int result = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT PHANQUYEN from taikhoan WHERE MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT role from user WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

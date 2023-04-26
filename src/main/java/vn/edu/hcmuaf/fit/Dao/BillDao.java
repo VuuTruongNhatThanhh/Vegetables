@@ -22,7 +22,7 @@ public class BillDao {
         List<Bills> res = new LinkedList<>();
 
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user from bill");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5)));
@@ -43,7 +43,7 @@ public class BillDao {
             id = id < maxId ? maxId : id;
         }
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO hoadon VALUES(?, CURDATE(), ?, 0, ?, ?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO bill VALUES(?, CURDATE(), ?, 0, ?, ?)");
             ps.setString(1, "HD" + (id + 1));
             ps.setDouble(2, total);
             ps.setString(3, idU);
@@ -58,7 +58,7 @@ public class BillDao {
 
     public int totalBill(int dateRange) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*)  FROM hoadon WHERE DATEDIFF(Date(NOW()), NGHD) <= ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*)  FROM bill WHERE DATEDIFF(Date(NOW()), date) <= ?");
             ps.setInt(1, dateRange);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -73,7 +73,7 @@ public class BillDao {
 
     public int totalInCome(int dateRange) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT sum(TONGTIEN) from hoadon where TRANGTHAI = 2 and DATEDIFF(Date(NOW()), NGHD) <= ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT sum(total) from bill where status = 2 and DATEDIFF(Date(NOW()), date) <= ?");
             ps.setInt(1, dateRange);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -87,7 +87,7 @@ public class BillDao {
     }
     public int totalInComeMonth(int dateRange, int year) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT sum(TONGTIEN) from hoadon where TRANGTHAI = 2 AND MONTH(NGHD) = ? AND YEAR(NGHD) = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT sum(total) from bill where status = 2 AND MONTH(date) = ? AND YEAR(date) = ?");
             ps.setInt(1, dateRange);
             ps.setInt(2, year);
             ResultSet rs = ps.executeQuery();
@@ -105,7 +105,7 @@ public class BillDao {
 
     public int totalBillCancelled(int dateRange) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) from hoadon where TRANGTHAI = 3 and DATEDIFF(Date(NOW()), NGHD) <= ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT count(*) from bill where status = 3 and DATEDIFF(Date(NOW()), date) <= ?");
             ps.setInt(1, dateRange);
             ResultSet rs = ps.executeQuery();
             rs.next();
@@ -121,7 +121,7 @@ public class BillDao {
     public List<Bills> RecentBill() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 0");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 0");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -138,7 +138,7 @@ public class BillDao {
     public List<Bills> CancelBill() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 3");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 3");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -155,7 +155,7 @@ public class BillDao {
     public List<Bills> ConfirmBill() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 1");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 1");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -171,7 +171,7 @@ public class BillDao {
     public List<Bills> ShipBill() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 5");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 5");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -187,7 +187,7 @@ public class BillDao {
     public List<Bills> DeliverBill() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -203,7 +203,7 @@ public class BillDao {
     public List<Bills> DeliverBillDay() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 0 ");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 AND DATEDIFF(Date(NOW()), date) <= 0 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -219,7 +219,7 @@ public class BillDao {
     public List<Bills> DeliverBillWeek() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 7 ");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 AND DATEDIFF(Date(NOW()), date) <= 7 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -235,7 +235,7 @@ public class BillDao {
     public List<Bills> DeliverBillMonth() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 30 ");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 AND DATEDIFF(Date(NOW()), date) <= 30 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -251,7 +251,7 @@ public class BillDao {
     public List<Bills> DeliverBillQuater() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 90 ");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 AND DATEDIFF(Date(NOW()), date) <= 90 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -267,7 +267,7 @@ public class BillDao {
     public List<Bills> DeliverBillYear() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 AND DATEDIFF(Date(NOW()), NGHD) <= 365 ");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 AND DATEDIFF(Date(NOW()), date) <= 365 ");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -283,7 +283,7 @@ public class BillDao {
     public List<Bills> MoveToShipper() {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 5");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 5");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Bills(rs.getString(1), rs.getDate(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6)));
@@ -301,7 +301,7 @@ public class BillDao {
 
     public void confirm(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update hoadon set TRANGTHAI = 1 where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update bill set status = 1 where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -312,7 +312,7 @@ public class BillDao {
     }
     public void ship(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update hoadon set TRANGTHAI = 5 where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update bill set status = 5 where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -325,7 +325,7 @@ public class BillDao {
     public void delete(String id) {
         try {
             BillDetailDao.getInstance().delete(id);
-            PreparedStatement ps = DBConnect.getInstance().get("delete from hoadon where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from bill where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -338,7 +338,7 @@ public class BillDao {
     public List<Bills> ConfirmBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 1 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 1 and id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -356,7 +356,7 @@ public class BillDao {
     public List<Bills> deliveredBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 2 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 2 and id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -374,7 +374,7 @@ public class BillDao {
     public List<Bills> CancelBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 3 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 3 and id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -391,7 +391,7 @@ public class BillDao {
     public List<Bills> ShipBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 5 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 5 and id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -409,7 +409,7 @@ public class BillDao {
     public List<Bills> RecentBill(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK, MATT from hoadon where TRANGTHAI = 0 and MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user, id_info from bill where status = 0 and id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -426,7 +426,7 @@ public class BillDao {
 
     public void delivered(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update hoadon set TRANGTHAI = 2 where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update bill set status = 2 where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -437,7 +437,7 @@ public class BillDao {
 
     public void cancel(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("update hoadon set TRANGTHAI = 3 where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("update bill set status = 3 where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -451,7 +451,7 @@ public class BillDao {
         for (Bills b : lists)
             delete(b.getId());
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from hoadon where MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from bill where id_user = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -476,7 +476,7 @@ public class BillDao {
     private List<Bills> getById(String id) {
         List<Bills> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, NGHD, TONGTIEN, TRANGTHAI, MATK from hoadon where MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, date, total, status, id_user from bill where id_user = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -494,7 +494,7 @@ public class BillDao {
     public String totalPrice(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select TONGTIEN-15000 from hoadon where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select total-15000 from bill where id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

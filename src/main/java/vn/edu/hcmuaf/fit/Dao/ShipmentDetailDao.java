@@ -25,7 +25,7 @@ public class ShipmentDetailDao {
 
     public ShipmentDetails get(String idU) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MATT, HOTENNHAN, SDT, TINH, QUANHUYEN, XAPHUONG, DIACHI,MATK from ttgiaohang where MATK = ? and SUDUNG = 1");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, info_deliver.`name`, phone, province, district, ward, address ,id_user from info_deliver where id_user = ? and info_deliver.`use` = 1");
             ps.setString(1, idU);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -42,7 +42,7 @@ public class ShipmentDetailDao {
     public List<ShipmentDetails> getAll() {
         List<ShipmentDetails> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MATT, HOTENNHAN, SDT, TINH, QUANHUYEN, XAPHUONG, DIACHI, SUDUNG, MATK from ttgiaohang");
+            PreparedStatement ps = DBConnect.getInstance().get("select id, info_deliver.`name`, phone, province, district, ward, address, info_deliver.`use`, id_user from info_deliver");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new ShipmentDetails(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8)));
@@ -69,7 +69,7 @@ public class ShipmentDetailDao {
     public String addDB(String name, String phone, String province, String district, String ward, String address, String idU) {
         String id = getNewId();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO ttgiaohang (MATT,HOTENNHAN,SDT, TINH, QUANHUYEN, XAPHUONG, DIACHI, SUDUNG,MATK) VALUES(?,?,?,?,?,?,?,0,?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO info_deliver (id,info_deliver.`name`,phone, province, district, ward, address, info_deliver.`use`,id_user) VALUES(?,?,?,?,?,?,?,0,?)");
             ps.setString(1, id);
             ps.setString(2, name);
             ps.setString(3, phone);
@@ -88,7 +88,7 @@ public class ShipmentDetailDao {
     public String addDB2(String name, String phone, String province, String district, String ward, String address, String idU) {
         String id = getNewId();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO ttgiaohang (MATT,HOTENNHAN,SDT, TINH, QUANHUYEN, XAPHUONG, DIACHI, SUDUNG,MATK) VALUES(?,?,?,?,?,?,?,1,?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO info_deliver (id,info_deliver.`name`,phone, province, district, ward, address, info_deliver.`use`,id_user) VALUES(?,?,?,?,?,?,?,1,?)");
             ps.setString(1, id);
             ps.setString(2, name);
             ps.setString(3, phone);
@@ -106,7 +106,7 @@ public class ShipmentDetailDao {
     }
     public void deleteOldInfo(String idu) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from ttgiaohang where MATK = ? AND SUDUNG = 1 ");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from info_deliver where id_user = ? AND info_deliver.`use` = 1 ");
             ps.setString(1, idu);
             ps.executeUpdate();
             ps.close();
@@ -118,7 +118,7 @@ public class ShipmentDetailDao {
 
     public void delete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from ttgiaohang where MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from info_deliver where id_user = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -129,7 +129,7 @@ public class ShipmentDetailDao {
     public String NameUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.HOTENNHAN FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.`name` FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -147,7 +147,7 @@ public class ShipmentDetailDao {
     public String PhoneUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.SDT FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.phone FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -165,7 +165,7 @@ public class ShipmentDetailDao {
     public String AddressUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.DIACHI FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.address FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -183,7 +183,7 @@ public class ShipmentDetailDao {
     public String ProvinceUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.TINH FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.province FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -201,7 +201,7 @@ public class ShipmentDetailDao {
     public String DistrictUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.QUANHUYEN FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.district FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -219,7 +219,7 @@ public class ShipmentDetailDao {
     public String WardUser(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ttgiaohang.XAPHUONG FROM ttgiaohang JOIN hoadon ON ttgiaohang.MATT = hoadon.MATT WHERE hoadon.MATT = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.ward FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id_info = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -235,7 +235,7 @@ public class ShipmentDetailDao {
         return result;
     }
     public void update(String uid, String name, String phone, String province, String district, String ward, String address) {
-        PreparedStatement ps = DBConnect.getInstance().get("UPDATE ttgiaohang set HOTENNHAN = ?, SDT = ?, TINH = ?, QUANHUYEN = ?, XAPHUONG = ?, DIACHI = ? where MATK = ? AND SUDUNG = 1 ");
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE info_deliver set info_deliver.`name` = ?, phone = ?, province = ?, district = ?, ward = ?, address = ? where id_user = ? AND info_deliver.`use` = 1 ");
         try {
             ps.setString(1, name);
             ps.setString(2, phone);

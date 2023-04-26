@@ -26,7 +26,7 @@ public class BillDetailDao {
     }
 
     public void addDB(Collection<CartDetails> list, String idBill) {
-        PreparedStatement ps = DBConnect.getInstance().get("insert into CTHD values (?, ?, ?, ?, ?)");
+        PreparedStatement ps = DBConnect.getInstance().get("insert into bill_detail values (?, ?, ?, ?, ?)");
         try {
             for (CartDetails cd : list) {
                 ps.setString(1, idBill);
@@ -46,7 +46,7 @@ public class BillDetailDao {
     public int getAmount(String id, String idW) {
         int res = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select sum(SL) from cthd where MASP = ? and MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select sum(amount) from bill_detail where id_product = ? and id_weight = ?");
             ps.setString(1, id);
             ps.setString(2, idW);
             ResultSet rs = ps.executeQuery();
@@ -63,7 +63,7 @@ public class BillDetailDao {
     public List<BillDetails> getById(String id) {
         List<BillDetails> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, MASP, MAKL, SL, THANHTIEN from cthd where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_bill, id_product, id_weight, amount, price from bill_detail where id_bill = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next())
@@ -76,7 +76,7 @@ public class BillDetailDao {
 
     public void delete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from cthd where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from bill_detail where id_bill = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -87,7 +87,7 @@ public class BillDetailDao {
     public List<BillDetails> getAll(String id) {
         List<BillDetails> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MAHD, MASP, MAKL, SL, THANHTIEN from cthd JOIN hoadon ON cthd.MAHD = hoadon.MAHD where MAHD = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_bill, id_product, id_weight, amount, price from bill_detail JOIN bill ON bill_detail.id_bill = bill.id where id_bill = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -103,7 +103,7 @@ public class BillDetailDao {
     public String NameProduct(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT sanpham.TENSP FROM sanpham JOIN cthd ON sanpham.MASP = cthd.MASP WHERE cthd.MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT products.name FROM products JOIN bill_detail ON products.id = bill_detail.id_product WHERE bill_detail.id_product = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -121,7 +121,7 @@ public class BillDetailDao {
     public String NameWeight(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT khoiluong.KL FROM khoiluong JOIN cthd ON khoiluong.MAKL = cthd.MAKL WHERE cthd.MAKL = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT weight.weight FROM weight JOIN bill_detail ON weight.id = bill_detail.id_weight WHERE bill_detail.id_weight = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -138,7 +138,7 @@ public class BillDetailDao {
     }
     public void deleteByUserId(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete cthd from cthd INNER JOIN hoadon on cthd.MAHD = hoadon.MAHD where hoadon.MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete bill_detail from bill_detail INNER JOIN bill on bill_detail.id_bill = bill.id where bill.id_user = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();

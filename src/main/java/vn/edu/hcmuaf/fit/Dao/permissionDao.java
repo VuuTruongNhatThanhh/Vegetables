@@ -74,7 +74,7 @@ public class permissionDao {
     public String selectrolename(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT taikhoan.PHANQUYEN from taikhoan WHERE MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT user.role from user WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

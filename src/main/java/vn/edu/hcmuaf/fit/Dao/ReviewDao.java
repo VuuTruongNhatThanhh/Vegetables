@@ -24,7 +24,7 @@ public class ReviewDao {
     public List<Review> getAll(String idP) {
         List<Review> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, MATK,NGAYDG, ND, SO_SAO from danhgia where MASP = ? ORDER BY NGAYDG DESC");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product, id_user, date, content, star from review where id_product = ? ORDER BY date DESC");
             ps.setString(1, idP);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -41,7 +41,7 @@ public class ReviewDao {
     public List<Review> getAllNull() {
         List<Review> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, MATK,NGAYDG, ND, SO_SAO from danhgia");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product, id_user, date, content, star from review");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(new Review(rs.getString(1), rs.getString(2), rs.getDate(3), rs.getString(4), rs.getInt(5)));
@@ -57,7 +57,7 @@ public class ReviewDao {
     public List<Review> getReview(String idP, int amount) {
         List<Review> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select MASP, MATK,NGAYDG, ND, SO_SAO from danhgia where MASP = ? ORDER BY NGAYDG DESC limit 0, ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product, id_user,date, content, star from review where id_product = ? ORDER BY date DESC limit 0, ?");
             ps.setString(1, idP);
             ps.setInt(2, amount + 5);
             ResultSet rs = ps.executeQuery();
@@ -75,7 +75,7 @@ public class ReviewDao {
     public int getStar(String idP) {
         int res = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select AVG(SO_SAO) from danhgia where MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select AVG(star) from review where id_product = ?");
             ps.setString(1, idP);
             ResultSet rs = ps.executeQuery();
             if (rs.next())
@@ -91,7 +91,7 @@ public class ReviewDao {
     public int amountReview(String idP) {
         int res = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select count(*) from danhgia where MASP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select count(*) from review where id_product = ?");
             ps.setString(1, idP);
             ResultSet rs = ps.executeQuery();
             if (rs.next())
@@ -106,7 +106,7 @@ public class ReviewDao {
 
     public void addReview(String idP, String idU, String mess, int star) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("insert into danhgia values(?,?, CURDATE(), ?,?)");
+            PreparedStatement ps = DBConnect.getInstance().get("insert into review values(?,?, CURDATE(), ?,?)");
             ps.setString(1, idP);
             ps.setString(2, idU);
             ps.setString(3, mess);
@@ -120,7 +120,7 @@ public class ReviewDao {
 
     public void delete(String idP, String idU) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from danhgia where MASP = ? AND MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from review where id_product = ? AND id_user = ?");
             ps.setString(1, idP);
             ps.setString(2, idU);
             ps.executeUpdate();
@@ -134,7 +134,7 @@ public class ReviewDao {
     public String selectContent(String idP, String idU) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT ND FROM danhgia WHERE MASP = ? AND MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT content FROM review WHERE id_product = ? AND id_user = ?");
             ps.setString(1, idP);
             ps.setString(2, idU);
             ResultSet rs = ps.executeQuery();
@@ -153,7 +153,7 @@ public class ReviewDao {
     public int selectStar(String idP, String idU) {
         int result = 0;
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT SO_SAO FROM danhgia WHERE MASP = ? AND MATK = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT star FROM review WHERE id_product = ? AND id_user = ?");
             ps.setString(1, idP);
             ps.setString(2, idU);
             ResultSet rs = ps.executeQuery();

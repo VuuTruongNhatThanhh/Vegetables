@@ -25,7 +25,7 @@ public class TypeProductDao {
 
     public List<TypeProduct> getAll() {
         List<TypeProduct> result = new LinkedList<>();
-        String query = "SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp";
+        String query = "SELECT id, name, type_father FROM type_product";
         try {
             PreparedStatement ps = DBConnect.getInstance().get(query);
             ResultSet rs = ps.executeQuery();
@@ -42,7 +42,7 @@ public class TypeProductDao {
 
     public List<TypeProduct> getTypeChild() {
         List<TypeProduct> result = new LinkedList<>();
-        String query = "SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp where PHANLOAICHA is not null";
+        String query = "SELECT id, name, type_father FROM type_product where type_father is not null";
         try {
             PreparedStatement ps = DBConnect.getInstance().get(query);
             ResultSet rs = ps.executeQuery();
@@ -59,7 +59,7 @@ public class TypeProductDao {
 
     public List<TypeProduct> getParentType() {
         List<TypeProduct> result = new LinkedList<>();
-        String query = "SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp WHERE PHANLOAICHA is NULL";
+        String query = "SELECT id, name, type_father FROM type_product WHERE type_father is NULL";
         try {
             PreparedStatement ps = DBConnect.getInstance().get(query);
             ResultSet rs = ps.executeQuery();
@@ -76,7 +76,7 @@ public class TypeProductDao {
 
     public List<TypeProduct> getChildType(String id) {
         List<TypeProduct> result = new LinkedList<>();
-        String query = "SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp WHERE PHANLOAICHA = ?";
+        String query = "SELECT id, name, type_father FROM type_product WHERE type_father = ?";
         try {
             PreparedStatement ps = DBConnect.getInstance().get(query);
             ps.setString(1, id);
@@ -95,7 +95,7 @@ public class TypeProductDao {
     public String getType(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select TENLSP from loaisp where MALSP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select name from type_product where id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -124,7 +124,7 @@ public class TypeProductDao {
     public String addDB(String name, String typeFather) {
         String id = getNewId();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("insert into loaisp(MALSP, TENLSP, PHANLOAICHA) values (?,?,?)");
+            PreparedStatement ps = DBConnect.getInstance().get("insert into type_product(id, name, type_father) values (?,?,?)");
             ps.setString(1, id);
             ps.setString(2, name);
             ps.setString(3, typeFather);
@@ -138,7 +138,7 @@ public class TypeProductDao {
         return id;
     }
     public void update(String id, String name, String typeFather) {
-        PreparedStatement ps = DBConnect.getInstance().get("UPDATE loaisp set TENLSP = ?, PHANLOAICHA = ? where MALSP = ?");
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE type_product set name = ?, type_father = ? where id = ?");
         try {
             ps.setString(1, name);
             ps.setString(2, typeFather);
@@ -152,7 +152,7 @@ public class TypeProductDao {
 
     public void delete(String id) {
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("delete from loaisp where MALSP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("delete from type_product where id = ?");
             ps.setString(1, id);
             ps.executeUpdate();
             ps.close();
@@ -165,7 +165,7 @@ public class TypeProductDao {
     public TypeProduct getProductById(String id) {
 
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT MALSP, TENLSP, PHANLOAICHA FROM loaisp WHERE MALSP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT id, name, type_father FROM type_product WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -182,7 +182,7 @@ public class TypeProductDao {
     public String selectTypeName(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("SELECT TENLSP from loaisp WHERE MALSP = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT name from type_product WHERE id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
