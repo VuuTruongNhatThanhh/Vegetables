@@ -28,7 +28,7 @@
 %>
 <div class="main">
     <div class="container b-container" id="b-container">
-        <form class="form" id="b-form" method="post" action="/Login">
+        <form class="form" id="b-form" method="post" action="Login">
             <h2 class="form_title title">Đăng nhập</h2>
 <%--            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">--%>
 <%--            </fb:login-button></div>--%>

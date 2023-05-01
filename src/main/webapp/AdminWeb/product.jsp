@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../AdminWeb/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../fontawesome-free-6.2.0-web/css/all.min.css">
-    <link rel="stylesheet" href="../AdminWeb/css/style.css">
-    <link rel="stylesheet" href="../AdminWeb/css/product.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="AdminWeb/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="AdminWeb/css/style.css">
+    <link rel="stylesheet" href="AdminWeb/css/product.css">
 </head>
 <body>
 <%@include file="include/menu.jsp" %>
@@ -20,7 +20,7 @@
                 <div class="col-md-12">
                     <div class="row element-button">
                         <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm" href="/AddProductAmin" title="Thêm">
+                            <a class="btn btn-add btn-sm" href="AddProductAmin" title="Thêm">
                                 <i class="fas fa-plus"></i>
                                 Thêm sản phẩm</a>
                         </div>
@@ -45,11 +45,11 @@
                             <tr id="${p.id}">
                                 <th scope="row">${p.id}</th>
                                 <td>
-                                    <a href="/PicAdmin?id=${p.id}">Hiện có ${p.pics.size()} ảnh</a>
+                                    <a href="PicAdmin?id=${p.id}">Hiện có ${p.pics.size()} ảnh</a>
                                 </td>
                                 <td>${p.name}</td>
                                 <td>
-                                    <a href="/WeightAdmin?id=${p.id}">Hiện có ${p.weights.size()} khối lượng</a>
+                                    <a href="WeightAdmin?id=${p.id}">Hiện có ${p.weights.size()} khối lượng</a>
                                     <c:if test="${!p.haveWeightOver()}">
                                         <span class="badge bg-success">Còn hàng</span>
                                     </c:if>
@@ -87,15 +87,15 @@
         </div>
     </div>
 </section>
-<script src="../bootstrap/js/jquery.min.js"></script>
+<script src="bootstrap/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/AdminWeb/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" charset="utf8" src="bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
     $("#table-id").DataTable();
 
     function removeP(id) {
         $.ajax({
-                url: "/RemoveProductAdmin",
+                url: "RemoveProductAdmin",
                 type: "get",
                 data: {
                     idP: id

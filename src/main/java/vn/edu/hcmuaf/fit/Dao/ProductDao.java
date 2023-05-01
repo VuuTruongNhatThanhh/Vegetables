@@ -412,7 +412,7 @@ public class ProductDao {
     public List<Product> getHot() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));
@@ -427,7 +427,7 @@ public class ProductDao {
     public List<Product> getHotSelect(int date) {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail JOIN bill ON bill_detail.id_bill = bill.id WHERE DATEDIFF(Date(NOW()),bill.date)<= ? GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC LIMIT 8");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail JOIN bill ON bill_detail.id_bill = bill.id WHERE DATEDIFF(Date(NOW()),bill.date)<= ? GROUP BY id_product HAVING sum(amount) > 5");
             ps.setInt(1, date);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -443,7 +443,7 @@ public class ProductDao {
     public List<Product> getHotAll() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5 ORDER BY amount DESC");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));

@@ -31,13 +31,13 @@ $('.input-qty').each(function () {
 
 function addCart(idP, idW, url) {
     var num = $(".input-qty").val();
-    window.location.href = "/AddCart?url=" + url + "&idP=" + idP + "&idW=" + idW + "&num=" + num;
+    window.location.href = "AddCart?url=" + url + "&idP=" + idP + "&idW=" + idW + "&num=" + num;
 }
 
 function loadMore(idP) {
     var amount = $(".comment").length
     $.ajax({
-        url: "/ReviewControl",
+        url: "ReviewControl",
         type: "get",
         data: {
             idP: idP,
@@ -57,7 +57,7 @@ function addReview(idP, idU) {
     var starVal = Number($(".star-check:checked").val());
     var mess = $("#message").val();
     $.ajax({
-        url: "/ReviewControl",
+        url: "ReviewControl",
         type: "post",
         data: {
             idP: idP,

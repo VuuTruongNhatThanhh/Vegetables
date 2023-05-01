@@ -31,16 +31,16 @@ public class UpdatePreferentialAdmin extends HttpServlet {
 
 
         if(request.getSession().getAttribute("auth")==null){
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
         if(per==2) {
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         if(per==1) {
-            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            response.sendRedirect("AdminWeb/errorAccessAdmin.jsp");
             return;
         }
 
@@ -64,6 +64,6 @@ public class UpdatePreferentialAdmin extends HttpServlet {
 
         DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý ưu đãi","Sửa mã ưu đãi: "+id+", giá tiền được giảm: " +price+", ngày bắt đầu: "+ dayStart+", ngày kết thúc: "+ dayEnd,0));
        PreferentialDao.getInstance().update(id, price, dayStart, dayEnd);
-        response.sendRedirect("/PreferentialAdmin");
+        response.sendRedirect("PreferentialAdmin");
     }
 }

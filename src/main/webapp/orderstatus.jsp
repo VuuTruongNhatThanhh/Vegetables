@@ -19,7 +19,7 @@
 <br>
 <div class="row">
     <div class="col-4 tab">
-        <a href="/UserProfile">
+        <a href="UserProfile">
             <button class="button">Thông tin cá nhân</button>
         </a>
         <a href="#">
@@ -59,7 +59,7 @@
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
-                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td><a href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
@@ -96,7 +96,7 @@
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
-                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td><a href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
@@ -130,7 +130,7 @@
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
-                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td><a href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
@@ -169,7 +169,7 @@
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
-                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td><a href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
@@ -204,7 +204,7 @@
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
-                                <td><a href="/BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                <td><a href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
                                 <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
                                 <td>${b.total} VND</td>
                                 <td>
@@ -233,7 +233,7 @@
 <script>
     function delivered(id, idU) {
         $.ajax({
-                url: "/DeliveredBill",
+                url: "DeliveredBill",
                 type: "get",
                 data: {
                     id: id,
@@ -253,7 +253,7 @@
 
     function remove(id, idU) {
         $.ajax({
-                url: "/RemoveBillUser",
+                url: "RemoveBillUser",
                 type: "get",
                 data: {
                     id: id,
@@ -268,7 +268,7 @@
     }
     function removee(id) {
         $.ajax({
-                url: "/RemoveBill",
+                url: "RemoveBill",
                 type: "get",
                 data: {
                     id: id

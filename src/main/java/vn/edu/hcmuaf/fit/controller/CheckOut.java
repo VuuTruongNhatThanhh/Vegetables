@@ -59,7 +59,7 @@ public class CheckOut extends HttpServlet {
         WeightDao.getInstance().updateAmount(cart.getListCartDetails());
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("item");
-        response.sendRedirect("/UserProfile");
+        response.sendRedirect("UserProfile");
     }
 
 }

@@ -174,13 +174,13 @@
                                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                                 <h5>Số lượng</h5>
                                                 <div class="buttons_added">
-                                                    <a href="/UpdateCart?num=-1&idP=${i.product.id}&idW=${i.weight.id}">
+                                                    <a href="UpdateCart?num=-1&idP=${i.product.id}&idW=${i.weight.id}">
                                                         <button class="minus is-form">-</button>
                                                     </a>
 
                                                     <input aria-label="quantity" class="input-qty" max="10"
                                                            min="1" name="" type="number" value="${i.quanity}">
-                                                    <a href="/UpdateCart?num=1&idP=${i.product.id}&idW=${i.weight.id}">
+                                                    <a href="UpdateCart?num=1&idP=${i.product.id}&idW=${i.weight.id}">
                                                         <button class="plus is-form">+</button>
                                                     </a>
 
@@ -193,7 +193,7 @@
                             <div class=" col-xs-12 col-sm-3 col-md-3 col-lg-3 item-2-1">
                                 <div class="price">${i.price} VND</div>
                                 <div class="status">Còn hàng</div>
-                                <a href="/RemoveItem?idP=${i.product.id}&idW=${i.weight.id}" class="button">
+                                <a href="RemoveItem?idP=${i.product.id}&idW=${i.weight.id}" class="button">
                                     <button class="btn btn-delete remove-product-in-cart"><i
                                             class="fa-solid fa-trash-can"></i></button>
                                 </a>
@@ -202,23 +202,23 @@
                     </c:forEach>
                 </div>
                 <c:if test="${size != 0}">
-                    <a href="/RemoveItem" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 title-3">
+                    <a href="RemoveItem" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 title-3">
                         <button class="btn btn-delall btn-clearAll">XÓA HẾT</button>
                     </a>
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 title-3">
-                        <a href="/ListProduct" class="btn btn-cont">QUAY LẠI MUA HÀNG</a>
+                        <a href="ListProduct" class="btn btn-cont">QUAY LẠI MUA HÀNG</a>
                     </div>
                 </c:if>
                 <c:if test="${size == 0}">
                     <h2 style="margin: auto">Không có gì trong giỏ hàng</h2>
                     <div style="margin: 0" class="col-xs-6 col-sm-6 col-md-6 col-lg-6 title-3">
-                        <a href="/ListProduct" class="btn btn-cont">QUAY LẠI MUA HÀNG</a>
+                        <a href="ListProduct" class="btn btn-cont">QUAY LẠI MUA HÀNG</a>
                     </div>
                 </c:if>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 cart-right">
-            <form method="post" action="/ShoppingCart">
+            <form method="post" action="ShoppingCart">
                 <ul class="list-group">
                     <li class="list-group-item title bold">ĐƠN HÀNG</li>
                     <li class="list-group-item divider"></li>
@@ -249,7 +249,7 @@
                         <span class="title-5-1 tempPrice bold">${sessionScope.cart.total < 0? 0.0:sessionScope.cart.total} VND</span>
                     </li>
                     <li class="list-group-item">
-                        <a href="/CheckOut" class="btn btn-cart to-checkout"> THANH TOÁN</a>
+                        <a href="CheckOut" class="btn btn-cart to-checkout"> THANH TOÁN</a>
                     </li>
                 </ul>
             </form>

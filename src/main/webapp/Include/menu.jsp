@@ -9,7 +9,7 @@
     </div>
     <ul class="menu-drop">
         <li class="menu-item">
-            <a href="/ListProduct">Tất cả</a>
+            <a href="ListProduct">Tất cả</a>
         </li>
         <%for (TypeProduct parent : TypeProductDao.getInstance().getParentType()) { %>
         <li class="menu-item">

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/AdminWeb/css/style.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/AdminWeb/css/home.css">
 </head>
@@ -27,14 +27,14 @@
             <div class="overview-boxes">
                 <div class="box">
                     <div class="right-side">
-                        <a href="/BillAdmin" style="color: black"><div class="box-topic">Tổng Đơn Hàng</div></a>
+                        <a href="BillAdmin" style="color: black"><div class="box-topic">Tổng Đơn Hàng</div></a>
                         <div class="number">${totalBill} đơn hàng</div>
                     </div>
                     <i class="fa-solid fa-cart-plus cart"></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                       <a href="/OutOfStockProduct" style="color: black"> <div class="box-topic">Hết Hàng</div></a>
+                       <a href="OutOfStockProduct" style="color: black"> <div class="box-topic">Hết Hàng</div></a>
                         <div class="number">${sold} sản phẩm</div>
                     </div>
                     <i class="fa-solid fa-xmark cart two"></i>
@@ -83,11 +83,11 @@
                     </table>
                 </div>
                 <div class="button">
-                    <a href="/BillAdmin">Xem tất cả</a>
+                    <a href="BillAdmin">Xem tất cả</a>
                 </div>
             </div>
             <div class="top-sales box">
-                <a href="/HotProductAdmin" style="color: black"><div class="title">Sản Phẩm Bán Chạy</div></a>
+                <a href="HotProductAdmin" style="color: black"><div class="title">Sản Phẩm Bán Chạy</div></a>
                 <ul class="top-sales-details">
                     <c:forEach items="${hot}" begin="0" end="6" var="hot">
                         <li>
@@ -103,10 +103,10 @@
         </div>
     </div>
 </section>
-<script src="../bootstrap/js/jquery.min.js"></script>
-<script src="../AdminWeb/js/jquery.dataTables.js"></script>
+<script src="bootstrap/js/jquery.min.js"></script>
+<script src="AdminWeb/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../AdminWeb/js/main.js"></script>
+<script src="AdminWeb/js/main.js"></script>
 <script>
     document.getElementById('select').addEventListener('change', function () {
         val = $("#select").val();

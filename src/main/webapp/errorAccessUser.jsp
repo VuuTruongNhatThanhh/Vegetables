@@ -67,7 +67,7 @@
 <%--                        <p>+Quản lý sản phẩm, loại sản phẩm</p>--%>
 <%--                        <p>+Quản lý đơn hàng, bình luận, tin tức, liên hệ</p>--%>
 
-                        <a href="/LoadControl" class="link_404">Trở về trang chủ</a>
+                        <a href="LoadControl" class="link_404">Trở về trang chủ</a>
                     </div>
                 </div>
             </div>

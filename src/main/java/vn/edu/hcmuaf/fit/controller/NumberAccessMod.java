@@ -32,7 +32,7 @@ public class NumberAccessMod extends HttpServlet {
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
 
         if(per==2) {
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
 

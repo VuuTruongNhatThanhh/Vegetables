@@ -30,7 +30,7 @@ public class Logout extends HttpServlet {
             session.removeAttribute("cart");
             session.removeAttribute("items");
 
-            response.sendRedirect("/LoadControl");
+            response.sendRedirect("LoadControl");
 
         } finally {
             out.close();

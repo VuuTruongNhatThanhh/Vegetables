@@ -22,10 +22,10 @@
 <br>
 <div class="tabtab">
     <div class="tab">
-        <a href="/UserProfile">
+        <a href="UserProfile">
             <button class="button">Thông tin cá nhân</button>
         </a>
-        <a href="/OderStatus">
+        <a href="OderStatus">
             <button class="button">Tình trạng đơn hàng</button>
         </a>
         <a href="changepassword.jsp">

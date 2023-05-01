@@ -34,16 +34,16 @@ public class UpdatePermissAdmin extends HttpServlet {
 
 
         if(request.getSession().getAttribute("auth")==null){
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
         if(per==2) {
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         if(per==1) {
-            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            response.sendRedirect("AdminWeb/errorAccessAdmin.jsp");
             return;
         }
 
@@ -68,6 +68,6 @@ public class UpdatePermissAdmin extends HttpServlet {
 
         DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Thăng / hạ quyền tài khoản","Đã thay đổi quyền tài khoản. Mã tài khoản: "+u_id+", vị trí: "+nameRs+", quyền hạn: "+permissionDao.getInstance().getNamePer(per),0));
         permissionDao.getInstance().update(id,per);
-        response.sendRedirect("/LevelUpUser");
+        response.sendRedirect("LevelUpUser");
     }
 }

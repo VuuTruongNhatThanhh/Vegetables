@@ -48,7 +48,7 @@ public class ShoppingCart extends HttpServlet {
         if (p == null) {
             error = "Mã sử dụng không đúng";
             User uu = (User) request.getSession().getAttribute("auth");
-            DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"DISCOUNT CODE","Khách hàng nhập mã ưu đãi không đúng",0));
+            DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Nhập mã ưu đãi","Khách hàng nhập mã ưu đãi không đúng",0));
         } else {
             if (cart != null) {
                 Date now = new Date(System.currentTimeMillis());
@@ -56,18 +56,18 @@ public class ShoppingCart extends HttpServlet {
                     cart.setSale(p.getMoney());
                     error = "";
                     User uu = (User) request.getSession().getAttribute("auth");
-                    DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"DISCOUNT CODE","Khách hàng nhập mã ưu đãi thành công",0));
+                    DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Nhập mã ưu đãi","Khách hàng nhập mã ưu đãi thành công",0));
                 } else {
                     error = "Mã ưu đãi đã hết hạn";
                     User uu = (User) request.getSession().getAttribute("auth");
-                    DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"DISCOUNT CODE","Khách hàng nhập mã ưu đãi bị hết hạn",0));
+                    DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Nhập mã ưu đãi","Khách hàng nhập mã ưu đãi bị hết hạn",0));
                 }
             } else {
                 error = "Bạn phải mua hàng mới được sử dụng";
                 User uu = (User) request.getSession().getAttribute("auth");
-                DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"DISCOUNT CODE","Khách hàng chưa mua hàng nên không nhập được mã ưu đãi",0));
+                DB.me().insert(new Log(Log.INFO,uu.getId(),ipAddress,"Nhập mã ưu đãi","Khách hàng chưa mua hàng nên không nhập được mã ưu đãi",0));
             }
         }
-        response.sendRedirect("/ShoppingCart");
+        response.sendRedirect("ShoppingCart");
     }
 }

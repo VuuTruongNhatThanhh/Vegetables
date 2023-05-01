@@ -27,10 +27,10 @@
 <br>
 <div class="tabtab">
     <div class="tab">
-        <a href="/UserProfile">
+        <a href="UserProfile">
             <button class="button">Thông tin cá nhân</button>
         </a>
-        <a href="/OderStatus">
+        <a href="OderStatus">
             <button class="button">Tình trạng đơn hàng</button>
         </a>
         <a href="#">
@@ -48,7 +48,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="post" action="/ChangePass">
+                        <form method="post" action="ChangePass">
                             <div class="form-group row">
                                 <label class="col-4 col-form-label">Mật khẩu hiện tại</label>
                                 <div class="col-8">

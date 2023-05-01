@@ -113,7 +113,7 @@ public class Product {
     }
 
     public String getPicture(int i) {
-        return "/" + this.pics.get(i).getUrl();
+        return  this.pics.get(i).getUrl();
     }
 
     public double priceDiscount(int i) {

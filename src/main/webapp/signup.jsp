@@ -92,7 +92,7 @@
 %>
 <div class="main">
     <div class="container b-container" id="b-container">
-        <form name="myForm" class="form" id="b-form" method="post" action="/SignUp">
+        <form name="myForm" class="form" id="b-form" method="post" action="SignUp">
             <h2 class="form_title title">Tạo tài khoản</h2>
 <%--            <div class="form__icons"><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">--%>
 <%--            </fb:login-button></div>--%>

@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../AdminWeb/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../fontawesome-free-6.2.0-web/css/all.min.css">
-    <link rel="stylesheet" href="../AdminWeb/css/style.css">
-    <link rel="stylesheet" href="../AdminWeb/css/product.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="AdminWeb/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="AdminWeb/css/style.css">
+    <link rel="stylesheet" href="AdminWeb/css/product.css">
 </head>
 <body>
 <%@include file="include/menu.jsp" %>
@@ -16,11 +16,11 @@
     <div class="home-content">
         <div class="manager-product">
             <div class="title">Danh sách sản phẩm bán chạy</div>
-            <div><a href="/HotProductDay">Sản phẩm bán chạy trong ngày</a></div>
+            <div><a href="HotProductDay">Sản phẩm bán chạy trong ngày</a></div>
 
-            <div><a href="/HotProductWeek">Sản phẩm bán chạy trong tuần</a></div>
+            <div><a href="HotProductWeek">Sản phẩm bán chạy trong tuần</a></div>
 
-            <div><a href="/HotProductYear">Sản phẩm bán chạy trong tháng</a></div>
+            <div><a href="HotProductYear">Sản phẩm bán chạy trong tháng</a></div>
 
 <%--            <div><a href="/NumberAccessMod">Biểu đồ và thông báo </a></div>--%>
 
@@ -30,15 +30,15 @@
     </div>
 </section>
 
-<script src="../bootstrap/js/jquery.min.js"></script>
+<script src="bootstrap/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/AdminWeb/js/jquery.dataTables.js"></script>
-<script type="text/javascript" charset="utf8" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" charset="utf8" src="bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
     $("#table-id").DataTable();
 
     function removeP(id) {
         $.ajax({
-                url: "/RemoveTypeAdmin",
+                url: "RemoveTypeAdmin",
                 type: "get",
                 data: {
                     idP: id

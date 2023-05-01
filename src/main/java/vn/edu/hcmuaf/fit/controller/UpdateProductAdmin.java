@@ -33,16 +33,16 @@ public class UpdateProductAdmin extends HttpServlet {
         request.setAttribute("title", "Sửa sản phẩm");
 
         if(request.getSession().getAttribute("auth")==null){
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
         if(per==2) {
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         if(per==1) {
-            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            response.sendRedirect("AdminWeb/errorAccessAdmin.jsp");
             return;
         }
 
@@ -66,6 +66,6 @@ public class UpdateProductAdmin extends HttpServlet {
         String dicription = request.getParameter("dicription_product");
         ProductDao.getInstance().update(id, name, discount, dicription, idType);
         DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý sản phẩm","Sửa thông tin sản phẩm: "+name+", loại sản phẩm: "+ProductDao.getInstance().selectTypeName(idType)+", giảm giá: "+dis+", mô tả: "+dicription,0));
-        response.sendRedirect("/ProductAdmin");
+        response.sendRedirect("ProductAdmin");
     }
 }

@@ -140,7 +140,7 @@
                                                end="${(i - 1) * 4 + 4}">
                                         <div class="col-lg-3 ftco-animate">
                                             <div class="product">
-                                                <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
+                                                <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
                                                    class="img-prod"><img class="img-fluid"
                                                                          src="${p.getPicture(0)}"
                                                                          alt="Colorlib Template">
@@ -149,7 +149,7 @@
                                                 </a>
                                                 <div class="text py-3 pb-4 px-3 text-center">
                                                     <h3>
-                                                        <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
+                                                        <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
                                                     </h3>
                                                     <div class="d-flex">
                                                         <div class="pricing">
@@ -167,7 +167,7 @@
                                                     <div class="bottom-area d-flex px-3">
                                                         <div class="m-auto d-flex">
                                                             <c:if test="${p.getAmountWeight(0) != 0}">
-                                                                <a href="/AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
+                                                                <a href="AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
                                                                    class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                                     <span><i class="ion-ios-cart"></i></span>
                                                                 </a>
@@ -219,7 +219,7 @@
         </c:if>
         <c:if test="${auth != null}">
             <h3 class="mb-5">Để lại đánh giá của bạn</h3>
-            <form method="post" action="/ReviewControl?url=<%=url%>&idP=${idP}" class="p-5 bg-light boxcomment">
+            <form method="post" action="ReviewControl?url=<%=url%>&idP=${idP}" class="p-5 bg-light boxcomment">
                 <div class="vcard bio">
                     <i class="fa-solid fa-user"></i>
                 </div>
@@ -320,6 +320,12 @@
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/productdetail.js"></script>
 <script src="js/main.js"></script>
+<script>
+    function addCart(idP, idW, url) {
+        var num = $(".input-qty").val();
+        window.location.href = "AddCart?url=" + url + "&idP=" + idP + "&idW=" + idW + "&num=" + num;
+    }
+</script>
 
 </body>
 </html>

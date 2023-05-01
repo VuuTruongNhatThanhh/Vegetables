@@ -40,7 +40,7 @@ public class updateInfoUser extends HttpServlet {
 
         ShipmentDetailDao.getInstance().update(uu.getId(), name,phone,province,district,ward,address);
 //            ShipmentDetailDao.getInstance().addDB(name,id,province,district,ward,address, uu.getId());
-        response.sendRedirect("/UserProfile");
+        response.sendRedirect("UserProfile");
 
     }
 }

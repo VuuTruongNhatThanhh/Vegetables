@@ -28,16 +28,16 @@ public class RemoveUserAdmin extends HttpServlet {
 
 
         if(request.getSession().getAttribute("auth")==null){
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
         int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
         if(per==1) {
-            response.sendRedirect("/AdminWeb/errorAccessAdmin.jsp");
+            response.sendRedirect("AdminWeb/errorAccessAdmin.jsp");
             return;
         }
         if(per==2) {
-            response.sendRedirect("/errorAccessUser.jsp");
+            response.sendRedirect("errorAccessUser.jsp");
             return;
         }
 

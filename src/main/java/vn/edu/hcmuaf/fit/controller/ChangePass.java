@@ -40,20 +40,20 @@ public class ChangePass extends HttpServlet {
             String ms="Mật khẩu cũ không đúng";
             request.setAttribute("ms", ms);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"CHANGE PASS","Nhập lại mật khẩu cũ không đúng",0));
+            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Đổi mật khẩu","Nhập lại mật khẩu cũ không đúng",0));
         } else if(currentpass != null && newpass != null && newpass.equals(confpass)) {
             String ms="Đổi mật khẩu thành công";
             request.setAttribute("ms", ms);
             newpass = SHA1.hashPassword(newpass);
             ud.changePassword(id, newpass);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"CHANGE PASS","Đổi mật khẩu thành công",0));
+            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Đổi mật khẩu","Đổi mật khẩu thành công",0));
             response.sendRedirect("changepassword.jsp");
         }else {
             String ms="Mật khẩu không trùng khớp";
             request.setAttribute("ms", ms);
             request.getRequestDispatcher("changepassword.jsp").forward(request, response);
-            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"CHANGE PASS","Mật khẩu nhập lại không trùng khớp",0));
+            DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Đổi mật khẩu","Mật khẩu nhập lại không trùng khớp",0));
         }
     }
 }

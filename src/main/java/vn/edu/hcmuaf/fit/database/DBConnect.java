@@ -5,9 +5,9 @@ import java.sql.*;
 public class DBConnect {
     private static DBConnect install;
     private static DBConnect instance;
-    private static String DB_URL = "jdbc:mysql://localhost:3306/vegetables";
+    private static String DB_URL = "jdbc:mysql://192.168.0.100:3306/vegetables";
     private static String USER = "root";
-    private static String PASS = "";
+    private static String PASS = "12345";
 
     private Connection connection;
 

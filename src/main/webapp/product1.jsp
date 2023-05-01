@@ -47,7 +47,7 @@
                         <c:forEach items="${discounts}" var="p" begin="${(i == 1)?1:((i-1) * 2)+1}"
                                    end="${(i - 1) * 2 + 2}">
                             <div class="product">
-                                <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
+                                <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
                                    class="img-prod"><img class="img-fluid"
                                                          src="${p.getPicture(0)}"
                                                          alt="Colorlib Template">
@@ -56,7 +56,7 @@
                                 </a>
                                 <div class="text py-3 pb-4 px-3 text-center">
                                     <h3>
-                                        <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
+                                        <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
                                     </h3>
                                     <div class="d-flex">
                                         <div class="pricing">
@@ -74,7 +74,7 @@
                                     <div class="bottom-area d-flex px-3">
                                         <div class="m-auto d-flex">
                                             <c:if test="${p.getAmountWeight(0) != 0}">
-                                                <a href="/AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
+                                                <a href="AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
                                                    class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                     <span><i class="ion-ios-cart"></i></span>
                                                 </a>
@@ -156,7 +156,7 @@
                                     <div class="bottom-area d-flex px-3">
                                         <div class="m-auto d-flex">
                                             <%if (o.getWeights().get(0).getCount() != 0) {%>
-                                            <a href="/AddCart?url=<%=url%>&idP=<%=o.getId()%>&idW=<%=o.getWeights().get(0).getId()%>"
+                                            <a href="AddCart?url=<%=url%>&idP=<%=o.getId()%>&idW=<%=o.getWeights().get(0).getId()%>"
                                                class="buy-now d-flex justify-content-center align-items-center mx-1">
                                                 <span><i class="ion-ios-cart"></i></span>
                                             </a>
@@ -180,11 +180,11 @@
             <div class="product__pagination container">
                 <c:forEach begin="1" end="${endp}" var="i">
                     <c:if test="${type == null}">
-                        <a class="${tag == i ?"active" : ""}" href="/ListProduct?page=${i}${sort}">${i}</a>
+                        <a class="${tag == i ?"active" : ""}" href="ListProduct?page=${i}${sort}">${i}</a>
                     </c:if>
                     <c:if test="${type != null}">
                         <a class="${tag == i ?"active" : ""}"
-                           href="/ListProduct?page=${i}&type=${type}${sort}">${i}</a>
+                           href="ListProduct?page=${i}&type=${type}${sort}">${i}</a>
                     </c:if>
                 </c:forEach>
                 <%--     <a href="#" tabindex="+1"><i class="fa fa-long-arrow-right"></i></a>--%>

@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-lg-3 mt-2">
                     <div class="header-logo">
-                        <a href="/LoadControl"><img src="../images/logo.png" alt style="margin-left: 50px"></a>
+                        <a href="LoadControl"><img src="images/logo.png" alt style="margin-left: 50px"></a>
                     </div>
                 </div>
                 <div class="col-lg-4 mt-2">
@@ -49,7 +49,7 @@
                             <div class="head-avt">
                                 <ul>
 
-                                    <li><a href="/UserProfile">Xin chào ${auth.name}</a></li>
+                                    <li><a href="UserProfile">Xin chào ${auth.name}</a></li>
 
 
 
@@ -57,7 +57,7 @@
                                 </ul>
                             </div>
                         </c:if>
-                        <a href="/ShoppingCart" class="cart">
+                        <a href="ShoppingCart" class="cart">
                             <ul style="">
                                 <li><i class="fa-solid fa-cart-shopping"></i></li>
                                 <li>GIỎ HÀNG</li>
@@ -103,10 +103,10 @@
                                     <li style="margin-left:-15px;margin-right:-15px;">
                                         <div class="actions">
                                             <button class="btn-checkout" type="button"
-                                                    onclick="window.location.href='/CheckOut'">
+                                                    onclick="window.location.href='CheckOut'">
                                                 <span>Thanh toán</span></button>
                                             <button class="view-cart" type="button"
-                                                    onclick="window.location.href='/ShoppingCart'"><span>Giỏ hàng</span>
+                                                    onclick="window.location.href='ShoppingCart'"><span>Giỏ hàng</span>
                                             </button>
                                         </div>
                                     </li>
@@ -128,14 +128,14 @@
                         <div class="collapse navbar-collapse " id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/LoadControl">Trang chủ <span
+                                    <a class="nav-link" href="LoadControl">Trang chủ <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="aboutus.jsp">Giới thiệu</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/ListProduct">Cửa hàng</a>
+                                    <a class="nav-link" href="ListProduct">Cửa hàng</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="news.jsp">Tin tức thực phẩm</a>

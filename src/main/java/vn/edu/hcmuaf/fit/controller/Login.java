@@ -38,7 +38,7 @@ public class Login extends HttpServlet {
         if (user == null || email == null || pass == null) {
             request.setAttribute("error", "Thông tin đăng nhập không chính xác");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-            DB.me().insert(new Log(Log.INFO,null,ipAddress,"LOGIN FAILED","Login failed: \n Email: " +email.toString(),0));
+            DB.me().insert(new Log(Log.INFO,null,ipAddress,"Đăng nhập thất bại","Đăng nhập thất bại: \n email: " +email.toString(),0));
         }
         else {
             HttpSession session = request.getSession(true);
@@ -49,11 +49,11 @@ public class Login extends HttpServlet {
                 response.sendRedirect(url);
             } else {
                 if (user.getRoleId() < 2) {
-                    response.sendRedirect("/StatisticalAdmin");
-                    DB.me().insert(new Log(Log.ALERT,null,ipAddress,"LOGIN","Đăng nhập vào admin thành công: Email: "+email.toString(),0));
+                    response.sendRedirect("StatisticalAdmin");
+                    DB.me().insert(new Log(Log.ALERT,null,ipAddress,"Đăng nhập","Đăng nhập vào admin thành công: Email: "+email.toString(),0));
                 } else {
-                    response.sendRedirect("/LoadControl");
-                    DB.me().insert(new Log(Log.INFO,null,ipAddress,"LOGIN","Đăng nhập vào user thành công: Email: "+email.toString(),0));
+                    response.sendRedirect("LoadControl");
+                    DB.me().insert(new Log(Log.INFO,null,ipAddress,"Đăng nhập","Đăng nhập vào user thành công: Email: "+email.toString(),0));
                 }
             }
         }

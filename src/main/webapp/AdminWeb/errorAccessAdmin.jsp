@@ -64,7 +64,7 @@
 
 
 
-                        <a href="/StatisticalAdmin" class="link_404">Trở về trang chính</a>
+<%--                        <a href="StatisticalAdmin" class="link_404">Trở về trang chính</a>--%>
                     </div>
                 </div>
             </div>

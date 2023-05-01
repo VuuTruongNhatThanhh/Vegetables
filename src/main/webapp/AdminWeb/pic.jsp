@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Quản lý</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="../fontawesome-free-6.2.0-web/css/all.min.css">
-    <link rel="stylesheet" href="../AdminWeb/css/style.css">
-    <link rel="stylesheet" href="../AdminWeb/css/product.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
+    <link rel="stylesheet" href="AdminWeb/css/style.css">
+    <link rel="stylesheet" href="AdminWeb/css/product.css">
 </head>
 <body>
 <%@include file="include/menu.jsp" %>
@@ -24,7 +24,7 @@
                 <div class="col-md-12">
                     <div class="row element-button">
                         <div class="col-sm-2">
-                            <a class="btn btn-add btn-sm" href="/AddPicAdmin?id=${id}" title="Thêm">
+                            <a class="btn btn-add btn-sm" href="AddPicAdmin?id=${id}" title="Thêm">
                                 <i class="fas fa-plus"></i>
                                 Thêm ảnh</a>
                         </div>
@@ -62,13 +62,13 @@
         </div>
     </div>
 </section>
-<script src="../bootstrap/js/jquery.min.js"></script>
-<script type="text/javascript" charset="utf8" src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
 
     function removeP(id) {
         $.ajax({
-                url: "/RemovePicAdmin",
+                url: "RemovePicAdmin",
                 type: "get",
                 data: {
                     idP: id

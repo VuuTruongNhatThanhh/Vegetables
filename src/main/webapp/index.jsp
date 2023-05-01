@@ -68,7 +68,7 @@
             <c:forEach items="${listH}" var="p">
                 <div class="col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
+                        <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
@@ -77,7 +77,7 @@
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
                             <h3>
-                                <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
+                                <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
                             </h3>
                             <div class="d-flex">
                                 <div class="pricing">
@@ -95,7 +95,7 @@
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
                                     <c:if test="${p.getAmountWeight(0) != 0}">
-                                        <a href="/AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
+                                        <a href="AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
                                            class="buy-now d-flex justify-content-center align-items-center mx-1">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>
@@ -124,7 +124,7 @@
         <div class="row justify-content-center mb-3 pb-3">
             <div class="col-md-12 heading-section text-center ftco-animate">
                 <%--                <span class="subheading">Featured Products</span>--%>
-                <h2 class="mb-4"><a style="color: black" href="/DiscountControl">Ưu đãi</a></h2>
+                <h2 class="mb-4"><a style="color: black" href="DiscountControl">Ưu đãi</a></h2>
                 <%--                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia</p>--%>
             </div>
         </div>
@@ -134,7 +134,7 @@
             <c:forEach items="${listD}" var="p">
                 <div class="col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
+                        <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
@@ -143,7 +143,7 @@
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
                             <h3>
-                                <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
+                                <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
                             </h3>
                             <div class="d-flex">
                                 <div class="pricing">
@@ -161,7 +161,7 @@
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
                                     <c:if test="${p.getAmountWeight(0) != 0}">
-                                        <a href="/AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
+                                        <a href="AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
                                            class="buy-now d-flex justify-content-center align-items-center mx-1">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>
@@ -202,7 +202,7 @@
             <c:forEach items="${listL}" var="p">
                 <div class="col-lg-3 ftco-animate">
                     <div class="product">
-                        <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
+                        <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"
                            class="img-prod"><img class="img-fluid"
                                                  src="${p.getPicture(0)}"
                                                  alt="Colorlib Template">
@@ -211,7 +211,7 @@
                         </a>
                         <div class="text py-3 pb-4 px-3 text-center">
                             <h3>
-                                <a href="/detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
+                                <a href="detail?pid=${p.id}&idW=${p.getIdWeight(0)}"></a>${p.name}
                             </h3>
                             <div class="d-flex">
                                 <div class="pricing">
@@ -229,7 +229,7 @@
                             <div class="bottom-area d-flex px-3">
                                 <div class="m-auto d-flex">
                                     <c:if test="${p.getAmountWeight(0) != 0}">
-                                        <a href="/AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
+                                        <a href="AddCart?url=<%=url%>&idP=${p.id}&idW=${p.getIdWeight(0)}"
                                            class="buy-now d-flex justify-content-center align-items-center mx-1">
                                             <span><i class="ion-ios-cart"></i></span>
                                         </a>

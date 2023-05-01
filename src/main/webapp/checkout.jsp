@@ -17,12 +17,12 @@
                 <div class="form-login-toggle">
                     <div class="woocommerce-info message-wrapper">
                         <div class="message-container container medium-text-center"> Bạn đã có tài khoản?
-                            <a href="/Login?url=<%=url%>" class="showlogin">Ấn vào đây để đăng nhập</a>
+                            <a href="Login?url=<%=url%>" class="showlogin">Ấn vào đây để đăng nhập</a>
                         </div>
                     </div>
                 </div>
             </c:if>
-            <form method="post" action="/CheckOut" name="checkout" class="checkout woocommerce-checkout"
+            <form method="post" action="CheckOut" name="checkout" class="checkout woocommerce-checkout"
                   novalidate="novalidate">
                 <div class="row pt-0">
                     <div class="col-xl-7">
