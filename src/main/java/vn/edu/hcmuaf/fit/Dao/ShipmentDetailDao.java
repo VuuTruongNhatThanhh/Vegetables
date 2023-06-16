@@ -66,10 +66,10 @@ public class ShipmentDetailDao {
         return "TT" + (id + 2);
     }
 
-    public String addDB(String name, String phone, String province, String district, String ward, String address, String idU) {
+    public String addDB(String name, String phone, String province, String district, String ward, String address, String idU, String provinceID, String districtID, String wardID) {
         String id = getNewId();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO info_deliver (id,info_deliver.`name`,phone, province, district, ward, address, info_deliver.`use`,id_user) VALUES(?,?,?,?,?,?,?,0,?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO info_deliver (id,info_deliver.`name`,phone, province, district, ward, address, info_deliver.`use`,id_user, provinceID, districtID, wardID) VALUES(?,?,?,?,?,?,?,0,?,?,?,?)");
             ps.setString(1, id);
             ps.setString(2, name);
             ps.setString(3, phone);
@@ -78,6 +78,9 @@ public class ShipmentDetailDao {
             ps.setString(6, ward);
             ps.setString(7, address);
             ps.setString(8, idU);
+            ps.setString(9, provinceID);
+            ps.setString(10, districtID);
+            ps.setString(11, wardID);
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -250,6 +253,60 @@ public class ShipmentDetailDao {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public String getProvinceID(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.`provinceID` FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String getDistrictID(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.`districtID` FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public String getWardID(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("SELECT info_deliver.`wardID` FROM info_deliver JOIN bill ON info_deliver.id = bill.id_info WHERE bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
 

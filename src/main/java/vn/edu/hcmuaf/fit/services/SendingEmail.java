@@ -15,7 +15,7 @@ public class SendingEmail {
     }
     public void sendMail(){
         String email ="nhatthanh28012002@gmail.com";
-        String pword = "zwlaajyiymdbsehu";
+        String pword = "uzzwlelsyrgfzyae";
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
@@ -34,7 +34,7 @@ public class SendingEmail {
             message.setFrom(new InternetAddress(email));// change accordingly
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Vertification link");
-            message.setText("Your varification link:"+"http://192.168.0.100/lab/ActivateAccount?key1="+ userEmail+"&key2="+hash);
+            message.setText("Your varification link:"+"http://192.168.1.100/lab/ActivateAccount?key1="+ userEmail+"&key2="+hash);
             // send message
             Transport.send(message);
             System.out.println("message sent successfully");

@@ -225,7 +225,11 @@
     </div>
 </div>
 </div>
-<%@include file="Include/footer.jsp" %>
+
+
+<div style="">
+    <%@include file="Include/footer.jsp" %>
+</div>
 <script src="bootstrap/js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <script src="js/main.js"></script>
@@ -246,7 +250,6 @@
                 }
 
             }
-
         )
 
     }
@@ -266,6 +269,7 @@
             }
         )
     }
+
     function removee(id) {
         $.ajax({
                 url: "RemoveBill",

@@ -9,6 +9,23 @@ public class ShipmentDetails {
     private String ward;
     private String address;
     private String idUser;
+    private String provinceID;
+    private String districtID;
+    private String wardID;
+
+    public ShipmentDetails(String id, String name, String phoneNumber, String province, String district, String ward, String address, String idUser, String provinceID, String districtID, String wardID) {
+        this.id = id;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.province = province;
+        this.district = district;
+        this.ward = ward;
+        this.address = address;
+        this.idUser = idUser;
+        this.provinceID = provinceID;
+        this.districtID = districtID;
+        this.wardID = wardID;
+    }
 
     public ShipmentDetails(String id, String name, String phoneNumber, String province, String district, String ward, String address, String idUser) {
         this.id = id;
@@ -19,6 +36,30 @@ public class ShipmentDetails {
         this.ward = ward;
         this.address = address;
         this.idUser = idUser;
+    }
+
+    public String getProvinceID() {
+        return provinceID;
+    }
+
+    public void setProvinceID(String provinceID) {
+        this.provinceID = provinceID;
+    }
+
+    public String getDistrictID() {
+        return districtID;
+    }
+
+    public void setDistrictID(String districtID) {
+        this.districtID = districtID;
+    }
+
+    public String getWardID() {
+        return wardID;
+    }
+
+    public void setWardID(String wardID) {
+        this.wardID = wardID;
     }
 
     public String getId() {

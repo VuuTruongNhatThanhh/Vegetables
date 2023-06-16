@@ -77,30 +77,48 @@
                                         </p>
                                         <p class="form-row-first address-field update_totals_on_change validate-required"
                                            id="billing_state_field" data-priority="30">
-                                            <label for="city" class="">Tỉnh/Thành phố
+                                            <%--                                            <label for="city" class="">Tỉnh/Thành phố--%>
+                                            <%--                                                <abbr class="required" title="bắt buộc">*</abbr>--%>
+                                            <%--                                            </label>--%>
+                                            <label for="province" class="">Tỉnh/Thành phố
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-<%--                                            <span class="woocommerce-input-wrapper">--%>
-<%--                                                 <input type="text" class="input-text " name="province"--%>
-<%--                                                        id="billing_province" placeholder="ví dụ: Hồ Chí Minh"--%>
-<%--                                                        value="${shipment == null?"":shipment.province}">--%>
-<%--                                            </span>--%>
-                                            <select id="city" required="" class="form-control here"
+                                            <%--                                            <span class="woocommerce-input-wrapper">--%>
+                                            <%--                                                 <input type="text" class="input-text " name="province"--%>
+                                            <%--                                                        id="billing_province" placeholder="ví dụ: Hồ Chí Minh"--%>
+                                            <%--                                                        value="${shipment == null?"":shipment.province}">--%>
+                                            <%--                                            </span>--%>
+
+
+                                            <%--                                            <select id="city" required="" class="form-control here"--%>
+                                            <%--                                                    style="width: 300px" onchange="update()">--%>
+                                            <%--                                                <option value="" >${shipment == null?"Tỉnh/Thành phố":shipment.province}</option>--%>
+                                            <%--                                            </select>--%>
+
+                                            <select id="province" name="province" required="" class="form-control here"
                                                     style="width: 300px" onchange="update()">
-                                                <option value="" >${shipment == null?"Tỉnh/Thành phố":shipment.province}</option>
+                                                <%--                                                <option value="">${shipment == null?"Tỉnh/Thành phố":shipment.province}</option>--%>
+                                                <c:forEach items="${listProvinces}" var="item">
+                                                    <option value="${item.id}">${item.name}</option>
+                                                </c:forEach>
                                             </select>
                                         </p>
                                         <p class="form-row-last address-field update_totals_on_change validate-required validate-required"
                                            id="billing_city_field" data-priority="40">
-                                            <label for="dist" class="">Quận/Huyện
+                                            <%--                                            <label for="dist" class="">Quận/Huyện--%>
+                                            <%--                                                <abbr class="required" title="bắt buộc">*</abbr>--%>
+                                            <%--                                            </label>--%>
+
+                                            <label for="district" class="">Quận/Huyện
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-<%--                                            <input type="text" class="input-text " name="district"--%>
-<%--                                                   id="billing_district" placeholder="ví dụ: Quận 9"--%>
-<%--                                                   value="${shipment == null?"":shipment.district}">--%>
-                                            <select id="dist" required="" class="form-control here"
+                                            <%--                                            <input type="text" class="input-text " name="district"--%>
+                                            <%--                                                   id="billing_district" placeholder="ví dụ: Quận 9"--%>
+                                            <%--                                                   value="${shipment == null?"":shipment.district}">--%>
+                                            <select id="district" name="district" required="" class="form-control here"
                                                     style="width: 300px" onchange="update()">
-                                                <option value="">${shipment == null?"Quận/Huyện":shipment.district}</option>
+                                                <%--                                                <option value="">${shipment == null?"Quận/Huyện":shipment.district}</option>--%>
+                                                <option value="">Chọn quận/huyện</option>
                                             </select>
                                         </p>
                                         <p class="form-row-first address-field update_totals_on_change validate-required validate-required"
@@ -108,12 +126,13 @@
                                             <label for="ward" class="">Xã/Phường
                                                 <abbr class="required" title="bắt buộc">*</abbr>
                                             </label>
-<%--                                            <input type="text" class="input-text " name="ward"--%>
-<%--                                                   id="billing_ward" placeholder="ví dụ: Tăng Nhơn Phú A"--%>
-<%--                                                   value="${shipment == null?"":shipment.ward}">--%>
-                                            <select id="ward" required="" class="form-control here"
+                                            <%--                                            <input type="text" class="input-text " name="ward"--%>
+                                            <%--                                                   id="billing_ward" placeholder="ví dụ: Tăng Nhơn Phú A"--%>
+                                            <%--                                                   value="${shipment == null?"":shipment.ward}">--%>
+                                            <select id="ward" name="ward" required="" class="form-control here"
                                                     style="width: 300px" onchange="update()">
-                                                <option value="">${shipment == null?"Xã/Phường":shipment.ward}</option>
+                                                <%--                                                <option value="">${shipment == null?"Xã/Phường":shipment.ward}</option>--%>
+                                                <option value="">Chọn xã/phường</option>
                                             </select>
                                         </p>
                                         <p class="form-row-last validate-required" id="billing_address_1_field"
@@ -124,14 +143,24 @@
                                             <span class="woocommerce-input-wrapper">
                                                 <input type="text" class="input-text " name="address"
                                                        id="billing_address_1" placeholder="Ví dụ: 7/56 Đường 182"
-                                                       value="${shipment == null?"":shipment.address}"
+                                                       value=""
                                                        autocomplete="address-line1">
                                             </span>
                                         </p>
+<%--                                        name address--%>
+                                        <input class="p" name="province-value" type="hidden" value="${shipment.province}"
+                                               id="province-value">
+                                        <input class="d" name="district-value" type="hidden" value="${shipment.district}"
+                                               id="district-value">
+                                        <input class="w" name="ward-value" type="hidden" value="${shipment.ward}" id="ward-value">
 
-                                        <input class="p" name="province" type="hidden" value="${shipment.province}" id="text1">
-                                        <input class="d" name="district" type="hidden" value="${shipment.district}" id="text2">
-                                        <input class="w" name="ward" type="hidden" value="${shipment.ward}" id="text3">
+<%--                                        id adress--%>
+                                        <input class="p" name="province" type="hidden" value="${shipment.province}"
+                                               id="province-value">
+                                        <input class="d" name="district" type="hidden" value="${shipment.district}"
+                                               id="district-value">
+                                        <input class="w" name="ward" type="hidden" value="${shipment.ward}" id="ward-value">
+
 
                                     </div>
                                 </div>
@@ -205,10 +234,17 @@
                                                                            class="shipping_method">
                                                                     <label class="shipping__list_label"
                                                                            for="shipping_method_0_local_pickup7">
-                                                                        Hiện tại chỉ giao trên TP.HCM:
+
                                                                         <span class="woocommerce-Price-amount amount">
-                                                                            <bdi>15000.0
-                                                                                <span class="woocommerce-Price-currencySymbol"> VND</span>
+                                                                            <bdi> <div style="font-size: 20px" class="cart-summary-line" id="cart-subtotal-shipping">
+
+
+                                                    <span class="value"></span>
+
+                                                    <input style="font-size: 100px" type="hidden" name="shippingFee" id="shipping-fee-input">
+
+                                                </div>
+
                                                                             </bdi>
                                                                         </span>
                                                                     </label>
@@ -225,8 +261,11 @@
                                             <td>
                                                 <strong>
                                                     <span class="woocommerce-Price-amount amount">
-                                                        <bdi>${sessionScope.cart.total + 15000}
-                                                            <span class="woocommerce-Price-currencySymbol"> VND</span>
+                                                        <bdi> <div class="cart-summary-line cart-total">
+
+                                                    <span class="value" style="font-size: 20px">${sessionScope.cart.total} VND</span>
+                                                </div>
+
                                                         </bdi>
                                                     </span>
                                                 </strong>
@@ -280,63 +319,195 @@
     <script src="bootstrap/js/bootstrap.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<%--    <script>--%>
+<%--        var citis = document.getElementById("city");--%>
+<%--        var districts = document.getElementById("dist");--%>
+<%--        var wards = document.getElementById("ward");--%>
+
+
+<%--        var Parameter = {--%>
+<%--            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",--%>
+<%--            method: "GET",--%>
+<%--            responseType: "application/json",--%>
+<%--        };--%>
+<%--        var promise = axios(Parameter);--%>
+<%--        promise.then(function (result) {--%>
+<%--            renderCity(result.data);--%>
+<%--        });--%>
+
+<%--        function update() {--%>
+<%--            var citis = document.getElementById("city");--%>
+<%--            var districts = document.getElementById("dist");--%>
+<%--            var wards = document.getElementById("ward");--%>
+
+<%--            var option1 = citis.options[citis.selectedIndex];--%>
+<%--            var option2 = districts.options[districts.selectedIndex];--%>
+<%--            var option3 = wards.options[wards.selectedIndex];--%>
+
+<%--            document.getElementById('text1').value = option1.text;--%>
+<%--            document.getElementById('text2').value = option2.text;--%>
+<%--            document.getElementById('text3').value = option3.text;--%>
+<%--        }--%>
+
+<%--        update();--%>
+
+<%--        function renderCity(data) {--%>
+<%--            for (const x of data) {--%>
+<%--                citis.options[citis.options.length] = new Option(x.Name, x.Id);--%>
+<%--            }--%>
+<%--            citis.onchange = function () {--%>
+<%--                dist.length = 1;--%>
+<%--                ward.length = 1;--%>
+<%--                if (this.value != "") {--%>
+<%--                    const result = data.filter(n => n.Id === this.value);--%>
+
+<%--                    for (const k of result[0].Districts) {--%>
+<%--                        dist.options[dist.options.length] = new Option(k.Name, k.Id);--%>
+<%--                    }--%>
+<%--                }--%>
+<%--            };--%>
+<%--            dist.onchange = function () {--%>
+<%--                ward.length = 1;--%>
+<%--                const dataCity = data.filter((n) => n.Id === citis.value);--%>
+<%--                if (this.value != "") {--%>
+<%--                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;--%>
+
+<%--                    for (const w of dataWards) {--%>
+<%--                        wards.options[wards.options.length] = new Option(w.Name, w.Id);--%>
+<%--                    }--%>
+<%--                }--%>
+<%--            };--%>
+<%--        }--%>
+<%--    </script>--%>
+
+
+
+
     <script>
-        var citis = document.getElementById("city");
-        var districts = document.getElementById("dist");
-        var wards = document.getElementById("ward");
-
-
-        var Parameter = {
-            url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
-            method: "GET",
-            responseType: "application/json",
-        };
-        var promise = axios(Parameter);
-        promise.then(function (result) {
-            renderCity(result.data);
+        $(document).ready(function () {
+            $('#province').change(function () {
+                var provinceId = $(this).val();
+                $.ajax({
+                    url: 'DistrictServlet',
+                    type: 'POST',
+                    data: {
+                        province: provinceId
+                    },
+                    success: function (response) {
+                        var districtSelect = $('#district');
+                        districtSelect.empty(); // Xóa tất cả các option hiện có trong select box
+                        districtSelect.append('<option value="">Chọn huyện</option>'); // Thêm option mặc định
+                        response.forEach(function (district) {
+                            districtSelect.append('<option value="' + district.DistrictID + '">' + district.DistrictName + '</option>');
+                        });
+                    },
+                    error: function () {
+                        console.log('Lỗi khi tải danh sách huyện');
+                    }
+                });
+            });
         });
-        function update(){
-            var citis = document.getElementById("city");
-            var districts = document.getElementById("dist");
-            var wards = document.getElementById("ward");
-
-            var option1 = citis.options[citis.selectedIndex];
-            var option2 = districts.options[districts.selectedIndex];
-            var option3 = wards.options[wards.selectedIndex];
-
-            document.getElementById('text1').value = option1.text;
-            document.getElementById('text2').value = option2.text;
-            document.getElementById('text3').value = option3.text;
-        }
-        update();
-
-        function renderCity(data) {
-            for (const x of data) {
-                citis.options[citis.options.length] = new Option(x.Name, x.Id);
-            }
-            citis.onchange = function () {
-                dist.length = 1;
-                ward.length = 1;
-                if(this.value != ""){
-                    const result = data.filter(n => n.Id === this.value);
-
-                    for (const k of result[0].Districts) {
-                        dist.options[dist.options.length] = new Option(k.Name, k.Id);
-                    }
-                }
-            };
-            dist.onchange = function () {
-                ward.length = 1;
-                const dataCity = data.filter((n) => n.Id === citis.value);
-                if (this.value != "") {
-                    const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
-
-                    for (const w of dataWards) {
-                        wards.options[wards.options.length] = new Option(w.Name, w.Id);
-                    }
-                }
-            };
-        }
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#district').change(function () {
+                // Lấy giá trị đã chọn của select box
+                var districtId = $(this).val();
+                // Gửi yêu cầu Ajax đến Servlet
+                $.ajax({
+                    url: 'WardServlet',
+                    type: 'POST',
+                    data: {
+                        districtId: districtId
+                    },
+                    success: function (response) {
+                        var wardSelect = $('#ward');
+                        wardSelect.empty(); // Xóa tất cả các option hiện có trong select box
+                        wardSelect.append('<option value="">Chọn xã</option>'); // Thêm option mặc định
+                        response.forEach(function (ward) {
+                            wardSelect.append('<option value="' + ward.WardCode + '">' + ward.WardName + '</option>');
+                        });
+                    },
+                    error: function () {
+                        console.log('Lỗi khi tải danh sách huyện');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#province').on('change', function() {
+                var provinceId = $(this).val();
+                $('#province').val(provinceId);
+                $('#province-value').val($(this).find("option:selected").text());
+            });
+
+            $('#district').on('change', function() {
+                var districtId = $(this).val();
+                $('#district').val(districtId);
+                $('#district-value').val($(this).find("option:selected").text());
+            });
+
+            $('#ward').on('change', function() {
+                var wardCode = $(this).val();
+                $('#ward').val(wardCode);
+                $('#ward-value').val($(this).find("option:selected").text());
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var province = '';
+            var district = '';
+            var ward = '';
+            // Lấy giá trị của select box Tỉnh
+            $('#province').change(function () {
+                province = $(this).val();
+                $('#district').val('');
+                $('#ward').val('');
+            });
+            // Lấy giá trị của select box Huyện
+            $('#district').change(function () {
+                district = $(this).val();
+                $('#ward').val('');
+            });
+            var initialCartTotal = parseFloat($('.cart-total .value').text().replace(/[^\d]/g, ''));
+            // Lấy giá trị của select box Xã và gửi dữ liệu lên server
+            $('#ward').change(function () {
+                ward = $(this).val();
+                if (province && district && ward && province.trim() !== '' && district.trim() !== '' && ward.trim() !== '') {
+                    $.ajax({
+                        type: "POST",
+                        url: "FeeServlet",
+                        data: {
+                            province: province,
+                            district: district,
+                            ward: ward
+                        },
+                        success: function (result) {
+                            var shippingFee = parseInt(result);
+                            // var cartTotal = parseFloat($('.cart-total .value').text().replace(/[^\d]/g, ''));
+                            var newCartTotal = initialCartTotal/10 + shippingFee;
+                            // Set giá trị cho input
+                            $('#shipping-fee-input').val(shippingFee);
+                            // Hiển thị giá trị trong span
+                            $('#cart-subtotal-shipping .value').text(shippingFee.toLocaleString('vi-VN') + ' VND');
+                            // Hiển thị giá trị mới của tổng
+                            $('.cart-total .value').text(newCartTotal.toLocaleString('vi-VN') + ' VND');
+                        },
+                        error: function () {
+                            alert('Đã có lỗi xảy ra!');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.controller;
 
 import vn.edu.hcmuaf.fit.Dao.BillDao;
 import vn.edu.hcmuaf.fit.Dao.BillDetailDao;
+import vn.edu.hcmuaf.fit.Dao.TransportDao;
 import vn.edu.hcmuaf.fit.model.BillDetails;
 import vn.edu.hcmuaf.fit.model.Bills;
 import vn.edu.hcmuaf.fit.model.User;
@@ -21,11 +22,20 @@ public class BillDetailAdmin extends HttpServlet {
         String id = request.getParameter("id");
         List<BillDetails> bd = BillDetailDao.getInstance().getById(id);
         String tp = BillDao.getInstance().totalPrice(id);
+        String fee = BillDao.getInstance().getFee(id);
+        String idTrans = TransportDao.getInstance().selectIdTransport(id);
+        String createAt = TransportDao.getInstance().createdAtTransport(id);
+        String leadtime = TransportDao.getInstance().leaTimeTransport(id);
+
 
 
         request.setAttribute("bd", bd);
         request.setAttribute("id", id);
         request.setAttribute("tp", tp);
+        request.setAttribute("fee", fee);
+        request.setAttribute("idTrans", idTrans);
+        request.setAttribute("createAt", createAt);
+        request.setAttribute("leadtime", leadtime);
 
         if(request.getSession().getAttribute("auth")==null){
             response.sendRedirect("errorAccessUser.jsp");

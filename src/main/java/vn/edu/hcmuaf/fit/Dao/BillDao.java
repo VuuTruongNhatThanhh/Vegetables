@@ -35,7 +35,7 @@ public class BillDao {
         return res;
     }
 
-    public String addDB(double total, String idU, String idinfo) {
+    public String addDB(double total, String idU, String idinfo, double fee) {
         List<Bills> list = getAll();
         int id = 0;
         for (Bills b : list) {
@@ -43,11 +43,12 @@ public class BillDao {
             id = id < maxId ? maxId : id;
         }
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO bill VALUES(?, CURDATE(), ?, 0, ?, ?)");
+            PreparedStatement ps = DBConnect.getInstance().get("INSERT INTO bill VALUES(?, CURDATE(), ?, 0, ?, ?, ?)");
             ps.setString(1, "HD" + (id + 1));
             ps.setDouble(2, total);
             ps.setString(3, idU);
             ps.setString(4, idinfo);
+            ps.setDouble(5, fee);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {
@@ -494,7 +495,26 @@ public class BillDao {
     public String totalPrice(String id) {
         String result = "";
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select total-15000 from bill where id = ?");
+            PreparedStatement ps = DBConnect.getInstance().get("select total-fee from bill where id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getFee(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select fee from bill where id = ?");
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

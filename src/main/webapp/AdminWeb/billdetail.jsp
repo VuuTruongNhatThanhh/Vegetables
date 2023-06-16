@@ -50,8 +50,13 @@
 
 
           </table>
-        <p style="padding-left: 1000px; color: red">Tổng tiền: ${tp} VND</p>
-          <p style="padding-left: 1000px; color: red">Phí ship: 15000 VND</p>
+        <p style="padding-left: 15px;">- Tổng tiền: ${tp} VND</p>
+          <p style="padding-left: 15px;">- Vận chuyển: ${fee} VND</p>
+          <p style="padding-left: 15px;">- Mã vận chuyển: ${idTrans}</p>
+          <p style="padding-left: 15px;">- Ngày gửi cho bưu cục: ${createAt}</p>
+          <p style="padding-left: 15px;">- Ngày giao dự kiến: ${leadtime}</p>
+
+
         </div>
 
       </div>

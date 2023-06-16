@@ -1,10 +1,16 @@
 package vn.edu.hcmuaf.fit.controller;
 
+import org.json.JSONException;
 import vn.edu.hcmuaf.fit.Dao.BillDao;
+import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
+import vn.edu.hcmuaf.fit.Dao.TransportDao;
 import vn.edu.hcmuaf.fit.bean.Log;
 import vn.edu.hcmuaf.fit.database.DB;
 import vn.edu.hcmuaf.fit.model.Bills;
 import vn.edu.hcmuaf.fit.model.User;
+import vn.edu.hcmuaf.fit.services.API_LOGISTIC.Login_API;
+import vn.edu.hcmuaf.fit.services.API_LOGISTIC.RegisterTransport;
+import vn.edu.hcmuaf.fit.services.API_LOGISTIC.Transport;
 import vn.edu.hcmuaf.fit.services.PermissionService;
 
 import javax.servlet.*;
@@ -27,6 +33,18 @@ public class ShipBill extends HttpServlet {
         //Hostname
         String hostname = addr.getHostName();
         String id = request.getParameter("id");
+        String provinceID = ShipmentDetailDao.getInstance().getProvinceID(id);
+        String districtID = ShipmentDetailDao.getInstance().getDistrictID(id);
+        String wardID = ShipmentDetailDao.getInstance().getWardID(id);
+
+        String from_district_id = "1536";
+        String from_ward_id = "480111";
+
+        String to_district_id = districtID;
+        String to_ward_id = wardID;
+
+
+
 
 
         if(request.getSession().getAttribute("auth")==null){
@@ -47,6 +65,27 @@ public class ShipBill extends HttpServlet {
 
         BillDao.getInstance().ship(id);
         List<Bills> lists = BillDao.getInstance().ShipBill();
+
+
+
+        Bills order = new Bills();
+        //api dang ky giao hang
+        Login_API login_api = new Login_API();
+        String API_KEY = null;
+        try {
+            API_KEY = login_api.login();
+            RegisterTransport register = new RegisterTransport();
+            Transport transport = register.registerTransport(API_KEY, order, from_district_id, from_ward_id, to_district_id, to_ward_id);
+            TransportDao.getInstance().addTransport(transport,id);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+
+
+
         User uu = (User) request.getSession().getAttribute("auth");
         DB.me().insert(new Log(Log.ALERT,uu.getId(),ipAddress,"Quản lý đơn hàng","Đã chuyển đơn hàng cho bên vận chuyển. Mã đơn hàng: "+id,0));
         PrintWriter out = response.getWriter();
@@ -71,5 +110,8 @@ public class ShipBill extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+
     }
+
 }

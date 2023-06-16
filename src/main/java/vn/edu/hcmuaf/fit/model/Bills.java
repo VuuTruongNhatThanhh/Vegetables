@@ -21,6 +21,17 @@ public class Bills {
     private String idUser;
 
     private String idinfo;
+    private double fee;
+
+    public Bills(String id, Date date, double total, int state, String idUser, String idinfo, double fee) {
+        this.id = id;
+        this.date = date;
+        this.total = total;
+        this.state = state;
+        this.idUser = idUser;
+        this.idinfo = idinfo;
+        this.fee = fee;
+    }
 
     public Bills(String id, Date date, double total, int state, String idUser, String idinfo) {
         this.id = id;
@@ -37,6 +48,17 @@ public class Bills {
         this.total = total;
         this.state = state;
         this.idUser = idUser;
+    }
+
+    public Bills() {
+    }
+
+    public double getFee() {
+        return fee;
+    }
+
+    public void setFee(double fee) {
+        this.fee = fee;
     }
 
     public String getIdUser() {
