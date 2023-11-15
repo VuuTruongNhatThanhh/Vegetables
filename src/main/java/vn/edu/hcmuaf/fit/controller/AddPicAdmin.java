@@ -81,7 +81,7 @@ public class AddPicAdmin extends HttpServlet {
                 fileItem.write(file);
                 DB.me().insert(new Log(Log.WARNING,uu.getId(),ipAddress,"Quản lý sản phẩm","Thêm ảnh sản phẩm.Tên sản phẩm: "+ProductDao.getInstance().selectName(id),0));
 
-                PictureDao.getInstance().add("images\\" + fileItem.getName(), id);
+                PictureDao.getInstance().add("images/" + fileItem.getName(), id);
 
             }
 

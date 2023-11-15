@@ -1,0 +1,85 @@
+.hero-wrap {
+    width: 100%;
+    position: relative; }
+.hero-wrap .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    opacity: .6;
+    width: 50%;
+    background: #82ae46; }
+.hero-wrap .slider-text {
+    color: #fff;
+    position: relative; }
+.hero-wrap .slider-text .breadcrumbs {
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 0;
+    z-index: 99;
+    font-weight: 300; }
+.hero-wrap .slider-text .breadcrumbs span {
+    color: white; }
+.hero-wrap .slider-text .breadcrumbs span a {
+    color: #fff; }
+.hero-wrap .slider-text .bread {
+    font-weight: 800;
+    color: #fff;
+    font-size: 30px;
+    font-family: "Poppins", Arial, sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase; }
+.hero-wrap .slider-text .btn-primary {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    border-radius: 30px; }
+.hero-wrap .slider-text .btn-primary:hover, .hero-wrap .slider-text .btn-primary:focus {
+    background: #fff !important;
+    color: #000000; }
+.hero-wrap.hero-bread {
+    display: flex;
+    padding: 45px 0;
+}
+.hero-wrap .slider-text .breadcrumbs {
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin-bottom: 0;
+    z-index: 99;
+    font-weight: 300; }
+.hero-wrap .slider-text .breadcrumbs span {
+    color: white; }
+.hero-wrap .slider-text .breadcrumbs span a {
+    color: #fff; }
+.justify-content-center {
+    -webkit-box-pack: center !important;
+    -ms-flex-pack: center !important;
+    justify-content: center !important; }
+.align-items-center {
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important; }
+.img-2 {
+    position: relative; }
+@media (max-width: 767.98px) {
+    .img-2 {
+        height: 300px;
+        margin-bottom: 40px; } }
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important; }
+.imgabout{
+    width: 1000px;
+    height: 600px;
+}
+.btn.btn-black {
+    background: #82cd47;
+    border: 1px solid #82cd47;
+    color: #fff;
+}

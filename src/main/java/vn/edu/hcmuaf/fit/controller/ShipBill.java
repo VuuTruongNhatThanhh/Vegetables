@@ -69,17 +69,17 @@ public class ShipBill extends HttpServlet {
 
 
         Bills order = new Bills();
-        //api dang ky giao hang
-        Login_API login_api = new Login_API();
-        String API_KEY = null;
-        try {
-            API_KEY = login_api.login();
-            RegisterTransport register = new RegisterTransport();
-            Transport transport = register.registerTransport(API_KEY, order, from_district_id, from_ward_id, to_district_id, to_ward_id);
-            TransportDao.getInstance().addTransport(transport,id);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+//        //api dang ky giao hang
+//        Login_API login_api = new Login_API();
+//        String API_KEY = null;
+//        try {
+//            API_KEY = login_api.login();
+//            RegisterTransport register = new RegisterTransport();
+//            Transport transport = register.registerTransport(API_KEY, order, from_district_id, from_ward_id, to_district_id, to_ward_id);
+//            TransportDao.getInstance().addTransport(transport,id);
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
 
 
 

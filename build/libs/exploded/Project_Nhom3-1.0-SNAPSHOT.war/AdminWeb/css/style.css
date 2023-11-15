@@ -1,0 +1,154 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sidebar {
+    position: fixed;
+    height: 100%;
+    width: 240px;
+    background: #82cd47;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active {
+    width: 60px;
+}
+
+.sidebar .logo-details {
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .nav-links {
+    margin-top: 10px;
+}
+
+.sidebar .nav-links li {
+    position: relative;
+    list-style: none;
+    height: 50px;
+}
+
+.sidebar .nav-links li a {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li a.active {
+    background: #2c9700;
+}
+
+.sidebar .nav-links li a:hover {
+    background: #2c9700;
+}
+
+.sidebar .nav-links li i {
+    min-width: 60px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+}
+
+.sidebar .nav-links li a .links_name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+}
+
+.sidebar .nav-links .log_out {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.home-section {
+    position: relative;
+    background: #f5f5f5;
+    min-height: 100vh;
+    width: calc(100% - 240px);
+    left: 240px;
+    transition: all 0.5s ease;
+}
+
+.sidebar.active ~ .home-section {
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+.home-section .home-content {
+    position: relative;
+    padding-top: 15px;
+}
+
+.element-button {
+    position: relative;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-add {
+    background: #9df99d !important;
+    color: #003c00 !important;
+}
+
+.btn-delete {
+    background: #d0d0d0;
+}
+
+.trash {
+    background: #f7c3c2;
+    border: none;
+    color: #de0400;
+}
+
+.badge {
+    display: inline-block;
+    padding: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    color: white;
+}
+
+.bg-success {
+    background-color: #bfefc4 !important;
+    color: #02790c !important;
+}
+
+.tick {
+    background-color: #2c9700;
+    color: #ffffff;
+}
+
+.btn-save {
+    background-color: rgb(166 236 171);
+    color: rgb(1 123 10);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.btn-cancel {
+    background-color: rgb(255 197 197);
+    color: rgb(190, 40, 40);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.red{
+    color:#ff0000;
+    font-weight:bold;
+}

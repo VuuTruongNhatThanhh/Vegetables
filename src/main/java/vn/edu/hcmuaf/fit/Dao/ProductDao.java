@@ -412,7 +412,7 @@ public class ProductDao {
     public List<Product> getHot() {
         List<Product> res = new LinkedList<>();
         try {
-            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5");
+            PreparedStatement ps = DBConnect.getInstance().get("select id_product from bill_detail GROUP BY id_product HAVING sum(amount) > 5 LIMIT 8");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 res.add(getProductById(rs.getString(1)));

@@ -23,9 +23,15 @@ public class BillDetailAdmin extends HttpServlet {
         List<BillDetails> bd = BillDetailDao.getInstance().getById(id);
         String tp = BillDao.getInstance().totalPrice(id);
         String fee = BillDao.getInstance().getFee(id);
-        String idTrans = TransportDao.getInstance().selectIdTransport(id);
-        String createAt = TransportDao.getInstance().createdAtTransport(id);
-        String leadtime = TransportDao.getInstance().leaTimeTransport(id);
+//        String idTrans = TransportDao.getInstance().selectIdTransport(id);
+//        String createAt = TransportDao.getInstance().createdAtTransport(id);
+//        String leadtime = TransportDao.getInstance().leaTimeTransport(id);
+        String name = BillDao.getInstance().getName(id);
+        String phone = BillDao.getInstance().getPhone(id);
+        String province = BillDao.getInstance().getProvince(id);
+        String district = BillDao.getInstance().getDistrict(id);
+        String ward = BillDao.getInstance().getWard(id);
+        String address = BillDao.getInstance().getAddress(id);
 
 
 
@@ -33,9 +39,15 @@ public class BillDetailAdmin extends HttpServlet {
         request.setAttribute("id", id);
         request.setAttribute("tp", tp);
         request.setAttribute("fee", fee);
-        request.setAttribute("idTrans", idTrans);
-        request.setAttribute("createAt", createAt);
-        request.setAttribute("leadtime", leadtime);
+//        request.setAttribute("idTrans", idTrans);
+//        request.setAttribute("createAt", createAt);
+//        request.setAttribute("leadtime", leadtime);
+        request.setAttribute("name", name);
+        request.setAttribute("phone", phone);
+        request.setAttribute("province", province);
+        request.setAttribute("district", district);
+        request.setAttribute("ward", ward);
+        request.setAttribute("address", address);
 
         if(request.getSession().getAttribute("auth")==null){
             response.sendRedirect("errorAccessUser.jsp");

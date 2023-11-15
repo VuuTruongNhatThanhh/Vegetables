@@ -530,6 +530,120 @@ public class BillDao {
         return result;
     }
 
+    public String getName(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.name from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getPhone(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.phone from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getProvince(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.province from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getDistrict(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.district from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getWard(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.ward from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getAddress(String id) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.address from bill join info_deliver on bill.id_info = info_deliver.id where bill.id = ?");
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
 
     }

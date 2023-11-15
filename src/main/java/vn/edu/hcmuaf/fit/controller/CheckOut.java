@@ -25,26 +25,26 @@ public class CheckOut extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession().getAttribute("auth");
 
-        //API LOGISTIC
-        HttpSession session = request.getSession();
-        Login_API login_api = new Login_API();
-        String API_KEY = null;
-        try {
-            API_KEY = login_api.login();
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        session.setAttribute("parameterName", API_KEY);
-
-        if (user != null) {
-            ShipmentDetails ship = ShipmentDetailDao.getInstance().get(user.getId());
-            request.setAttribute("shipment", ship);
-
-            List<Province> provinces = Province_API.convert(API_KEY);
-            request.setAttribute("listProvinces", provinces);
-
-
-        }
+//        //API LOGISTIC
+//        HttpSession session = request.getSession();
+//        Login_API login_api = new Login_API();
+//        String API_KEY = null;
+//        try {
+//            API_KEY = login_api.login();
+//        } catch (JSONException e) {
+//            throw new RuntimeException(e);
+//        }
+//        session.setAttribute("parameterName", API_KEY);
+//
+//        if (user != null) {
+//            ShipmentDetails ship = ShipmentDetailDao.getInstance().get(user.getId());
+//            request.setAttribute("shipment", ship);
+//
+//            List<Province> provinces = Province_API.convert(API_KEY);
+//            request.setAttribute("listProvinces", provinces);
+//
+//
+//        }
         request.getRequestDispatcher("checkout.jsp").forward(request, response);
     }
 
@@ -65,20 +65,20 @@ public class CheckOut extends HttpServlet {
         String districtID = request.getParameter("district");
         String wardID = request.getParameter("ward");
         String address = request.getParameter("address");
-        String shippingFee = request.getParameter("shippingFee");
-        int fee = Integer.parseInt(shippingFee);
+//        String shippingFee = request.getParameter("shippingFee");
+//        int fee = Integer.parseInt(shippingFee);
         User user = (User) request.getSession().getAttribute("auth");
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         if (user == null) {
             String idNewU = UserDao.getInstance().addDB(null, null, null, 2, null);
       String idinfo =    ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, idNewU,provinceID,districtID,wardID);
-            String idBill = BillDao.getInstance().addDB(cart.getTotal() + fee, idNewU,idinfo, fee);
+            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 35000, idNewU,idinfo, 35000);
             BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"Thanh toán","Khách hàng đặt hàng thành công ( Khách hàng chưa đăng ký tài khoản): Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
         } else {
             User uu = (User) request.getSession().getAttribute("auth");
             String idinfo =    ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, uu.getId(),provinceID,districtID,wardID);
-            String idBill = BillDao.getInstance().addDB(cart.getTotal() + fee, user.getId(),idinfo,fee);
+            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 35000, user.getId(),idinfo,35000);
 
             BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
             DB.me().insert(new Log(Log.INFO,user.getId(),ipAddress,"Thanh toán","Khách hàng đặt hàng thành công: Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
