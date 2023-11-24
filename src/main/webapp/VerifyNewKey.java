@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "VerifyOrderStatus", value = "/VerifyOrderStatus")
+@WebServlet(name = "VerifyNewKey", value = "/VerifyNewKey")
 public class VerifyOrderStatus extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -63,10 +63,7 @@ public class VerifyOrderStatus extends HttpServlet {
                 }
 
             } catch (Exception e) {
-                String noti1 = "Private key không hợp lệ";
-                request.setAttribute("noti1", noti1);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("signBillAgain.jsp");
-                dispatcher.forward(request, response);
+               
             }
         }else{
             String noti1 = "Private key không hợp lệ";
