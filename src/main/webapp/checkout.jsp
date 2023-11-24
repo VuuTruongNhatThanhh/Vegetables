@@ -147,6 +147,12 @@
                                                        autocomplete="address-line1">
                                             </span>
                                         </p>
+
+
+
+
+
+
 <%--                                        name address--%>
                                         <input class="p" name="province-value" type="hidden" value="${shipment.province}"
                                                id="province-value">
@@ -166,7 +172,10 @@
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
+
                     <div class="col-xl-5">
                         <div class="col-inner has-border">
                             <div class="checkout-sidebar sm-touch-scroll">
@@ -186,6 +195,16 @@
                                                         ${i.product.name} - Loại ${i.weight.weight}G
                                                     <strong class="product-quantity">×${i.quanity}</strong>
                                                 </td>
+
+
+
+                                                <!-- Duyệt qua danh sách trong đối tượng i -->
+
+
+
+
+
+
                                                 <td class="product-total">
                                                 <span class="woocommerce-Price-amount amount">
                                                     <bdi>

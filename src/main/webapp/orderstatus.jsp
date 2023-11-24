@@ -28,6 +28,9 @@
         <a href="changepassword.jsp">
             <button class="button">Đổi mật khẩu</button>
         </a>
+        <a href="key.jsp">
+            <button class="button">Khóa ký đơn hàng</button>
+        </a>
     </div>
     <div class="row col-8">
         <div style="height: 20%;" class="tab row col-12">
@@ -56,6 +59,8 @@
                         </thead>
                         <tbody>
                         <c:forEach items="${bw}" var="b">
+                            <c:choose>
+                            <c:when test="${not empty b.hash}">
                             <tr id="${b.id}">
                                 <th scope="row">${b.id}</th>
                                 <td>${b.getDate()}</td>
@@ -71,6 +76,25 @@
                                     </button>
                                 </td>
                             </tr>
+                            </c:when>
+                            <c:otherwise>
+                                <tr style="background-color: #aaa8a8; color: white" id="${b.id}">
+                                    <th scope="row">${b.id} <a href="signBillAgain.jsp?id=${b.id}">Xác thực</a></th>
+                                    <td>${b.getDate()}</td>
+                                    <td><a style="color: white" href="BillDetailUser?id=${b.id}">Nhấp để xem</a></td>
+                                    <td>${b.getAdressReceive()}, ${b.getWardReceive()}, ${b.getDistrictReceive()}, ${b.getProvinceReceive()}</td>
+                                    <td>${b.total} VND</td>
+                                    <td>
+                                        <button style="background: #f7c3c2;border: none;color: #de0400;"
+                                                onclick="remove('${b.id}','${auth.id}')"
+                                                class="btn btn-primary btn-sm trash"
+                                                type="button" title="Xóa">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:otherwise>
+                            </c:choose>
                         </c:forEach>
                         </tbody>
                     </table>

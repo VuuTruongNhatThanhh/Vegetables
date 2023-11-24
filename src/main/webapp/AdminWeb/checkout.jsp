@@ -9,6 +9,59 @@
     <link rel="stylesheet" href="fontawesome-free-6.2.0-web/css/all.min.css">
     <link rel="stylesheet" href="AdminWeb/css/style.css">
     <link rel="stylesheet" href="AdminWeb/css/checkout.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .box {
+            width: 30px;
+            height: 30px;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        .red-box {
+            background-color: red;
+        }
+
+        .green-box {
+            background-color: #82cd47;
+        }
+
+        .white-box {
+            background-color: white;
+
+            border: 1px solid black;
+        }
+
+        .text {
+            position: absolute;
+            color: black;
+            top: 18%;
+
+            transform: translateX(14%);
+            white-space: nowrap;
+        }
+        .text2 {
+            position: absolute;
+            color: black;
+            top: 18%;
+
+            transform: translateX(31%);
+            white-space: nowrap;
+        }
+
+        .text.invalid {
+            color: black;
+            position: absolute;
+            top: 18%;
+
+            transform: translateX(13.5%);
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
 <%@include file="include/menu.jsp" %>
@@ -16,6 +69,17 @@
     <div class="home-content">
         <div class="manager-checkout" style="width: 98%">
             <div class="title">Quản Lý Đơn Hàng</div>
+            <div class="container">
+                <div class="box red-box">
+                    <div class="text invalid">Hóa đơn không hợp lệ, nội dung không giống với ban đầu</div>
+                </div>
+                <div class="box green-box">
+                    <div class="text">Hóa đơn đã được xác thực, nội dung không bị thay đổi</div>
+                </div>
+                <div class="box white-box">
+                    <div class="text2">Hóa đơn chưa xác thực</div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab row element-button">
@@ -29,6 +93,7 @@
                     </div>
                     <div id="tab1" class="tabcontent">
                         <table id="table-id-1" class="table table-hover table-bordered">
+
                             <thead>
                             <tr>
                                 <th scope="col">Mã đơn hàng</th>
@@ -45,7 +110,9 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${bw}" var="bw">
-                                <tr id="${bw.id}">
+                                <c:choose>
+                                <c:when test="${not empty bw.hash and bw.verify(bw.id, bw.idinfo, bw.idUser, bw.hash)}">
+                                <tr id="${bw.id}" style="background-color: #82cd47">
                                     <th id="id" scope="row">${bw.id}</th>
                                     <td>${bw.idUser}</td>
                                     <td>${bw.getNameReceive()}</td>
@@ -65,6 +132,49 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </c:when>
+
+                                    <c:when test="${empty bw.hash || bw.hash eq ''}">
+
+                                <tr id="${bw.id}" style="background-color: white; color: black">
+                                    <th  scope="row">${bw.id}</th>
+                                    <td>${bw.idUser}</td>
+                                    <td>${bw.getNameReceive()}</td>
+                                    <td>${bw.getDate()}</td>
+                                    <td>${bw.getPhoneReceive()}</td>
+                                    <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                    <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                    <td>${bw.total} VND</td>
+                                    <td>
+
+                                        <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                type="button" title="Xóa">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="result" value="${bw.updateBillchanged(bw.id)}"/>
+                                        <tr id="${bw.id}" style="background-color: red; color: white">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -88,7 +198,9 @@
                             </thead>
                             <tbody id="confirm">
                             <c:forEach items="${bco}" var="bw">
-                                <tr id="${bw.id}">
+                                <c:choose>
+                                    <c:when test="${not empty bw.hash and bw.verify(bw.id, bw.idinfo, bw.idUser, bw.hash)}">
+                                        <tr id="${bw.id}" style="background-color: #82cd47">
                                     <th scope="row">${bw.id}</th>
                                     <td>${bw.idUser}</td>
                                     <td>${bw.getNameReceive()}</td>
@@ -108,6 +220,50 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </c:when>
+
+
+                                    <c:when test="${empty bw.hash || bw.hash eq ''}">
+
+                                        <tr id="${bw.id}" style="background-color: white; color: black">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="result" value="${bw.updateBillchanged(bw.id)}"/>
+                                        <tr id="${bw.id}" style="background-color: red; color: white">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -131,7 +287,9 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${bca}" var="bw">
-                                <tr id="${bw.id}">
+                                <c:choose>
+                                <c:when test="${not empty bw.hash and bw.verify(bw.id, bw.idinfo, bw.idUser, bw.hash)}">
+                                <tr id="${bw.id}" style="background-color: #82cd47">
                                     <th scope="row">${bw.id}</th>
                                     <td>${bw.idUser}</td>
                                     <td>${bw.getNameReceive()}</td>
@@ -147,6 +305,50 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </c:when>
+
+
+                                    <c:when test="${empty bw.hash || bw.hash eq ''}">
+
+                                        <tr id="${bw.id}" style="background-color: white; color: black">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:when>
+                                    <c:otherwise>
+
+                                        <tr id="${bw.id}" style="background-color: red; color: white">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -170,7 +372,9 @@
                             </thead>
                             <tbody>
                             <c:forEach items="${bd}" var="bw">
-                                <tr id="${bw.id}">
+                                <c:choose>
+                                <c:when test="${not empty bw.hash and bw.verify(bw.id, bw.idinfo, bw.idUser, bw.hash)}">
+                                <tr id="${bw.id}" style="background-color: #82cd47">
                                     <th scope="row">${bw.id}</th>
                                     <td>${bw.idUser}</td>
                                     <td>${bw.getNameReceive()}</td>
@@ -187,6 +391,48 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </c:when>
+                                    <c:when test="${empty bw.hash || bw.hash eq ''}">
+
+                                        <tr id="${bw.id}" style="background-color: white; color: black">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:set var="result" value="${bw.updateBillchanged(bw.id)}"/>
+                                        <tr id="${bw.id}" style="background-color: red; color: white">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                             </tbody>
                         </table>
@@ -210,7 +456,9 @@
                             </thead>
                             <tbody id="movetoship">
                             <c:forEach items="${bs}" var="bw">
-                                <tr id="${bw.id}">
+                                <c:choose>
+                                <c:when test="${not empty bw.hash and bw.verify(bw.id, bw.idinfo, bw.idUser, bw.hash)}">
+                                <tr id="${bw.id}" style="background-color: #82cd47">
                                     <th scope="row">${bw.id}</th>
                                     <td>${bw.idUser}</td>
                                     <td>${bw.getNameReceive()}</td>
@@ -227,6 +475,50 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </c:when>
+
+
+                                <c:when test="${empty bw.hash || bw.hash eq ''}">
+
+                                    <tr id="${bw.id}" style="background-color: white; color: black">
+                                        <th  scope="row">${bw.id}</th>
+                                        <td>${bw.idUser}</td>
+                                        <td>${bw.getNameReceive()}</td>
+                                        <td>${bw.getDate()}</td>
+                                        <td>${bw.getPhoneReceive()}</td>
+                                        <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                        <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                        <td>${bw.total} VND</td>
+                                        <td>
+
+                                            <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                    type="button" title="Xóa">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:when>
+                                    <c:otherwise>
+                                        <c:set var="result" value="${bw.updateBillchanged(bw.id)}"/>
+                                        <tr id="${bw.id}" style="background-color: red; color: white">
+                                            <th  scope="row">${bw.id}</th>
+                                            <td>${bw.idUser}</td>
+                                            <td>${bw.getNameReceive()}</td>
+                                            <td>${bw.getDate()}</td>
+                                            <td>${bw.getPhoneReceive()}</td>
+                                            <td><a href="BillDetailAdmin?id=${bw.id}">Nhấp để xem</a></td>
+                                            <td>${bw.getAdressReceive()}, ${bw.getWardReceive()}, ${bw.getDistrictReceive()}, ${bw.getProvinceReceive()}</td>
+                                            <td>${bw.total} VND</td>
+                                            <td>
+
+                                                <button onclick="remove('${bw.id}')" class="btn btn-primary btn-sm trash"
+                                                        type="button" title="Xóa">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                             </tbody>
                         </table>

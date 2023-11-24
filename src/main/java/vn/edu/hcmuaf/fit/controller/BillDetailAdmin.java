@@ -32,7 +32,17 @@ public class BillDetailAdmin extends HttpServlet {
         String district = BillDao.getInstance().getDistrict(id);
         String ward = BillDao.getInstance().getWard(id);
         String address = BillDao.getInstance().getAddress(id);
+        boolean verify = false;
+        try {
+            verify = BillDetails.verify(id);
 
+        } catch (Exception e) {
+            verify = false;
+        }
+
+        String hash = BillDetails.gethash(id);
+
+        String status = BillDetails.getstatus(id);
 
 
         request.setAttribute("bd", bd);
@@ -48,13 +58,17 @@ public class BillDetailAdmin extends HttpServlet {
         request.setAttribute("district", district);
         request.setAttribute("ward", ward);
         request.setAttribute("address", address);
+        request.setAttribute("verify", verify);
+        request.setAttribute("hash", hash);
+        request.setAttribute("status", status);
 
-        if(request.getSession().getAttribute("auth")==null){
+
+        if (request.getSession().getAttribute("auth") == null) {
             response.sendRedirect("errorAccessUser.jsp");
             return;
         }
-        int per = PermissionService.getInstance().checkAccess(name, ((User)(request.getSession().getAttribute("auth"))).getId());
-        if(per==2) {
+        int per = PermissionService.getInstance().checkAccess(name, ((User) (request.getSession().getAttribute("auth"))).getId());
+        if (per == 2) {
             response.sendRedirect("errorAccessUser.jsp");
             return;
         }

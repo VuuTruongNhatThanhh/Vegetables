@@ -76,17 +76,22 @@ public class CheckOut extends HttpServlet {
             BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
             DB.me().insert(new Log(Log.INFO,null,ipAddress,"Thanh toán","Khách hàng đặt hàng thành công ( Khách hàng chưa đăng ký tài khoản): Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
         } else {
-            User uu = (User) request.getSession().getAttribute("auth");
-            String idinfo =    ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, uu.getId(),provinceID,districtID,wardID);
-            String idBill = BillDao.getInstance().addDB(cart.getTotal() + 35000, user.getId(),idinfo,35000);
 
-            BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
-            DB.me().insert(new Log(Log.INFO,user.getId(),ipAddress,"Thanh toán","Khách hàng đặt hàng thành công: Tên: "+name+ ", SĐT: "+phone+", tỉnh: "+province+", quận: "+district+", phường: "+ward+", địa chỉ: " + address,0));
-        }
+
+
+                    User uu = (User) request.getSession().getAttribute("auth");
+                    String idinfo = ShipmentDetailDao.getInstance().addDB(name, phone, province, district, ward, address, uu.getId(), provinceID, districtID, wardID);
+                    String idBill = BillDao.getInstance().addDB(cart.getTotal() + 35000, user.getId(), idinfo, 35000);
+
+                    BillDetailDao.getInstance().addDB(cart.getListCartDetails(), idBill);
+                    DB.me().insert(new Log(Log.INFO, user.getId(), ipAddress, "Thanh toán", "Khách hàng đặt hàng thành công: Tên: " + name + ", SĐT: " + phone + ", tỉnh: " + province + ", quận: " + district + ", phường: " + ward + ", địa chỉ: " + address, 0));
+                }
+
+
         WeightDao.getInstance().updateAmount(cart.getListCartDetails());
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("item");
-        response.sendRedirect("UserProfile");
+        response.sendRedirect("signBill.jsp");
     }
 
 }

@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.model;
 
 import vn.edu.hcmuaf.fit.Dao.BillDao;
 import vn.edu.hcmuaf.fit.Dao.BillDetailDao;
+import vn.edu.hcmuaf.fit.Dao.KeyDao;
 import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
 
 public class BillDetails extends BillDetailDao {
@@ -66,4 +67,28 @@ public class BillDetails extends BillDetailDao {
         return BillDetailDao.getInstance().NameWeight(idW);
     }
 
+    public static String getidinfo(String id_bill){
+        return KeyDao.getInstance().getId_infoinBilldetail(id_bill);
+    }
+
+    public static String gethash(String id_bill){
+        return KeyDao.getInstance().getHash_inBilldetail(id_bill);
+    }
+
+    public static String getiduser(String id_bill){
+        return KeyDao.getInstance().getIDuser_inBilldetail(id_bill);
+    }
+
+    public static String getstatus(String id_bill){
+        return KeyDao.getInstance().getStatus_inBilldetail(id_bill);
+    }
+
+    public static boolean verify(String idbill) throws Exception {
+
+        return KeyDao.verifySignature(KeyDao.getInstance().getidProductInBill(idbill) + KeyDao.getInstance().getWeightProductInBill(idbill) + KeyDao.getInstance().getAmountProductInBill(idbill) + KeyDao.getInstance().getPriceProductInBill(idbill) + KeyDao.getInstance().getDateBill(idbill)
+                + KeyDao.getInstance().getTotalBill(idbill)  + KeyDao.getInstance().getIDuserBill(idbill) + KeyDao.getInstance().getIDinfoBill(idbill) + KeyDao.getInstance().getFeeBill(idbill) + KeyDao.getInstance().getNameUser(getidinfo(idbill)) + KeyDao.getInstance().getPhoneUser(getidinfo(idbill))
+                + KeyDao.getInstance().getProvinceUser(getidinfo(idbill)) + KeyDao.getInstance().getDistrictUser(getidinfo(idbill)) + KeyDao.getInstance().getWardUser(getidinfo(idbill)) + KeyDao.getInstance().getAddressUser(getidinfo(idbill)), gethash(idbill),KeyDao.getInstance().getpublickey(getiduser(idbill)));
+
+
+    }
 }

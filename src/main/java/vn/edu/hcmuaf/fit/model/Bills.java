@@ -1,10 +1,7 @@
 package vn.edu.hcmuaf.fit.model;
 
 
-import vn.edu.hcmuaf.fit.Dao.BillDao;
-import vn.edu.hcmuaf.fit.Dao.BillDetailDao;
-import vn.edu.hcmuaf.fit.Dao.ProductDao;
-import vn.edu.hcmuaf.fit.Dao.ShipmentDetailDao;
+import vn.edu.hcmuaf.fit.Dao.*;
 import vn.edu.hcmuaf.fit.controller.ListProduct;
 
 import java.sql.Date;
@@ -18,10 +15,30 @@ public class Bills {
     private Date date;
     private double total;
     private int state;
-    private String idUser;
+        private String idUser;
 
     private String idinfo;
     private double fee;
+    private String hash;
+
+    public String getHash() {
+        return hash;
+    }
+
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+
+    public Bills(String id, Date date, double total, int state, String idUser, String idinfo, double fee, String hash) {
+        this.id = id;
+        this.date = date;
+        this.total = total;
+        this.state = state;
+        this.idUser = idUser;
+        this.idinfo = idinfo;
+        this.fee = fee;
+        this.hash = hash;
+    }
 
     public Bills(String id, Date date, double total, int state, String idUser, String idinfo, double fee) {
         this.id = id;
@@ -136,6 +153,44 @@ public class Bills {
     }
     public String gettotalprice(){
         return BillDao.getInstance().totalPrice(id);
+    }
+
+
+
+
+
+    String getidProductInBill = KeyDao.getInstance().getidProductInBill(id);
+    String getWeight = KeyDao.getInstance().getWeightProductInBill(id);
+    String getAmount = KeyDao.getInstance().getAmountProductInBill(id);
+    String getPrice = KeyDao.getInstance().getPriceProductInBill(id);
+    String getDate = KeyDao.getInstance().getDateBill(id);
+    String getTotal = KeyDao.getInstance().getTotalBill(id);
+    String getStatus = KeyDao.getInstance().getStatusBill(id);
+    String getIDUser = KeyDao.getInstance().getIDuserBill(id);
+    String getIDinfo = KeyDao.getInstance().getIDinfoBill(id);
+    String getfee = KeyDao.getInstance().getFeeBill(id);
+    String getName = KeyDao.getInstance().getNameUser(idinfo);
+    String getPhone = KeyDao.getInstance().getPhoneUser(idinfo);
+    String getProvince = KeyDao.getInstance().getProvinceUser(idinfo);
+    String getDistrict = KeyDao.getInstance().getDistrictUser(idinfo);
+    String getWard = KeyDao.getInstance().getWardUser(idinfo);
+    String getAddress = KeyDao.getInstance().getAddressUser(idinfo);
+    String publickey = KeyDao.getInstance().getpublickey(idUser);
+
+
+
+
+    public boolean verify(String idbill, String idinfo, String iduser, String hash_sign) throws Exception {
+
+       return KeyDao.verifySignature(KeyDao.getInstance().getidProductInBill(idbill) + KeyDao.getInstance().getWeightProductInBill(idbill) + KeyDao.getInstance().getAmountProductInBill(idbill) + KeyDao.getInstance().getPriceProductInBill(idbill) + KeyDao.getInstance().getDateBill(idbill)
+               + KeyDao.getInstance().getTotalBill(idbill)  + KeyDao.getInstance().getIDuserBill(idbill) + KeyDao.getInstance().getIDinfoBill(idbill) + KeyDao.getInstance().getFeeBill(idbill) + KeyDao.getInstance().getNameUser(idinfo) + KeyDao.getInstance().getPhoneUser(idinfo)
+               + KeyDao.getInstance().getProvinceUser(idinfo) + KeyDao.getInstance().getDistrictUser(idinfo) + KeyDao.getInstance().getWardUser(idinfo) + KeyDao.getInstance().getAddressUser(idinfo), hash_sign,KeyDao.getInstance().getpublickey(iduser));
+
+
+    }
+
+    public void updateBillchanged(String id){
+         KeyDao.getInstance().updateBillChanged(id);
     }
 
 

@@ -58,6 +58,8 @@ public class RemoveBill extends HttpServlet {
         DB.me().insert(new Log(Log.DANGER,uu.getId(),ipAddress,"Quản lý đơn hàng","Đã xóa đơn hàng. Mã đơn hàng: "+id,0));
 
         BillDao.getInstance().delete(id);
+
+        response.sendRedirect("BillAdmin");
     }
 
     @Override

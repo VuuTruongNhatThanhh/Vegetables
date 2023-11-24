@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.controller;
 
 import vn.edu.hcmuaf.fit.Dao.BillDao;
+import vn.edu.hcmuaf.fit.model.BillDetails;
 import vn.edu.hcmuaf.fit.model.Bills;
 import vn.edu.hcmuaf.fit.model.User;
 
@@ -20,6 +21,7 @@ public class OderStatus extends HttpServlet {
         List<Bills> bd = BillDao.getInstance().deliveredBill(user.getId());
         List<Bills> bca = BillDao.getInstance().CancelBill(user.getId());
         List<Bills> bs = BillDao.getInstance().ShipBill(user.getId());
+
         request.setAttribute("bw", bw);
         request.setAttribute("bco", bco);
         request.setAttribute("bd", bd);

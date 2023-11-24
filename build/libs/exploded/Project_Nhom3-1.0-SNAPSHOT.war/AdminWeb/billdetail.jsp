@@ -26,7 +26,28 @@
             <%--                        </div>--%>
           </div>
           <table id="table1" class="table table-hover table-bordered">
-            <p><strong>Tên người nhận:</strong> ${name}</p>
+              <c:choose>
+
+                  <c:when test="${not empty hash and hash ne '' and verify}">
+                      <p style="color: #82cd47"><strong>Hóa đơn hợp lệ, hóa đơn không bị thay đổi thông tin</strong></p>
+                  </c:when>
+                  <c:when test="${empty hash}">
+                      <p style="color: blue"><strong>X:  Hóa đơn chưa được xác thực</strong></p>
+                  </c:when>
+
+
+
+
+
+
+
+                  <c:otherwise>
+                      <p style="color: red"><strong>X:  Hóa đơn không hợp lệ, hóa đơn bị thay đổi thông tin</strong></p>
+
+                  </c:otherwise>
+              </c:choose>
+
+              <p><strong>Tên người nhận:</strong> ${name}</p>
             <p><strong>Số điện thoại:</strong> ${phone}</p>
             <p><strong>Địa chỉ:</strong> ${address}, ${ward}, ${district}, ${province}</p>
 
@@ -40,7 +61,29 @@
             </tr>
             </thead>
             <tbody>
+
+
             <c:forEach items="${bd}" var="bd">
+<%--              <c:choose>--%>
+<%--                <c:when test="${not empty bd.gethash(bd.idBill) and bd.verify(bd.idBill) and orderValidMessageDisplayed eq 'false'}">--%>
+<%--                  <c:set var="orderValidMessageDisplayed" value="true" />--%>
+<%--                  <p style="color: #82cd47"><strong>Đơn hàng hợp lệ, không bị thay đổi thông tin</strong></p>--%>
+<%--                </c:when>--%>
+<%--                <c:when test="${empty bd.gethash(bd.idBill) || bd.gethash(bd.idBill) eq '' and orderNotVerifiedMessageDisplayed eq 'false'}">--%>
+<%--                  <c:set var="orderNotVerifiedMessageDisplayed" value="true" />--%>
+<%--                  <p><strong>X: Đơn hàng chưa được xác thực</strong></p>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                  <c:choose>--%>
+<%--                    <c:when test="${orderInvalidMessageDisplayed eq 'false'}">--%>
+<%--                      <c:set var="orderInvalidMessageDisplayed" value="true" />--%>
+<%--                      <p style="color: red"><strong>X: Đơn hàng không hợp lệ, đơn hàng bị thay đổi thông tin</strong></p>--%>
+<%--                    </c:when>--%>
+<%--                  </c:choose>--%>
+<%--                </c:otherwise>--%>
+<%--              </c:choose>--%>
+
+
               <tr  id="${bd.idP}">
                 <th scope="row">${bd.getNameProduct()}</th>
                 <td>${bd.getNameWeight()}g</td>
@@ -49,6 +92,12 @@
 
               </tr>
 
+
+
+
+
+
+
             </c:forEach>
             </tbody>
 
@@ -56,6 +105,93 @@
           </table>
           <p><strong>Tổng tiền:</strong> ${tp} VND</p>
           <p><strong>Vận chuyển:</strong> ${fee} VND</p>
+            <%
+                // Lấy giá trị của tham số "id" từ URL
+                String id = request.getParameter("id");
+
+                // Bạn có thể sử dụng giá trị billId trong logic xử lý của trang
+            %>
+<c:if test="${status eq 0}">
+            <c:choose>
+                <c:when test="${not empty hash and hash ne '' and verify}">
+                    <button onclick="confirm('<%= id %>')" class="btn btn-primary btn-sm tick"
+                            type="button" title="check">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+
+                    <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                            type="button" title="Xóa">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </c:when>
+                <c:when test="${empty hash}">
+                    <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                            type="button" title="Xóa">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                            type="button" title="Xóa">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+</c:if>
+
+<c:if test="${status eq 1}">
+    <c:choose>
+        <c:when test="${not empty hash and hash ne '' and verify}">
+            <button onclick="movetoship('<%= id %>')" class="btn btn-primary btn-sm tick"
+                    type="button" title="Gửi cho bên giao hàng">
+                <i class="fa-solid fa-truck"></i>
+            </button>
+
+            <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                    type="button" title="Xóa">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </c:when>
+        <c:when test="${empty hash}">
+            <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                    type="button" title="Xóa">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </c:when>
+        <c:otherwise>
+            <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                    type="button" title="Xóa">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </c:otherwise>
+    </c:choose>
+</c:if>
+
+
+            <c:if test="${status ne 1 and status ne 0}">
+                <c:choose>
+                    <c:when test="${not empty hash and hash ne '' and verify}">
+
+                        <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                                type="button" title="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </c:when>
+                    <c:when test="${empty hash}">
+                        <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                                type="button" title="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button onclick="remove('<%= id %>')" class="btn btn-primary btn-sm trash"
+                                type="button" title="Xóa">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+
 <%--          <p style="padding-left: 15px;">- Mã vận chuyển: ${idTrans}</p>--%>
 <%--          <p style="padding-left: 15px;">- Ngày gửi cho bưu cục: ${createAt}</p>--%>
 <%--          <p style="padding-left: 15px;">- Ngày giao dự kiến: ${leadtime}</p>--%>
@@ -78,17 +214,50 @@
   });
 
   function remove(id) {
-    $.ajax({
-              url: "RemoveUserAdmin",
+      $.ajax({
+              url: "RemoveBill",
               type: "get",
               data: {
-                idU: id
+                  id: id
               },
               success: function () {
-                $("tr").remove("#" + id)
+                  $("tr").remove("#" + id)
+                  window.location.href = "BillAdmin";
               }
-            }
-    )
+          }
+      )
+  }
+
+  function confirm(id) {
+      $.ajax({
+              url: "ConfirmBill",
+              type: "get",
+              data: {
+                  id: id
+              },
+              success: function (data) {
+                  $("tr").remove("#" + id)
+                  $("#confirm").html(data);
+                  window.location.href = "BillAdmin";
+              }
+          }
+      )
+  }
+
+  function movetoship(id) {
+      $.ajax({
+              url: "ShipBill",
+              type: "get",
+              data: {
+                  id: id
+              },
+              success: function (data) {
+                  $("tr").remove("#" + id)
+                  $("#movetoship").html(data);
+                  window.location.href = "BillAdmin#tab2";
+              }
+          }
+      )
   }
 
 

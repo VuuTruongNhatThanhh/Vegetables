@@ -36,6 +36,9 @@
         <a href="#">
             <button class="button">Đổi mật khẩu</button>
         </a>
+        <a href="key.jsp">
+            <button class="button">Khóa ký đơn hàng</button>
+        </a>
     </div>
     <div class="tabcontent">
         <div class="card">

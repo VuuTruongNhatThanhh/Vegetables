@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.Dao;
 
 import vn.edu.hcmuaf.fit.database.DBConnect;
+import vn.edu.hcmuaf.fit.model.User;
 
 import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -59,6 +60,24 @@ public class KeyDao {
         }
     }
 
+    public static boolean isValidDSAPrivateKey(String base64PrivateKey) {
+        try {
+            byte[] privateKeyBytes = Base64.getDecoder().decode(base64PrivateKey);
+
+            KeyFactory keyFactory = KeyFactory.getInstance("DSA");
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
+
+            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+            // If no exception is thrown, the private key is valid
+            return true;
+
+        } catch (Exception e) {
+            // An exception indicates that the private key is not valid
+            return false;
+        }
+    }
+
 
     public int CheckCreateKey(String id_user) {
         int result = 0;
@@ -97,6 +116,437 @@ public class KeyDao {
         }
         return result;
     }
+
+    public String getidProductInBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select group_concat(id_product) from bill_detail where bill_detail.id_bill=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getWeightProductInBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select group_concat(id_weight) from bill_detail where bill_detail.id_bill=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getAmountProductInBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select group_concat(amount) from bill_detail where bill_detail.id_bill=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getPriceProductInBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select group_concat(price) from bill_detail where bill_detail.id_bill=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getDateBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select date from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
+    public String getTotalBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select total from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getStatusBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select status from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getIDuserBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select id_user from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
+    public String getIDinfoBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select id_info from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getFeeBill(String id_bill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select fee from bill where id=?");
+            ps.setString(1, id_bill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getNameUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.name from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getPhoneUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.phone from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getProvinceUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.province from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getDistrictUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.district from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getWardUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.ward from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getAddressUser(String id_info) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select info_deliver.address from info_deliver join bill on info_deliver.id = bill.id_info where bill.id_info =?");
+            ps.setString(1, id_info);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getId_infoinBilldetail(String idbill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select bill.id_info from bill join bill_detail on bill.id = bill_detail.id_bill where bill_detail.id_bill =?");
+            ps.setString(1, idbill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getHash_inBilldetail(String idbill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select bill.hash from bill join bill_detail on bill.id = bill_detail.id_bill where bill.id =?");
+            ps.setString(1, idbill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getIDuser_inBilldetail(String idbill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select bill.id_user from bill join bill_detail on bill.id = bill_detail.id_bill where bill_detail.id_bill =?");
+            ps.setString(1, idbill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+    public String getStatus_inBilldetail(String idbill) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select bill.status from bill join bill_detail on bill.id = bill_detail.id_bill where bill_detail.id_bill =?");
+            ps.setString(1, idbill);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
+
+    public String getnewIDbill(String id_user) {
+        String result = "";
+        try {
+            PreparedStatement ps = DBConnect.getInstance().get("select id from bill where id like 'HD%' and id_user=? order by cast(substring(id,3) as unsigned) desc limit 1");
+            ps.setString(1, id_user);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result = rs.getString(1);
+                rs.close();
+                ps.close();
+                return result;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+
+
+
+    public void updateHashbill(String hash, String id_bill) {
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE bill set bill.`hash` = ? where bill.id = ?");
+        try {
+            ps.setString(1, hash);
+            ps.setString(2, id_bill);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateBillChanged(String idbill) {
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE bill set bill.`status` = 3 where bill.id = ?");
+        try {
+            ps.setString(1, idbill);
+
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 
 
@@ -168,9 +618,33 @@ public class KeyDao {
 //int a=KeyDao.getInstance().CheckCreateKey("TK11");
 //        System.out.println(a);
 
-            	 String[] keyPairBase64 = generateKeyPairBase64();
-    	 System.out.println("private key: "+keyPairBase64[0]);
-    	 System.out.println("public key: "+keyPairBase64[1]);
+//            	 String[] keyPairBase64 = generateKeyPairBase64();
+//    	 System.out.println("private key: "+keyPairBase64[0]);
+//    	 System.out.println("public key: "+keyPairBase64[1]);
+
+        System.out.println(isValidDSAPublicKeyBase64("MIIBuDCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fnxqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImog9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoDgYUAAoGBAMbn/kpyn05/pzYhPXs/bu3KkMRXzlADrWK+UYg/U58+x2+UFIZCyGF3KlNt9gmeC7D8gSQ0zxIVTSbcOtXRMvMEJHkLQmUWjwCzewX6krWH6zFGb4HhztAuwKb1lGeD5Tj+d5yqqR7uYNXtoYkU+MQLBDa6QK//QROMnkNypjqp"));
+
+
+
+//       System.out.println(KeyDao.getInstance().getPriceProductInBill(KeyDao.getInstance().getnewIDbill("TK11")));
+//        System.out.println(KeyDao.getInstance().getpublickey("TK11"));
+
+
+
+
+
+//        String base64PrivateKey = "MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fnxqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImog9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoEFgIUGlE8Dwit7WuSFzEZp2JFBk4ihxg=";
+//
+//        try {
+//            if (isValidDSAPrivateKey(base64PrivateKey)) {
+//                System.out.println("Private key is valid.");
+//            } else {
+//                System.out.println("Private key is NOT valid.");
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
 
