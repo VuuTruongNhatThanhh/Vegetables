@@ -609,7 +609,17 @@ public class KeyDao {
         String publicKeyBase64 = encodeBase64(keyPair.getPublic().getEncoded());
         return new String[]{privateKeyBase64, publicKeyBase64};
     }
+public void updateLostkey( String id_user) {
+        PreparedStatement ps = DBConnect.getInstance().get("UPDATE key_sign set key_sign.`status` = 2, key_sign.date_lost = NOW()  where key_sign.id_user = ? and key_sign.`status` = 1");
+        try {
+            ps.setString(1, id_user);
 
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
 //        KeyDao keydao = new KeyDao();
